@@ -1,21 +1,10 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Camel has a basic Maven archetype.  The OpenAPI component has a POM that includes a generate goal.  This archetype will merges these into a single archetype that will generate all of the files needed to create a Camel application to handle endopints defined by an OpenAPI document.
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+Clone the develop branch of this repo.  Work should be done on branches with names like feature/MTK-nn, based on the MTK Jira project.
 
 ### Contribution guidelines ###
 
@@ -25,5 +14,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+Contact:
+
+* Mark Norton, mnorton@ms3-inc.com
+* Rob Ratcliffe, rratcliffe@ms3-inc.com
