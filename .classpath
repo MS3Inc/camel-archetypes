@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+	
+	<!--
+	<classpathentry kind="src" path="src/main/resources/META-INF/">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	-->
+
+	
+	<!--  This was an attempt to include the Swagger parser in the classpath of the archetype.  It didn't work, but is preserved here just in case. - mjn
+	<classpathentry kind="var" path="M2_REPO/io/swagger/parser/v3/swagger-parser/2.0.21/swagger-parser-2.0.21.jar"/>
+	-->
+</classpath>

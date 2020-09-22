@@ -8,6 +8,8 @@
 			<requiredProperty key="package">
 				<defaultValue>com.ms3inc.camel</defaultValue>
 			</requiredProperty>
+			<requiredProperty key="oas-spec-file">
+			</requiredProperty>
 	</requiredProperties>
  	<fileSets>
  		<fileSet filtered="true" packaged="true">

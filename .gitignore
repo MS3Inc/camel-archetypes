@@ -50,6 +50,7 @@ Thumbs.db
 /bin/
 
 # Eclipse files
-.settings/
 .project
 .classpath
+
+
