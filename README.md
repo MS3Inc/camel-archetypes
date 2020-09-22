@@ -6,6 +6,19 @@ Camel has a basic Maven archetype.  The OpenAPI component has a POM that include
 
 Clone the develop branch of this repo.  Work should be done on branches with names like feature/MTK-nn, based on the MTK Jira project.
 
+To build the archetype, CD into the archetype source and run "mvn clean install"
+
+To run the archetype, CD to the directory where the new project will live and then run:
+
+mvn archetype:generate                                  \
+-DarchetypeGroupId=com.ms3inc                \
+-DarchetypeArtifactId=java-proto-archetype          \
+-DarchetypeVersion=0.0.1-SNAPSHOT                \
+-DgroupId=com.ms3inc                                \
+-DartifactId=test-java-app
+
+You will be prompted for an API file.  Enter full path to the API file.
+
 ### Contribution guidelines ###
 
 * Writing tests
