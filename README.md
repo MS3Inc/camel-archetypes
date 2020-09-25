@@ -8,6 +8,8 @@ Clone the develop branch of this repo.  Work should be done on branches with nam
 
 To build the archetype, CD into the archetype source and run "mvn clean install"
 
+### How do I run the archetype? ###
+
 To run the archetype, CD to the directory where the new project will live and then run:
 
 mvn archetype:generate                                  \
@@ -17,13 +19,7 @@ mvn archetype:generate                                  \
 -DgroupId=com.ms3inc                                \
 -DartifactId=test-java-app
 
-You will be prompted for an API file.  Enter full path to the API file.
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
+You will be prompted for an API file.  Enter full path to the API file.  Do not use backslashes on a Windows computer. Convert to slashes:  c:/dev/myApi/src/main/resources/api/api.yaml
 
 ### Who do I talk to? ###
 
