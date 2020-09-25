@@ -1,6 +1,7 @@
 # README #
 
-Camel has a basic Maven archetype.  The OpenAPI component has a POM that includes a generate goal.  This archetype will merges these into a single archetype that will generate all of the files needed to create a Camel application to handle endopints defined by an OpenAPI document.
+This is a custom Maven archetype that generates a Camlel/SpringBoot application with stubs for API endpoints generated from a provided OpenAPI document.
+It is part of the MS3 Integration Platform.
 
 ### How do I get set up? ###
 
