@@ -5,6 +5,7 @@
 
 //  Groovy doesn't use the classpath of the containing application, the camel.oas.archetype in this case.
 //  The following annotations uses the Grape/Ivy Groovy dependency manager to bring in the OpenAPI parser.
+@Grab(group="org.codehaus.groovy", module="groovy-all", version="2.4.8")
 @Grab(group='io.swagger.parser.v3', module='swagger-parser', version='2.0.21')
 
 import java.util.Map
