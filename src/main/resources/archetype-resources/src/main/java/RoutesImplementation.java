@@ -1,4 +1,4 @@
-package ${pacakge};
+package ${package};
 
 import org.apache.camel.Exchange;
 //import org.apache.camel.LoggingLevel;
@@ -6,16 +6,13 @@ import org.apache.camel.builder.RouteBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import com.datasonnet.document.MediaTypes;
+//import com.datasonnet.document.MediaTypes;
 
 /**
- * This is a placeholder for a class file generated from an OpenApi specification by the camel-oas-archetype.
- * This file should NOT copied over into the archetype.  Rather, it serves as an example of what will be 
- * generated in the post processing step of the archetype.
- * 
  * The RoutesImplementation class holds implementations for the end points configured in RoutesGenerated.
+ * These routes are based on operation Ids, that correspond to an API end point:  method+path.
  * 
- * @author Mark Norton (mnorton@ms3-inc.com)
+ * @author Maven Archetype (camel-oas-archetype)
  *
  */
 @Component
@@ -25,11 +22,8 @@ public class RoutesImplementation extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        final String DSPATH = "resource:classpath:datasonnet/";
-//        final String ACCOUNT_QUERY = "SELECT Id, Name, Type, Industry, " +
-//                "BillingStreet, BillingCity, BillingState, BillingPostalCode," +
-//                " Fax, Phone, Website" +
-//                " FROM Account";
+    	//  Used to load a Data Sonnet file.
+        //final String DSPATH = "resource:classpath:datasonnet/";
 
         //  Error handler for all exceptions thrown by the Camel routes below.
         onException(Exception.class)
@@ -50,12 +44,12 @@ public class RoutesImplementation extends RouteBuilder {
                 .handled(true)
         ;
 
-        // Example of an implementation for a REST endpoint.
+        // Stubs for API end point implementation.  Replace setBody with your code.
 INSERT-CODE-HERE
 
         //  Used to add the currentRoute property.
         from("direct:util:setCurrentRouteInfo")
-                .setProperty("currentRoute", simple("${headers.CamelHttpMethod} ${headers.CamelHttpUri}"))
-                ;
+        	.setProperty("currentRoute", simple("${headers.CamelHttpMethod} ${headers.CamelHttpUri}"))
+        ;
     }
 }
