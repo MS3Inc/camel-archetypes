@@ -14,6 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class RoutesGenerated extends BaseRestRouteBuilder{
 
+    public RoutesGenerated() {
+        super();
+    }
+
     /**
      * Defines Apache Camel routes using the OpenAPI REST DSL.
      * Routes are built using a get(PATH) rest message processor.
@@ -22,7 +26,9 @@ public class RoutesGenerated extends BaseRestRouteBuilder{
      */
     @Override
     public void configure() throws Exception {
-        super();
+        super.configure();
+
+        restConfiguration().component("undertow");
 
 		[generated-restdsl]
 
