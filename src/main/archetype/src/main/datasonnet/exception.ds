@@ -1,0 +1,9 @@
+{
+    local opResult = cml.properties('CamelxRestOperationResult');
+    '_messages': ds.or(opResult.messages, []) + [{
+        level: 'ERROR',
+        type: 'InternalServerError',
+        details: 'An unknown error occurred while processing the HTTP request.',
+        diagnostics: std.format('Please contact the administrator of this API with the following correlation ID: %s.', cml.exchangeProperty('CamelCorrelationId'))
+    }]
+}

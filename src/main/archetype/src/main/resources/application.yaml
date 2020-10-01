@@ -1,0 +1,15 @@
+camel:
+  springboot:
+    name: ${project.artifactId}
+
+management:
+  endpoint:
+    camelroutes:
+      enabled: true
+      read-only: true
+    health:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info,health,camelroutes

@@ -2,152 +2,141 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	
+
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
+	<packaging>jar</packaging>
 	<version>${version}</version>
 	
-	<name>camel-oas-prototype</name>
-	<description>Prototype files to be used in the camel-oas-archetype</description>
+	<name>${artifactId} Spring Boot Camel</name>
 
 	<properties>
-		<java.version>11</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<spring-boot.version>2.3.2.RELEASE</spring-boot.version>
 		<camel.version>3.4.3</camel.version>
-		<oas.name>account-sapi-oas.yaml</oas.name>
-		<spring.profiles.active>dev</spring.profiles.active>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<!-- Spring Boot BOM -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Camel BOM -->
+			<dependency>
+				<groupId>org.apache.camel.springboot</groupId>
+				<artifactId>camel-spring-boot-dependencies</artifactId>
+				<version>${camel.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core-engine</artifactId>
-			<version>3.4.3-MS3-001</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-datasonnet</artifactId>
-			<version>3.4.3</version>
-		</dependency>
-
+		<!-- Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<exclusions>
+				<!-- in favor of undertow -->
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+				<!-- in favor of log4j2 -->
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-logging</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<dependency>
-			<groupId>org.apache.camel.springboot</groupId>
-			<artifactId>camel-spring-boot-starter</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.github.ulisesbocchio</groupId>
-			<artifactId>jasypt-spring-boot-starter</artifactId>
-			<version>3.0.3</version>
-		</dependency>
-
-		<!-- <dependency>
-			<groupId>org.apache.camel.springboot</groupId>
-			<artifactId>camel-salesforce-starter</artifactId>
-			<version>${camel.version}</version>
-		</dependency> -->
-
-		<dependency>
-			<groupId>org.apache.camel.springboot</groupId>
-			<artifactId>camel-servlet-starter</artifactId>
-			<version>${camel.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.logging.log4j</groupId>
-					<artifactId>log4j-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-http</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test-junit5</artifactId>
-			<version>${camel.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.16.1</version>
-			<scope>test</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
-			<version>2.3.2.RELEASE</version>
 		</dependency>
 
+		<!-- Camel -->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-stream-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-undertow-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core-engine</artifactId>
+			<version>${camel.version}-MS3-001</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-datasonnet</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
 
+		<!-- ms3-inc Camel Rest Extensions -->
+		<dependency>
+			<groupId>com.ms3-inc.camel</groupId>
+			<artifactId>rest-extensions</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
-
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.10.19</version>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/api</directory>
+			</resource>
+			<resource>
+				<directory>src/main/datasonnet</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<image>
-						<name>docker.kube.cloudapps.ms3-inc.com/mtk/${spring.profiles.active}/${project.artifactId}:${project.version}</name>
-					</image>
-				</configuration>
+				<version>${spring-boot.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-restdsl-openapi-plugin</artifactId>
-				<version>${camel.version}</version>
-				<configuration>
-					<specificationUri>${project.basedir}/src/main/resources/api/${oas.name}</specificationUri>
-					<className>GeneratedRoutesInterface</className>
-					<packageName>com.ms3.camelaccountsapi.routes</packageName>
-					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
-					<restConfiguration>false</restConfiguration>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
 

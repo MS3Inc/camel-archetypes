@@ -8,21 +8,14 @@
 @Grab(group="org.codehaus.groovy", module="groovy-all", version="2.4.8")
 @Grab(group='io.swagger.parser.v3', module='swagger-parser', version='2.0.21')
 
-import java.util.Map
-import java.util.Set
-import java.io.*
-import java.net.URL
-import java.nio.file.Paths
-import java.lang.StringBuffer
+import java.nio.file.Paths as FilePaths
 
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-
 import io.swagger.v3.parser.OpenAPIV3Parser
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.Operation
 import io.swagger.v3.oas.models.PathItem
-//import io.swagger.v3.oas.models.Paths
+import io.swagger.v3.oas.models.Paths
   
 def log = LoggerFactory.getLogger('org.apache.camel.archetype')
 def encoding = 'UTF-8'
@@ -38,7 +31,7 @@ def encoding = 'UTF-8'
 // +-------------------------------------------------------------------------------------
 log.info "\n==== Copying OpenAPI spec ===="
 
-def oasPathStr = request.properties['oasSpecFile']
+def oasPathStr = request.properties['specificationUri']
 log.info ('API file to copy: ' + oasPathStr)
 def oasFile = new File(oasPathStr)
 StringBuffer oasBuf = new StringBuffer()
@@ -64,7 +57,7 @@ finally {
 }
 
 //  Create the sources/api directory in target file system.
-def oasPath = Paths.get(request.outputDirectory, request.artifactId, 'src/main/resources/api/').toFile()
+def oasPath = FilePaths.get(request.outputDirectory, request.artifactId, 'src/generated/api/').toFile()
 oasPath.mkdirs();
 def fileName = oasFile.getName()
 oasFile = new File(oasPath, fileName)
@@ -99,7 +92,7 @@ log.info "==== Add Endpoints to RoutesGenerated Class (rGen) ===="
 
 
 // Read the RoutesGenerated placeholder file.
-def rGenPath = request.outputDirectory + "/" + request.artifactId + '/src/main/java/com/ms3inc/camel/RoutesGenerated.java'
+def rGenPath = request.outputDirectory + "/" + request.artifactId + '/src/generated/java/' + ((String) request.groupId).replaceAll("\\.", "/") + '/RoutesGenerated.java'
 def rGenFile = new File (rGenPath)
 def rGenBuf = new StringBuffer()
 
@@ -122,15 +115,14 @@ finally {
 }
 
 // Generate the routes code using API paths
-rGenCode = new StringBuffer('\t\trest()\n')
-io.swagger.v3.oas.models.Paths paths = openAPI.getPaths();
+rGenCode = new StringBuffer('rest()\n')
+Paths paths = openAPI.getPaths();
 Set<String> pathKeys = paths.keySet();
 
 def opIdList = new Vector<String>()
 
 for (String path : pathKeys) {
 	PathItem item = paths.get((Object)path);
-	rGenCode.append('\n')
 	
 	// List<Operation> ops = item.readOperations();
 	Map<PathItem.HttpMethod,Operation> ops = item.readOperationsMap();
@@ -228,10 +220,10 @@ for (String path : pathKeys) {
 		rGenCode.append('\t\t\t\t.to("direct:'+opId+'")\n')
 	}
 }
-rGenCode.append('\t\t;\n')
+rGenCode.append('\t\t;')
 
 //	Write the RoutesGenerated document.
-def rGenCodeStr = rGenBuf.toString().replace ('INSERT-CODE-HERE', rGenCode.toString())
+def rGenCodeStr = rGenBuf.toString().replace ('[generated-restdsl]', rGenCode.toString())
 log.info 'File to write: '+rGenFile.getAbsolutePath()
 def rGenWriter = new FileWriter(rGenFile)
 rGenWriter.write(rGenCodeStr)
@@ -248,7 +240,7 @@ rGenWriter.close()
 log.info "==== Add Endpoints to RoutesImplemented (rImp) Class ===="
 
 // Read the RoutesImplemented placeholder file.
-def rImpPath = request.outputDirectory + "/" + request.artifactId + '/src/main/java/com/ms3inc/camel/RoutesImplementation.java'
+def rImpPath = request.outputDirectory + "/" + request.artifactId + '/src/main/java/' + ((String) request.groupId).replaceAll("\\.", "/") + '/RoutesImplementation.java'
 def rImpFile = new File (rImpPath)
 def rImpBuf = new StringBuffer()
 
@@ -256,7 +248,7 @@ def rImpReader = null
 try {
 	rImpReader = new FileReader(rImpFile)
 	BufferedReader br = new BufferedReader(rImpReader)
-    for(String line; (line = br.readLine()) != null; ) 
+    for(String line; (line = br.readLine()) != null; )
     	rImpBuf.append(line+'\n')
 }
 catch (FileNotFoundException nf) {
@@ -273,18 +265,18 @@ finally {
 //  Generate code using the opIdList.
 rGenCode = new StringBuffer()
 for (String opId : opIdList) {
-	rGenCode.append('\n\t\tfrom("direct:'+opId+'")\n')
-    rGenCode.append('\t\t\t.to("direct:util:setCurrentRouteInfo")\n')
-    rGenCode.append('\t\t\t.routeId("'+opId+'")\n')
-    rGenCode.append('\t\t\t.log("Start of ${exchangeProperty.currentRoute}")\n')
-    rGenCode.append('\t\t\t.setBody(simple("resource:classpath:examples/sfAccountListExample.json"))\n')
-    rGenCode.append('\t\t\t.log("End of ${exchangeProperty.currentRoute}")\n')
-                
-	rGenCode.append('\t\t;\n')
+	rGenCode.append('from("direct:'+opId+'")\n')
+    rGenCode.append('\t\t\t\t\t.to("direct:util:setCurrentRouteInfo")\n')
+    rGenCode.append('\t\t\t\t\t.routeId("'+opId+'")\n')
+    rGenCode.append('\t\t\t\t\t.log("Start of ${exchangeProperty.currentRoute}")\n')
+    rGenCode.append('\t\t\t\t\t.setBody(simple("resource:classpath:examples/sfAccountListExample.json"))\n')
+    rGenCode.append('\t\t\t\t\t.log("End of ${exchangeProperty.currentRoute}")\n')
+
+	rGenCode.append('\t\t\t\t;\n')
 }
 
 //	Write the RoutesImplemented document.
-def rImpCodeStr = rImpBuf.toString().replace ('INSERT-CODE-HERE', rGenCode.toString())
+def rImpCodeStr = rImpBuf.toString().replace ('[generated-routes]', rGenCode.toString())
 log.info 'File to write: '+rImpFile.getAbsolutePath()
 def rImpWriter = new FileWriter(rImpFile)
 rImpWriter.write(rImpCodeStr)

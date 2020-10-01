@@ -6,13 +6,13 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
 /**
- * Generated routes are based on the OpenAPI document in src/main/resources/api folder.
- * 
+ * Generated routes are based on the OpenAPI document in src/generated/api folder.
+ *
  * @author Maven Archetype (camel-oas-archetype)
  */
-@Generated("com.ms3inc.camel-oas-archetype")
+@Generated("com.ms3_inc.camel.archetype.oas")
 @Component
-public class RoutesGenerated extends RouteBuilder {
+public class RoutesGenerated extends BaseRestRouteBuilder{
 
     /**
      * Defines Apache Camel routes using the OpenAPI REST DSL.
@@ -20,9 +20,11 @@ public class RoutesGenerated extends RouteBuilder {
      * Each defined route is directed to an implementation end point currently based on an operation ID in the OAS document.
      * Later, these will be auto-generated.
      */
-    public void configure() {
+    @Override
+    public void configure() throws Exception {
+        super();
 
-INSERT-CODE-HERE
+		[generated-restdsl]
+
     }
-
 }
