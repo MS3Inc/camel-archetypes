@@ -1,5 +1,5 @@
 {
-    local opResult = cml.properties('CamelxRestOperationResult');
+    local opResult = cml.header('CamelxRestOperationResult');
     '_messages': ds.or(opResult.messages, []) + [{
         level: 'ERROR',
         type: 'InternalServerError',
