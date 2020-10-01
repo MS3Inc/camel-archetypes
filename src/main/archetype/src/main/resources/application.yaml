@@ -1,7 +1,9 @@
 camel:
   springboot:
     name: ${project.artifactId}
-
+  rest:
+    port: 9000
+    context-path: /api
 management:
   endpoint:
     camelroutes:
