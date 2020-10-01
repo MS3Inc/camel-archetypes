@@ -285,8 +285,7 @@ for (String opId : opIdList) {
     // can't have two routes with the same route id, in this case the same as given to the rest routes
 	// rGenCode.append('\t\t\t\t\t.routeId("'+opId+'")\n')
     rGenCode.append('\t\t\t\t\t.log("Start of ${exchangeProperty.currentRoute}")\n')
-    // not in classpath
-	// rGenCode.append('\t\t\t\t\t.setBody(simple("resource:classpath:examples/sfAccountListExample.json"))\n')
+    rGenCode.append('\t\t\t\t\t.setBody(datasonnet("{hello: \'world\'}", String.class).outputMediaType("application/json"))\n')
     rGenCode.append('\t\t\t\t\t.log("End of ${exchangeProperty.currentRoute}")\n')
 
 	rGenCode.append('\t\t\t\t;\n')
