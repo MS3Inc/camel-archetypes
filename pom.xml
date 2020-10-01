@@ -1,3 +1,20 @@
+<!--
+
+    Copyright 2020 the original author or authors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
     <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
       <modelVersion>4.0.0</modelVersion>
@@ -10,11 +27,56 @@
 	  <name>Camel OpenAPI Archetype</name>
 	  <description>This archetype creates a Camel project with Spring Boot
           and generates stubs for endpoints in an OAS spec.</description>
+        <inceptionYear>2020</inceptionYear>
+
+        <licenses>
+            <license>
+                <name>Apache License, Version 2.0</name>
+                <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+                <distribution>repo</distribution>
+            </license>
+        </licenses>
+
+        <developers>
+            <developer>
+                <name>Mark Norton</name>
+                <email>mnorton@ms3-inc.com</email>
+                <organization>MS3</organization>
+                <organizationUrl>https://ms3-inc.com</organizationUrl>
+            </developer>
+            <developer>
+                <name>Jose Montoya</name>
+                <email>jmontoya@ms3-inc.com</email>
+                <organization>MS3</organization>
+                <organizationUrl>https://ms3-inc.com</organizationUrl>
+            </developer>
+        </developers>
+
+        <scm>
+            <connection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</connection>
+            <developerConnection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</developerConnection>
+            <url>https://github.com/MS3Inc/camel-oas-archetype</url>
+            <tag>HEAD</tag>
+        </scm>
+
+        <distributionManagement>
+            <repository>
+                <id>ms3-nexus</id>
+                <name>maven-releases</name>
+                <url>https://maven.ms3-inc.com/repository/maven-releases/</url>
+            </repository>
+            <snapshotRepository>
+                <id>ms3-nexus</id>
+                <name>maven-snapshots</name>
+                <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
+            </snapshotRepository>
+        </distributionManagement>
 
 	  <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 	    <maven-archetype-plugin.version>3.0.1</maven-archetype-plugin.version>
+        <mycila.version>4.0.rc2</mycila.version>
 	  </properties>
 
 	  <dependencies>
@@ -57,6 +119,93 @@
                   </execution>
               </executions>
             </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${mycila.version}</version>
+                <configuration>
+                    <licenseSets>
+                        <licenseSet>
+                            <header>${project.basedir}/src/build/license-header.txt</header>
+                            <excludes>
+                                <exclude>**/NOTICE</exclude>
+                                <exclude>**/LICENSE</exclude>
+                                <exclude>README.md</exclude>
+                                <exclude>mvnw*</exclude>
+                                <exclude>.mvn/**</exclude>
+                                <exclude>src/main/archetype/**</exclude>
+                                <exclude>**/target/**</exclude>
+                            </excludes>
+                        </licenseSet>
+                    </licenseSets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>license-headers</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>license-maven-plugin-git</artifactId>
+                        <version>${mycila.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <localCheckout>true</localCheckout>
+                    <releaseProfiles>release</releaseProfiles>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
         </plugins>
       </build>
+
+        <profiles>
+            <profile>
+                <id>release</id>
+                <build>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>3.2.0</version>
+                            <executions>
+                                <execution>
+                                    <id>attach-javadocs</id>
+                                    <goals>
+                                        <goal>jar</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-source-plugin</artifactId>
+                            <version>3.2.0</version>
+                            <executions>
+                                <execution>
+                                    <id>attach-sources</id>
+                                    <goals>
+                                        <goal>jar-no-fork</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </build>
+            </profile>
+        </profiles>
     </project>
