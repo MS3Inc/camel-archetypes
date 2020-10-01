@@ -5,19 +5,44 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	name="quickstart">
 	<requiredProperties>
-			<requiredProperty key="package">
-				<defaultValue>com.ms3inc.camel</defaultValue>
-			</requiredProperty>
-			<requiredProperty key="oasSpecFile">
-			</requiredProperty>
+		<requiredProperty key="specificationUri"/>
 	</requiredProperties>
  	<fileSets>
- 		<fileSet filtered="true" packaged="true">
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
 			<directory>src/main/java</directory>
 			<includes>
 				<include>**/*.java</include>
 			</includes>
 		</fileSet>
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>src/generated/java</directory>
+			<includes>
+				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/resources</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>src/test/java</directory>
+			<includes>
+				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/test/resources</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>.</directory>
+			<includes>
+				<include>README.md</include>
+			</includes>
+		</fileSet>
 	</fileSets>
 </archetype-descriptor>
-    
