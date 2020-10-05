@@ -134,6 +134,7 @@
                                 <exclude>mvnw*</exclude>
                                 <exclude>.mvn/**</exclude>
                                 <exclude>src/main/archetype/**</exclude>
+                                <exclude>**/test/resources/**/goal.txt</exclude>
                                 <exclude>**/target/**</exclude>
                             </excludes>
                         </licenseSet>
