@@ -14,9 +14,9 @@ To build the archetype, CD into the archetype source and run "mvn clean install"
 To run the archetype, CD to the directory where the new project will live and then run:
 
 mvn archetype:generate                                  \
--DarchetypeGroupId=com.ms3inc                \
--DarchetypeArtifactId=java-proto-archetype          \
--DarchetypeVersion=0.0.1-SNAPSHOT                \
+-DarchetypeGroupId=com.ms3inc.camel               \
+-DarchetypeArtifactId=oas-archetype          \
+-DarchetypeVersion=0.1.0-SNAPSHOT                \
 -DgroupId=com.ms3inc                                \
 -DartifactId=test-java-app
 
