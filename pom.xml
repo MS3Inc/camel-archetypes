@@ -80,15 +80,6 @@
         <archetype.test.settingsFile>src/test/resources/settings.xml</archetype.test.settingsFile>
 	  </properties>
 
-	  <dependencies>
-        <!-- included so maven can download it for groovy -->
-		<dependency>
-		  <groupId>io.swagger.parser.v3</groupId>
-		  <artifactId>swagger-parser</artifactId>
-		  <version>2.0.21</version>
-		</dependency>
-	  </dependencies>
-
       <build>
         <extensions>
           <extension>
