@@ -41,5 +41,5 @@ jobs:
           REPO_USER: ${{ secrets.REPO_USER }}
           REPO_PASSWORD: ${{ secrets.REPO_PASSWORD }}
         run: "./mvnw -V --no-transfer-progress --batch-mode --settings .settings.xml \
-          -Darguments='--settings .settings.xml -Dlicense.skip=true -DskipTests -Dmaven.install.skip=true' \
-          release:perform"
+          -Darguments='--settings .settings.xml -Dlicense.skip=true -DskipTests -Darchetype.test.skip=true \
+          -Dmaven.install.skip=true' release:perform"
