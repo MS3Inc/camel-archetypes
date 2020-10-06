@@ -28,7 +28,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: mvn clean verify
-        run: ./mvnw -V --no-transfer-progress --batch-mode clean dependency:resolve verify
+        run: ./mvnw -V --no-transfer-progress --batch-mode clean dependency:go-offline verify
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: [ build ]
