@@ -82,16 +82,6 @@
 
 	  <dependencies>
         <!-- included so maven can download it for groovy -->
-        <dependency>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-lang3</artifactId>
-          <version>3.7</version>
-        </dependency>
-        <dependency>
-          <groupId>com.github.fge</groupId>
-          <artifactId>jackson-coreutils</artifactId>
-          <version>1.8</version>
-        </dependency>
 		<dependency>
 		  <groupId>io.swagger.parser.v3</groupId>
 		  <artifactId>swagger-parser</artifactId>

@@ -20,15 +20,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Cache local Maven repository
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
       - name: mvn clean verify
-        run: ./mvnw -V --no-transfer-progress --batch-mode clean dependency:resolve verify
+        run: ./mvnw -V --no-transfer-progress --batch-mode clean verify
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: [ build ]
@@ -39,13 +32,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Cache local Maven repository
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
       - name: mvn clean deploy
         env:
           REPO_USER: ${{ secrets.REPO_USER }}
