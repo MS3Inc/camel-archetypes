@@ -41,6 +41,13 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- override camel's scala version -->
+		<!-- todo find where to add maven exclusion -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.13.3</version>
+		</dependency>
 		<!-- Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
