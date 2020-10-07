@@ -19,6 +19,8 @@ public class RoutesImplementation extends BaseRestRouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        super.configure();
+
         // Stubs for API end point implementation. Replace setBody with your code.
         [generated-routes]
 
