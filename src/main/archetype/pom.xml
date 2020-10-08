@@ -16,7 +16,7 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-		<camel.version>3.4.3</camel.version>
+		<camel.version>3.5.0</camel.version>
 	</properties>
 
 	<dependencyManagement>
@@ -106,7 +106,7 @@
 		<dependency>
 			<groupId>com.ms3-inc.camel</groupId>
 			<artifactId>rest-extensions</artifactId>
-			<version>0.1.1-SNAPSHOT</version>
+			<version>0.1.1</version>
 		</dependency>
 
 		<!-- Test -->
@@ -137,6 +137,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<phase>initialize</phase>
@@ -163,7 +164,7 @@
 				<version>${spring-boot.version}</version>
 				<configuration>
 					<!-- see: https://github.com/spring-projects/spring-boot/issues/23545 -->
-					<jmxPort>90001</jmxPort>
+					<jmxPort>9009</jmxPort>
 				</configuration>
 				<executions>
 					<execution>
