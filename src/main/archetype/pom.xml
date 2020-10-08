@@ -161,6 +161,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${spring-boot.version}</version>
+				<configuration>
+					<!-- see: https://github.com/spring-projects/spring-boot/issues/23545 -->
+					<jmxPort>90001</jmxPort>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
