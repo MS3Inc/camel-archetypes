@@ -22,6 +22,7 @@
 //  The following annotations uses the Grape/Ivy Groovy dependency manager to bring in the OpenAPI parser.
 @Grab(group='io.swagger.parser.v3', module='swagger-parser', version='2.0.21')
 
+
 import java.nio.file.Paths as FilePaths
 
 import org.slf4j.LoggerFactory
@@ -35,6 +36,37 @@ def log = LoggerFactory.getLogger('org.apache.camel.archetype')
 def encoding = 'UTF-8'
 
 
+// +-------------------------------------------------------------------------------------
+// |
+// |  UTILITY FUNCTIONS
+// |  Functions that capture reusable script segments.
+// |
+// +-------------------------------------------------------------------------------------
+def codeGenRead (String readFileName) {
+	def cgLog = LoggerFactory.getLogger('org.apache.camel.archetype')
+	cgLog.info ''
+	cgLog.info '==== Read Code Gen Template File  ===='
+	cgLog.info 'Template file: '+readFileName
+	
+	new File(readFileName).getText()
+}
+
+def codeGenWrite (String writeFileName, String code) {
+}
+
+def tabs(int level) {
+	def sb = new StringBuffer()
+	for (int i=0; i<level; i++)
+		sb.append('\t')
+	return sb.toString()
+}
+
+//def baseDir = getProperty('user.dir')
+//def tempSb = codeGenRead(baseDir + File.separator + 'codeGenTemplate.txt')
+//log.info 'Template file read:'
+//System.out.println tempSb.toString()
+
+
 
 
 // +-------------------------------------------------------------------------------------
@@ -43,44 +75,22 @@ def encoding = 'UTF-8'
 // |  Copy the provide OpenAPI document to the generated file system.
 // |
 // +-------------------------------------------------------------------------------------
-log.info "\n==== Copying OpenAPI spec ===="
+log.info ''
+log.info '==== Copying OpenAPI spec ===='
 
 def oasPathStr = request.properties['specificationUri']
 log.info ('API file to copy: ' + oasPathStr)
 def oasFile = new File(oasPathStr)
-StringBuffer oasBuf = new StringBuffer()
-
-// Read the supplied OpenAPI document.
-def oasReader = null
-try {
-	oasReader = new FileReader(oasFile)
-	BufferedReader br = new BufferedReader(oasReader)
-    for(String line; (line = br.readLine()) != null; ) 
-    	oasBuf.append(line+'\n')
-}
-catch (FileNotFoundException nf) {
-	log.error 'File not found: '+oasPathStr+' (convert backslashes to slashes)'
-	//nf.printStackTrace()
-}
-catch (IOException io) {
-	io.printStackStrace()
-}
-finally {
-	if (oasReader != null)
-		oasReader.close()
-}
+def specText = oasFile.getText();
 
 //  Create the sources/api directory in target file system.
 def oasPath = FilePaths.get(request.outputDirectory, request.artifactId, 'src/generated/api/').toFile()
 oasPath.mkdirs();
 def fileName = oasFile.getName()
 oasFile = new File(oasPath, fileName)
-
-//	Write the OAS document.
 log.info 'File to write: '+oasFile.getAbsolutePath()
-def oasWriter = new FileWriter(oasFile)
-oasWriter.write(oasBuf.toString())
-oasWriter.close()
+
+oasFile.write(specText)
 
 
 
@@ -102,34 +112,20 @@ OpenAPI openAPI = new OpenAPIV3Parser().read(oasPathStr)
 // |  Load the placeholder file into memory, generate code, place it, and write it back out.
 // |
 // +-------------------------------------------------------------------------------------
-log.info "==== Add Endpoints to RoutesGenerated Class (rGen) ===="
+log.info ''
+log.info '==== Add Endpoints to RoutesGenerated Class (rGen) ===='
 
 
 // Read the RoutesGenerated placeholder file.
-def rGenPath = request.outputDirectory + "/" + request.artifactId + '/src/generated/java/' + ((String) request.groupId).replaceAll("\\.", "/") + '/RoutesGenerated.java'
+def rGenPath = request.outputDirectory + "/" + request.artifactId + '/src/generated/java/' + ((String) request.groupId).replaceAll("\\.", "/").replaceAll("-", "_") + '/RoutesGenerated.java'
 def rGenFile = new File (rGenPath)
-def rGenBuf = new StringBuffer()
+def rGenBuf = new StringBuffer(rGenFile.getText())
 
-def rGenReader = null
-try {
-	rGenReader = new FileReader(rGenFile)
-	BufferedReader br = new BufferedReader(rGenReader)
-    for(String line; (line = br.readLine()) != null; ) 
-    	rGenBuf.append(line+'\n')
-}
-catch (FileNotFoundException nf) {
-	log.error 'File not found: '+rGenPath
-}
-catch (IOException io) {
-	io.printStackStrace()
-}
-finally {
-	if (rGenReader != null)
-		rGenReader.close()
-}
-
+// -----------------------------------------
 // Generate the routes code using API paths
-rGenCode = new StringBuffer('rest()\n')
+// -----------------------------------------
+def indent = 2
+rGenCode = new StringBuffer(tabs(indent)+'rest()\n')
 Paths paths = openAPI.getPaths();
 Set<String> pathKeys = paths.keySet();
 
@@ -239,9 +235,8 @@ rGenCode.append('\t\t;')
 //	Write the RoutesGenerated document.
 def rGenCodeStr = rGenBuf.toString().replace ('[generated-restdsl]', rGenCode.toString())
 log.info 'File to write: '+rGenFile.getAbsolutePath()
-def rGenWriter = new FileWriter(rGenFile)
-rGenWriter.write(rGenCodeStr)
-rGenWriter.close()
+rGenFile.write(rGenCodeStr)
+
 
 
 
@@ -251,32 +246,17 @@ rGenWriter.close()
 // |  Load the placeholder file into memory, generate code, place it, and write it back out.
 // |
 // +-------------------------------------------------------------------------------------
-log.info "==== Add Endpoints to RoutesImplemented (rImp) Class ===="
+log.info ''
+log.info '==== Add Endpoints to RoutesImplemented (rImp) Class ===='
 
 // Read the RoutesImplemented placeholder file.
-def rImpPath = request.outputDirectory + "/" + request.artifactId + '/src/main/java/' + ((String) request.groupId).replaceAll("\\.", "/") + '/RoutesImplementation.java'
+def rImpPath = request.outputDirectory + "/" + request.artifactId + '/src/main/java/' + ((String) request.groupId).replaceAll("\\.", "/").replaceAll("-", "_") + '/RoutesImplementation.java'
 def rImpFile = new File (rImpPath)
-def rImpBuf = new StringBuffer()
+def rImpBuf = new StringBuffer(rImpFile.getText())
 
-def rImpReader = null
-try {
-	rImpReader = new FileReader(rImpFile)
-	BufferedReader br = new BufferedReader(rImpReader)
-    for(String line; (line = br.readLine()) != null; )
-    	rImpBuf.append(line+'\n')
-}
-catch (FileNotFoundException nf) {
-	log.error 'File not found: '+rImpPath
-}
-catch (IOException io) {
-	io.printStackStrace()
-}
-finally {
-	if (rImpReader != null)
-		rImpReader.close()
-}
-
+//  ------------------------------------
 //  Generate code using the opIdList.
+//  ------------------------------------
 rGenCode = new StringBuffer()
 for (String opId : opIdList) {
 	rGenCode.append('from("direct:'+opId+'")\n')
@@ -284,7 +264,9 @@ for (String opId : opIdList) {
     // can't have two routes with the same route id, in this case the same as given to the rest routes
 	// rGenCode.append('\t\t\t\t\t.routeId("'+opId+'")\n')
     rGenCode.append('\t\t\t\t\t.log("Start of ${exchangeProperty.currentRoute}")\n')
-    rGenCode.append('\t\t\t\t\t.setBody(datasonnet("{hello: \'world\'}", String.class).outputMediaType("application/json"))\n')
+    rGenCode.append('\t\t\t\t\t.setBody(datasonnet("{opId: \'')
+    rGenCode.append(opId)
+    rGenCode.append('\'}", String.class).outputMediaType("application/json"))\n')
     rGenCode.append('\t\t\t\t\t.log("End of ${exchangeProperty.currentRoute}")\n')
 
 	rGenCode.append('\t\t\t\t;\n')
@@ -293,6 +275,8 @@ for (String opId : opIdList) {
 //	Write the RoutesImplemented document.
 def rImpCodeStr = rImpBuf.toString().replace ('[generated-routes]', rGenCode.toString())
 log.info 'File to write: '+rImpFile.getAbsolutePath()
-def rImpWriter = new FileWriter(rImpFile)
-rImpWriter.write(rImpCodeStr)
-rImpWriter.close()
+rImpFile.write(rImpCodeStr)
+
+//def rImpWriter = new FileWriter(rImpFile)
+//rImpWriter.write(rImpCodeStr)
+//rImpWriter.close()
