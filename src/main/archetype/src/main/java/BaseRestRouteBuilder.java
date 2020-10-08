@@ -1,5 +1,6 @@
 package ${package};
 
+import com.datasonnet.document.Document;
 import com.datasonnet.document.MediaTypes;
 import com.ms3_inc.camel.extensions.rest.OperationResult;
 import com.ms3_inc.camel.extensions.rest.exception.RestException;
