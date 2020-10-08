@@ -19,6 +19,14 @@ public class BaseRestRouteBuilder extends RouteBuilder {
 		ex.getMessage().setHeader(OperationResult.EXCHANGE_OPERATION_RESULT, result);
 	};
 
+	private static final Processor UNWRAP_DOCUMENT = ex -> {
+		Object doc = ex.getMessage().getBody();
+		if (doc instanceof Document) {
+			ex.getMessage().setBody(((Document<?>) doc).getContent());
+			ex.getMessage().setHeader(Exchange.CONTENT_TYPE, ((Document<?>) doc).getMediaType().toString());
+		}
+	};
+
 	@Override
 	public void configure() throws Exception {
 		onException(RestException.class)
