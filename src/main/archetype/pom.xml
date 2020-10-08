@@ -142,6 +142,7 @@
 						<phase>initialize</phase>
 						<goals>
 							<goal>add-source</goal>
+							<goal>add-resource</goal>
 						</goals>
 						<configuration>
 							<sources>
