@@ -1,9 +1,5 @@
 package ${package};
 
-import org.apache.camel.Exchange;
-import org.apache.camel.builder.RouteBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,14 +11,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RoutesImplementation extends BaseRestRouteBuilder {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void configure() throws Exception {
         super.configure();
 
-        // Stubs for API end point implementation. Replace setBody with your code.
-        [generated-routes]
+        // TODO: Replace stubs for each endpoint with real implementation.  Implementation defaults to a simple response with operation Id.
+[generated-routes]
 
         //  Used to add the currentRoute property.
         from("direct:util:setCurrentRouteInfo")

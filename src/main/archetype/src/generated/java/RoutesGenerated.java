@@ -1,8 +1,6 @@
 package ${package};
 
 import javax.annotation.Generated;
-
-import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,7 +28,7 @@ public class RoutesGenerated extends BaseRestRouteBuilder{
 
         restConfiguration().component("undertow");
 
-		[generated-restdsl]
+[generated-restdsl]
 
     }
 }

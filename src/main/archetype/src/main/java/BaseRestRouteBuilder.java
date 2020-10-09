@@ -8,6 +8,17 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
+/**
+ * This class centralizes exception handling for all Camel routes.  Extend this class for all RouteBuilder classes
+ * in the application.  Currently, two handlers are included:
+ * <ul>
+ * <li>RestException - malformed requests, etc.</li>
+ * <li>Excetion - everything else returns a 500 status code.</li>
+ * </ul>
+ * These can also be used an examples of how to handle more specific exceptions.
+ * 
+ * @author Maven Archetype (camel-oas-archetype)
+ */
 public class BaseRestRouteBuilder extends RouteBuilder {
 	private static final Processor REST_EXCEPTION_PROCESSOR = ex -> {
 		RestException exc = ex.getProperty(Exchange.EXCEPTION_CAUGHT, RestException.class);
@@ -20,6 +31,7 @@ public class BaseRestRouteBuilder extends RouteBuilder {
 		ex.getMessage().setHeader(OperationResult.EXCHANGE_OPERATION_RESULT, result);
 	};
 
+	@SuppressWarnings("unused")
 	private static final Processor UNWRAP_DOCUMENT = ex -> {
 		Object doc = ex.getMessage().getBody();
 		if (doc instanceof Document) {
