@@ -106,7 +106,7 @@
 		<dependency>
 			<groupId>com.ms3-inc.camel</groupId>
 			<artifactId>rest-extensions</artifactId>
-			<version>0.1.1</version>
+			<version>0.1.2</version>
 		</dependency>
 
 		<!-- Test -->
