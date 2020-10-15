@@ -267,7 +267,7 @@ for (String opId : opIdList) {
     rGenCode.append(tabs(indent)+'.log("Start of ${exchangeProperty.currentRoute}")\n')
     rGenCode.append(tabs(indent)+'.setBody(datasonnet("{opId: \'')
     rGenCode.append(opId)
-    rGenCode.append('\'}", String.class).outputMediaType("application/json"))\n')
+    rGenCode.append('\'", String.class).outputMediaType("application/json"))\n')
     rGenCode.append(tabs(indent)+'.log("End of ${exchangeProperty.currentRoute}")\n')
 
 	indent=2
