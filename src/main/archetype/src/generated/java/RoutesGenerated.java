@@ -2,6 +2,7 @@ package ${package};
 
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
+import com.ms3_inc.camel.extensions.rest.OpenApi4jValidator;
 
 /**
  * Generated routes are based on the OpenAPI document in src/generated/api folder.

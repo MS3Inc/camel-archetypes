@@ -109,7 +109,17 @@ def rGenBuf = new StringBuffer(rGenFile.getText())
 // Generate the routes code using API paths
 // -----------------------------------------
 def indent = 2
-rGenCode = new StringBuffer(tabs(indent)+'rest()\n')
+rGenCode = new StringBuffer()
+
+//	Add support for request validation.
+rGenCode.append(tabs(indent)+'interceptFrom()\n')
+indent = 3
+rGenCode.append(tabs(indent)+'.process(new OpenApi4jValidator("'+fileName+'", "/api"));\n\n')
+
+//  Add start of rest endpoints.
+indent = 2
+rGenCode.append(tabs(indent)+'rest()\n')
+
 Paths paths = openAPI.getPaths();
 Set<String> pathKeys = paths.keySet();
 
