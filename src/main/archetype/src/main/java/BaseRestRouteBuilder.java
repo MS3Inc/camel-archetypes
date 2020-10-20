@@ -48,7 +48,7 @@ public class BaseRestRouteBuilder extends RouteBuilder {
 			.logHandled(true)
 			.logStackTrace(true)
 			.process(REST_EXCEPTION_PROCESSOR)
-			.transform(datasonnet("resource:classpath:rest-exception.ds")
+			.transform(datasonnet("resource:classpath:rest-exception.ds", String.class)
 					.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE)
 			);
 
@@ -58,7 +58,7 @@ public class BaseRestRouteBuilder extends RouteBuilder {
 			.logHandled(true)
 			.logStackTrace(true)
 			.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
-			.transform(datasonnet("resource:classpath:exception.ds")
+			.transform(datasonnet("resource:classpath:exception.ds", String.class)
 					.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE)
 			);
 	}
