@@ -15,7 +15,7 @@ To run the archetype, CD to the directory where the new project will live and th
 
 mvn archetype:generate \\  
 -DarchetypeGroupId=com.ms3-inc.camel \\  
--DarchetypeArtifactId=oas-archetype \\  
+-DarchetypeArtifactId=openapi-archetype \\  
 -DarchetypeVersion=0.1.0-SNAPSHOT \\  
 -DpackageInPathFormat \\  
 -Dpackage=com.ms3_inc.camel \\  
