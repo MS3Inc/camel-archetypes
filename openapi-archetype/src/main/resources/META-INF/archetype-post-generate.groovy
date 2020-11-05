@@ -22,6 +22,9 @@
 
 //  Groovy doesn't use the classpath of the containing application, the camel.oas.archetype in this case.
 //  The following annotations uses the Grape/Ivy Groovy dependency manager to bring in the OpenAPI parser.
+import io.swagger.v3.oas.models.media.MediaType
+import io.swagger.v3.oas.models.responses.ApiResponse
+
 @Grab(group='io.swagger.parser.v3', module='swagger-parser', version='2.0.21')
 
 
@@ -33,7 +36,7 @@ import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.Operation
 import io.swagger.v3.oas.models.PathItem
 import io.swagger.v3.oas.models.Paths
-  
+
 def log = LoggerFactory.getLogger('org.apache.camel.archetype')
 def encoding = 'UTF-8'
 
@@ -142,99 +145,144 @@ for (String path : pathKeys) {
 	if (getOp != null) {
 		indent=3
 		def opId = 'get'+path.replace('/', '_')
-		opId = opId.replace('{', '')
+		opId = opId.replace('{', '').replace('}', '')
 		opIdList.add(opId)
 		def desc = getOp.getDescription()
 		rGenCode.append(tabs(indent)+'.get("' + path + '")\n')
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("' + opId + '")\n')
-		if (desc != null)
-			rGenCode.append(tabs(indent)+'.description("' + desc + '")\n')
-		rGenCode.append(tabs(indent)+'.produces("application/json")\n')
+
+		List<String> produces = new ArrayList<>()
+		getOp.getResponses().forEach{status, resp ->
+				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+		if (produces.size() > 0) {
+			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
+		}
+
 		rGenCode.append(tabs(indent)+'.to("direct:' + opId + '")\n')
 	}
 	if (putOp != null) {
 		indent=3
 		def opId = 'put'+path.replace('/', '_')
-		opId = opId.replace('{', '')
+		opId = opId.replace('{', '').replace('}', '')
 		opIdList.add(opId)
 		def desc = putOp.getDescription()
 		rGenCode.append(tabs(indent)+'.put("'+path+'")\n')
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
-		if (desc != null)
-			rGenCode.append(tabs(indent)+'.description("'+desc+'")\n')
-		rGenCode.append(tabs(indent)+'.produces("application/json")\n')
+
+		List<String> consumes = new ArrayList<>()
+		putOp.getRequestBody().getContent().forEach{mediaType, mediaTypeObj -> consumes.add(mediaType)}
+		if (consumes.size() > 0) {
+			rGenCode.append(tabs(indent)+'.consumes("' + String.join(",", consumes) + '")\n')
+		}
+
+		List<String> produces = new ArrayList<>()
+		putOp.getResponses().forEach{status, resp ->
+			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+		if (produces.size() > 0) {
+			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
+		}
+
 		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
 	}
 	if (postOp != null) {
 		indent=3
 		def opId = 'post'+path.replace('/', '_')
-		opId = opId.replace('{', '')
+		opId = opId.replace('{', '').replace('}', '')
 		opIdList.add(opId)
 		def desc = postOp.getDescription()
 		rGenCode.append(tabs(indent)+'.post("'+path+'")\n')
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
-		if (desc != null)
-			rGenCode.append(tabs(indent)+'.description("'+desc+'")\n')
-		rGenCode.append(tabs(indent)+'.produces("application/json")\n')
+
+		List<String> consumes = new ArrayList<>()
+		postOp.getRequestBody().getContent().forEach{mediaType, mediaTypeObj -> consumes.add(mediaType)}
+		if (consumes.size() > 0) {
+			rGenCode.append(tabs(indent)+'.consumes("' + String.join(",", consumes) + '")\n')
+		}
+
+		List<String> produces = new ArrayList<>()
+		postOp.getResponses().forEach{status, resp ->
+			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+		if (produces.size() > 0) {
+			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
+		}
+
 		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
 	}
 	if (deleteOp != null) {
 		indent=3
 		def opId = 'delete'+path.replace('/', '_')
-		opId = opId.replace('{', '')
+		opId = opId.replace('{', '').replace('}', '')
 		opIdList.add(opId)
 		def desc = deleteOp.getDescription()
 		rGenCode.append(tabs(indent)+'.delete("'+path+'")\n')
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
-		if (desc != null)
-			rGenCode.append(tabs(indent)+'.description("'+desc+'")\n')
-		rGenCode.append(tabs(indent)+'.produces("application/json")\n')
+
+		List<String> produces = new ArrayList<>()
+		deleteOp.getResponses().forEach{status, resp ->
+			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+		if (produces.size() > 0) {
+			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
+		}
+
 		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
 	}
 	if (patchOp != null) {
 		indent=3
 		def opId = 'patch'+path.replace('/', '_')
-		opId = opId.replace('{', '')
+		opId = opId.replace('{', '').replace('{', '')
 		opIdList.add(opId)
 		def desc = patchOp.getDescription()
 		rGenCode.append(tabs(indent)+'.patch("'+path+'")\n')
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
-		if (desc != null)
-			rGenCode.append(tabs(indent)+'.description("'+desc+'")\n')
-		rGenCode.append(tabs(indent)+'.produces("application/json")\n')
+
+		List<String> consumes = new ArrayList<>()
+		patchOp.getRequestBody().getContent().forEach{mediaType, mediaTypeObj -> consumes.add(mediaType)}
+		if (consumes.size() > 0) {
+			rGenCode.append(tabs(indent)+'.consumes("' + String.join(",", consumes) + '")\n')
+		}
+
+		List<String> produces = new ArrayList<>()
+		patchOp.getResponses().forEach{status, resp ->
+			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+		if (produces.size() > 0) {
+			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
+		}
+
 		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
 	}
 	if (headOp != null) {
 		indent=3
 		def opId = 'head'+path.replace('/', '_')
-		opId = opId.replace('{', '')
+		opId = opId.replace('{', '').replace('{', '')
 		opIdList.add(opId)
 		def desc = headOp.getDescription()
 		rGenCode.append(tabs(indent)+'.head("'+path+'")\n')
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
-		if (desc != null)
-			rGenCode.append(tabs(indent)+'.description("'+desc+'")\n')
-		rGenCode.append(tabs(indent)+'.produces("application/json")\n')
 		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
 	}
 	if (optionsOp != null) {
 		indent=3
 		def opId = 'options'+path.replace('/', '_')
-		opId = opId.replace('{', '')
+		opId = opId.replace('{', '').replace('{', '')
 		opIdList.add(opId)
 		def desc = optionsOp.getDescription()
 		rGenCode.append(tabs(indent)+'.options("'+path+'")\n')
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
-		if (desc != null)
-			rGenCode.append(tabs(indent)+'.description("'+desc+'")\n')
-		rGenCode.append(abs(indent)+'.produces("application/json")\n')
+
+		List<String> produces = new ArrayList<>()
+		getOp.getResponses().forEach{status, resp ->
+			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+		if (produces.size() > 0) {
+			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
+		}
+
 		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
 	}
 }
@@ -272,13 +320,9 @@ for (String opId : opIdList) {
 	rGenCode.append(tabs(indent)+'from("direct:'+opId+'")\n')
 	indent=3
     rGenCode.append(tabs(indent)+'.to("direct:util:setCurrentRouteInfo")\n')
-    // can't have two routes with the same route id, in this case the same as given to the rest routes
-	// rGenCode.append(tabs(indent)+'.routeId("'+opId+'")\n')
-    rGenCode.append(tabs(indent)+'.log("Start of ${exchangeProperty.currentRoute}")\n')
     rGenCode.append(tabs(indent)+'.setBody(datasonnet("{opId: \'')
     rGenCode.append(opId)
     rGenCode.append('\'}", String.class).outputMediaType("application/json"))\n')
-    rGenCode.append(tabs(indent)+'.log("End of ${exchangeProperty.currentRoute}")\n')
 
 	indent=2
 	rGenCode.append(tabs(indent)+';\n')

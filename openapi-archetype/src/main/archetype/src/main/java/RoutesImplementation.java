@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
  * The RoutesImplementation class holds implementations for the end points configured in RoutesGenerated.
  * These routes are based on operation Ids, that correspond to an API end point:  method+path.
  * 
- * @author Maven Archetype (camel-oas-archetype)
+ * @author Maven Archetype (camel-openapi-archetype)
  *
  */
 @Component
