@@ -29,6 +29,11 @@
     <artifactId>camel-openapi-archetype</artifactId>
     <packaging>maven-archetype</packaging>
 
+    <name>Camel OpenAPI Archetype</name>
+    <description>This archetype creates a Camel project with Spring Boot
+        and generates stubs for endpoints in an OpenAPI document.
+    </description>
+
     <properties>
         <archetype.test.settingsFile>src/test/resources/settings.xml</archetype.test.settingsFile>
     </properties>
