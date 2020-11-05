@@ -20,7 +20,7 @@
 
     <groupId>com.ms3-inc.camel</groupId>
     <artifactId>archetypes</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <inceptionYear>2020</inceptionYear>
 
@@ -57,7 +57,7 @@
         <connection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</connection>
         <developerConnection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</developerConnection>
         <url>https://github.com/MS3Inc/camel-oas-archetype</url>
-        <tag>0.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
