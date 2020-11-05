@@ -15,111 +15,77 @@
     limitations under the License.
 
 -->
-    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-      <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-      <groupId>com.ms3-inc.camel</groupId>
-      <artifactId>oas-archetype</artifactId>
-      <version>0.1.0-SNAPSHOT</version>
-      <packaging>maven-archetype</packaging>
+    <groupId>com.ms3-inc.camel</groupId>
+    <artifactId>archetypes</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-	  <name>Camel OpenAPI Archetype</name>
-	  <description>This archetype creates a Camel project with Spring Boot
-          and generates stubs for endpoints in an OAS spec.</description>
-        <inceptionYear>2020</inceptionYear>
+    <name>Camel OpenAPI Archetype</name>
+    <description>This archetype creates a Camel project with Spring Boot
+        and generates stubs for endpoints in an OAS spec.
+    </description>
+    <inceptionYear>2020</inceptionYear>
 
-        <licenses>
-            <license>
-                <name>Apache License, Version 2.0</name>
-                <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-                <distribution>repo</distribution>
-            </license>
-        </licenses>
+    <modules>
+        <module>camel-openapi-archetype</module>
+    </modules>
 
-        <developers>
-            <developer>
-                <name>Mark Norton</name>
-                <email>mnorton@ms3-inc.com</email>
-                <organization>MS3</organization>
-                <organizationUrl>https://ms3-inc.com</organizationUrl>
-            </developer>
-            <developer>
-                <name>Jose Montoya</name>
-                <email>jmontoya@ms3-inc.com</email>
-                <organization>MS3</organization>
-                <organizationUrl>https://ms3-inc.com</organizationUrl>
-            </developer>
-        </developers>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-        <scm>
-            <connection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</connection>
-            <developerConnection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</developerConnection>
-            <url>https://github.com/MS3Inc/camel-oas-archetype</url>
-            <tag>HEAD</tag>
-        </scm>
+    <developers>
+        <developer>
+            <name>Mark Norton</name>
+            <email>mnorton@ms3-inc.com</email>
+            <organization>MS3</organization>
+            <organizationUrl>https://ms3-inc.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Jose Montoya</name>
+            <email>jmontoya@ms3-inc.com</email>
+            <organization>MS3</organization>
+            <organizationUrl>https://ms3-inc.com</organizationUrl>
+        </developer>
+    </developers>
 
-        <distributionManagement>
-            <repository>
-                <id>ms3-nexus</id>
-                <name>maven-releases</name>
-                <url>https://maven.ms3-inc.com/repository/maven-releases/</url>
-            </repository>
-            <snapshotRepository>
-                <id>ms3-nexus</id>
-                <name>maven-snapshots</name>
-                <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
-            </snapshotRepository>
-        </distributionManagement>
+    <scm>
+        <connection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</connection>
+        <developerConnection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</developerConnection>
+        <url>https://github.com/MS3Inc/camel-oas-archetype</url>
+        <tag>HEAD</tag>
+    </scm>
 
-	  <properties>
+    <distributionManagement>
+        <repository>
+            <id>ms3-nexus</id>
+            <name>maven-releases</name>
+            <url>https://maven.ms3-inc.com/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ms3-nexus</id>
+            <name>maven-snapshots</name>
+            <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-	    <maven-archetype-plugin.version>3.0.1</maven-archetype-plugin.version>
         <mycila.version>4.0.rc2</mycila.version>
         <archetype.test.settingsFile>src/test/resources/settings.xml</archetype.test.settingsFile>
-	  </properties>
+    </properties>
 
-	  <dependencies>
-        <!-- included so maven can download it for groovy -->
-		<dependency>
-		  <groupId>io.swagger.parser.v3</groupId>
-		  <artifactId>swagger-parser</artifactId>
-		  <version>2.0.21</version>
-		</dependency>
-	  </dependencies>
-
-      <build>
-        <extensions>
-          <extension>
-            <groupId>org.apache.maven.archetype</groupId>
-            <artifactId>archetype-packaging</artifactId>
-            <version>3.1.1</version>
-          </extension>
-        </extensions>
-
+    <build>
         <plugins>
-            <plugin>
-              <artifactId>maven-resources-plugin</artifactId>
-              <version>2.6</version>
-              <executions>
-                  <execution>
-                      <id>copy-archetype-resources</id>
-                      <phase>process-resources</phase>
-                      <goals>
-                          <goal>copy-resources</goal>
-                      </goals>
-                      <configuration>
-                          <outputDirectory>${project.build.outputDirectory}/archetype-resources</outputDirectory>
-                          <resources>
-                              <resource>
-                                  <directory>src/main/archetype</directory>
-                              </resource>
-                          </resources>
-                      </configuration>
-                  </execution>
-              </executions>
-            </plugin>
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
@@ -173,41 +139,41 @@
                 </configuration>
             </plugin>
         </plugins>
-      </build>
+    </build>
 
-        <profiles>
-            <profile>
-                <id>release</id>
-                <build>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>3.2.0</version>
-                            <executions>
-                                <execution>
-                                    <id>attach-javadocs</id>
-                                    <goals>
-                                        <goal>jar</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-source-plugin</artifactId>
-                            <version>3.2.0</version>
-                            <executions>
-                                <execution>
-                                    <id>attach-sources</id>
-                                    <goals>
-                                        <goal>jar-no-fork</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </build>
-            </profile>
-        </profiles>
-    </project>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
