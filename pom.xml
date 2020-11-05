@@ -28,7 +28,7 @@
     <name>Camel Archetypes Parent</name>
 
     <modules>
-        <module>camel-openapi-archetype</module>
+        <module>openapi-archetype</module>
     </modules>
 
     <licenses>
