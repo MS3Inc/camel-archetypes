@@ -1,0 +1,10 @@
+local opResult = cml.header('CamelxRestOperationResult');
+local messages = if (opResult != null) then opResult.messages else [];
+{
+    '_messages': messages + [{
+        level: 'ERROR',
+        type: 'InternalServerError',
+        details: 'An unknown error occurred while processing the HTTP request.',
+        diagnostics: std.format('Please contact the administrator of this API with the following correlation ID: %s.', cml.exchangeProperty('CamelCorrelationId'))
+    }]
+}
