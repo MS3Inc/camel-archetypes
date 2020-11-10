@@ -27,6 +27,7 @@
     <name>Camel Archetypes Parent</name>
 
     <modules>
+        <module>camel-scheduled-archetype</module>
         <module>openapi-archetype</module>
     </modules>
 
@@ -99,6 +100,7 @@
                                 <exclude>src/main/archetype/**</exclude>
                                 <exclude>**/test/resources/**/goal.txt</exclude>
                                 <exclude>**/target/**</exclude>
+                                <exlude>**/settings.xml</exlude>
                             </excludes>
                         </licenseSet>
                     </licenseSets>
