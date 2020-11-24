@@ -1,6 +1,8 @@
 package ${package};
 
 import javax.annotation.Generated;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import com.ms3_inc.camel.extensions.rest.OpenApi4jValidator;
 
@@ -12,9 +14,11 @@ import com.ms3_inc.camel.extensions.rest.OpenApi4jValidator;
 @Generated("com.ms3_inc.camel.archetype.oas")
 @Component
 public class RoutesGenerated extends BaseRestRouteBuilder{
+    private final String contextPath;
 
-    public RoutesGenerated() {
+    public RoutesGenerated(@Value("${camel.rest.context-path}") String contextPath) {
         super();
+        this.contextPath = contextPath;
     }
 
     /**
