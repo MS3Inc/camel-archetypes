@@ -117,7 +117,7 @@ rGenCode = new StringBuffer()
 //	Add support for request validation.
 rGenCode.append(tabs(indent)+'interceptFrom()\n')
 indent = 3
-rGenCode.append(tabs(indent)+'.process(new OpenApi4jValidator("'+fileName+'", "/api"));\n\n')
+rGenCode.append(tabs(indent)+'.process(new OpenApi4jValidator("'+fileName+'", contextPath));\n\n')
 
 //  Add start of rest endpoints.
 indent = 2
