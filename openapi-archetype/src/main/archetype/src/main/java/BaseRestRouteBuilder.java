@@ -6,7 +6,7 @@ import com.ms3_inc.camel.extensions.rest.OperationResult;
 import com.ms3_inc.camel.extensions.rest.exception.RestException;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 
 /**
  * This class centralizes exception handling for all Camel routes.  Extend this class for all RouteBuilder classes
@@ -19,7 +19,7 @@ import org.apache.camel.builder.RouteBuilder;
  * 
  * @author Maven Archetype (camel-oas-archetype)
  */
-public class BaseRestRouteBuilder extends RouteBuilder {
+public class BaseRestRouteBuilder extends EndpointRouteBuilder {
 	private static final Processor REST_EXCEPTION_PROCESSOR = ex -> {
 		RestException exc = ex.getProperty(Exchange.EXCEPTION_CAUGHT, RestException.class);
 

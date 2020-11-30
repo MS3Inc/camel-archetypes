@@ -16,12 +16,12 @@ To run the archetype, CD to the directory where the new project will live and th
 mvn archetype:generate \\  
 -DarchetypeGroupId=com.ms3-inc.camel \\  
 -DarchetypeArtifactId=openapi-archetype \\  
--DarchetypeVersion=0.1.0-SNAPSHOT \\  
+-DarchetypeVersion=0.1.1-SNAPSHOT \\  
 -DpackageInPathFormat \\  
 -Dpackage=com.ms3_inc.camel \\  
--DgroupId=com.ms3-inc.camel \\  
--DartifactId=test-camel-app \\  
+-DgroupId=com.ms3-inc.camel \\   
 -Dversion=0.0.1-SNAPSHOT \\  
+-DartifactId=CHANGE-TO-API-NAME
 
 The -DpackageInPathFormat and -package arguments are only needed if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed.
 
