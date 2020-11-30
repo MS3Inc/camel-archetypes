@@ -20,9 +20,9 @@ public class RoutesImplementation extends BaseRestRouteBuilder {
 [generated-routes]
 
         from(direct("logger-helper"))
-                .log(LoggingLevel.INFO,"[system= ApacheCamel {{camel.rest.context-path}}]"+
-                        "[route_name= ${exchangeProperty.origRouteId}]"+
-                        "[message= ${exchangeProperty.startOrEnd}of${exchangeProperty.origRouteId}]")
+                .log(LoggingLevel.INFO,"[system = ApacheCamel {{camel.rest.context-path}}]"+
+                        "[route_name = ${exchangeProperty.origRouteId}]"+
+                        "[message = ${exchangeProperty.startOrEnd} of ${exchangeProperty.origRouteId}]")
         ;
 
     }
