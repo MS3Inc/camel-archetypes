@@ -144,7 +144,7 @@ for (String path : pathKeys) {
 	
 	if (getOp != null) {
 		indent=3
-		def opId = 'get'+path.replace('/', '_')
+		def opId = 'get'+path.replace('/', '-')
 		opId = opId.replace('{', '').replace('}', '')
 		opIdList.add(opId)
 		def desc = getOp.getDescription()
@@ -159,11 +159,11 @@ for (String path : pathKeys) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
 
-		rGenCode.append(tabs(indent)+'.to("direct:' + opId + '")\n')
+		rGenCode.append(tabs(indent)+'.to(direct("' + opId + '").getUri())\n')
 	}
 	if (putOp != null) {
 		indent=3
-		def opId = 'put'+path.replace('/', '_')
+		def opId = 'put'+path.replace('/', '-')
 		opId = opId.replace('{', '').replace('}', '')
 		opIdList.add(opId)
 		def desc = putOp.getDescription()
@@ -184,11 +184,11 @@ for (String path : pathKeys) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
 
-		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
+		rGenCode.append(tabs(indent)+'.to(direct("'+opId+'").getUri())\n')
 	}
 	if (postOp != null) {
 		indent=3
-		def opId = 'post'+path.replace('/', '_')
+		def opId = 'post'+path.replace('/', '-')
 		opId = opId.replace('{', '').replace('}', '')
 		opIdList.add(opId)
 		def desc = postOp.getDescription()
@@ -209,11 +209,11 @@ for (String path : pathKeys) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
 
-		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
+		rGenCode.append(tabs(indent)+'.to(direct("'+opId+'").getUri())\n')
 	}
 	if (deleteOp != null) {
 		indent=3
-		def opId = 'delete'+path.replace('/', '_')
+		def opId = 'delete'+path.replace('/', '-')
 		opId = opId.replace('{', '').replace('}', '')
 		opIdList.add(opId)
 		def desc = deleteOp.getDescription()
@@ -228,11 +228,11 @@ for (String path : pathKeys) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
 
-		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
+		rGenCode.append(tabs(indent)+'.to(direct("'+opId+'").getUri())\n')
 	}
 	if (patchOp != null) {
 		indent=3
-		def opId = 'patch'+path.replace('/', '_')
+		def opId = 'patch'+path.replace('/', '-')
 		opId = opId.replace('{', '').replace('{', '')
 		opIdList.add(opId)
 		def desc = patchOp.getDescription()
@@ -253,22 +253,22 @@ for (String path : pathKeys) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
 
-		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
+		rGenCode.append(tabs(indent)+'.to(direct("'+opId+'").getUri())\n')
 	}
 	if (headOp != null) {
 		indent=3
-		def opId = 'head'+path.replace('/', '_')
+		def opId = 'head'+path.replace('/', '-')
 		opId = opId.replace('{', '').replace('{', '')
 		opIdList.add(opId)
 		def desc = headOp.getDescription()
 		rGenCode.append(tabs(indent)+'.head("'+path+'")\n')
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
-		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
+		rGenCode.append(tabs(indent)+'.to(direct("'+opId+'").getUri())\n')
 	}
 	if (optionsOp != null) {
 		indent=3
-		def opId = 'options'+path.replace('/', '_')
+		def opId = 'options'+path.replace('/', '-')
 		opId = opId.replace('{', '').replace('{', '')
 		opIdList.add(opId)
 		def desc = optionsOp.getDescription()
@@ -283,7 +283,7 @@ for (String path : pathKeys) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
 
-		rGenCode.append(tabs(indent)+'.to("direct:'+opId+'")\n')
+		rGenCode.append(tabs(indent)+'.to(direct("'+opId+'").getUri())\n')
 	}
 }
 indent=2
@@ -317,12 +317,12 @@ def rImpBuf = new StringBuffer(rImpFile.getText())
 rGenCode = new StringBuffer()
 for (String opId : opIdList) {
 	indent=2
-	rGenCode.append(tabs(indent)+'from("direct:'+opId+'")\n')
+	rGenCode.append(tabs(indent)+'from(direct("'+opId+'"))\n')
 	indent=3
-    rGenCode.append(tabs(indent)+'.to("direct:util:setCurrentRouteInfo")\n')
     rGenCode.append(tabs(indent)+'.setBody(datasonnet("{opId: \'')
     rGenCode.append(opId)
-    rGenCode.append('\'}", String.class).outputMediaType("application/json"))\n')
+	indent=5
+    rGenCode.append('\'}", String.class)\n'+tabs(indent)+'.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE))\n')
 
 	indent=2
 	rGenCode.append(tabs(indent)+';\n')
@@ -332,4 +332,25 @@ for (String opId : opIdList) {
 def rImpCodeStr = rImpBuf.toString().replace ('[generated-routes]', rGenCode.toString())
 log.info 'File to write: '+rImpFile.getAbsolutePath()
 rImpFile.write(rImpCodeStr)
+
+//  ------------------------------------
+//  Write the .gitignore file
+//  ------------------------------------
+
+def gitignorePath = request.outputDirectory + "/" + request.artifactId + '/.gitignore'
+def gitignoreFile = new File (gitignorePath)
+
+rGenCode = new StringBuffer()
+rGenCode.append('# Java\n' +
+		'/target/\n' +
+		'*/target/**\n' +
+		'**/META-INF/*\n' +
+		'\n' +
+		'# Intellij\n' +
+		'.idea/*\n' +
+		'*.iml')
+
+def gitignoreStr = rGenCode.toString()
+log.info 'File to write: '+ gitignoreFile.getAbsolutePath()
+gitignoreFile.write(gitignoreStr)
 

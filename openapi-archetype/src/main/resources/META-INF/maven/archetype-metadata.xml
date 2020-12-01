@@ -66,6 +66,7 @@
 			<directory/>
 			<includes>
 				<include>README.md</include>
+				<include>CHANGELOG.md</include>
 			</includes>
 		</fileSet>
 	</fileSets>
