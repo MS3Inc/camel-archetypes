@@ -154,7 +154,10 @@ for (String path : pathKeys) {
 
 		List<String> produces = new ArrayList<>()
 		getOp.getResponses().forEach{status, resp ->
-				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+			if (resp.getContent() != null) {
+				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+			}
+		}
 		if (produces.size() > 0) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
@@ -179,7 +182,10 @@ for (String path : pathKeys) {
 
 		List<String> produces = new ArrayList<>()
 		putOp.getResponses().forEach{status, resp ->
-			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+			if (resp.getContent() != null) {
+				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+			}
+		}
 		if (produces.size() > 0) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
@@ -204,7 +210,10 @@ for (String path : pathKeys) {
 
 		List<String> produces = new ArrayList<>()
 		postOp.getResponses().forEach{status, resp ->
-			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+			if (resp.getContent() != null) {
+				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+			}
+		}
 		if (produces.size() > 0) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
@@ -223,7 +232,10 @@ for (String path : pathKeys) {
 
 		List<String> produces = new ArrayList<>()
 		deleteOp.getResponses().forEach{status, resp ->
-			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+			if (resp.getContent() != null) {
+				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+			}
+		}
 		if (produces.size() > 0) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
@@ -248,7 +260,10 @@ for (String path : pathKeys) {
 
 		List<String> produces = new ArrayList<>()
 		patchOp.getResponses().forEach{status, resp ->
-			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+			if (resp.getContent() != null) {
+				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+			}
+		}
 		if (produces.size() > 0) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
@@ -278,7 +293,10 @@ for (String path : pathKeys) {
 
 		List<String> produces = new ArrayList<>()
 		getOp.getResponses().forEach{status, resp ->
-			resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}}
+			if (resp.getContent() != null) {
+				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+			}
+		}
 		if (produces.size() > 0) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
