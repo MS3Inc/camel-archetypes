@@ -108,6 +108,11 @@
 			<artifactId>camel-datasonnet</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-endpointdsl</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
 
 		<!-- ms3-inc Camel Rest Extensions -->
 		<dependency>

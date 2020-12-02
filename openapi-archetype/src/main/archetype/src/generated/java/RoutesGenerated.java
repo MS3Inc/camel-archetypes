@@ -24,8 +24,10 @@ public class RoutesGenerated extends BaseRestRouteBuilder{
     /**
      * Defines Apache Camel routes using the OpenAPI REST DSL.
      * Routes are built using a get(PATH) rest message processor.
-     * Each defined route is directed to an implementation end point currently based on an operation ID in the OAS document.
-     * Later, these will be auto-generated.
+     *
+     * Make changes to this file with caution.
+     * If the API specification changes and this file is regenerated,
+     * previous changes may be overwritten.
      */
     @Override
     public void configure() throws Exception {

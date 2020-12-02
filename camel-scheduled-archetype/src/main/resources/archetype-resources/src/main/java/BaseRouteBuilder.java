@@ -1,8 +1,9 @@
 package ${package};
 
+import org.apache.camel.LoggingLevel;
 import com.datasonnet.document.MediaTypes;
 import org.apache.camel.Exchange;
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 
 /**
  * This class centralizes exception handling for all Camel routes.  Extend this class for all RouteBuilder classes
@@ -15,7 +16,7 @@ import org.apache.camel.builder.RouteBuilder;
  * 
  * @author Maven Archetype (camel-oas-archetype)
  */
-public class BaseRouteBuilder extends RouteBuilder {
+public class BaseRouteBuilder extends EndpointRouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
@@ -29,7 +30,7 @@ public class BaseRouteBuilder extends RouteBuilder {
 				.transform(datasonnet("resource:classpath:exception.ds")
 						.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE)
 				)
-				.log("${body}")
+				.log(LoggingLevel.INFO, "${body}")
 			;
 		}
 		catch(Exception ex) {

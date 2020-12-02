@@ -1,5 +1,6 @@
 package ${package};
 
+import org.apache.camel.LoggingLevel;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,16 +24,16 @@ public class RoutesImplementation extends BaseRouteBuilder {
                     final String EXCEPTION = exchange.getProperty("CamelExceptionCaught").toString();
 	                //LOGGER.debug(EXCEPTION);
 	
-	                exchange.getIn().setBody("{\"message\":\""+	EXCEPTION+"\"}");
+	                exchange.getMessage().setBody("{\"message\":\""+	EXCEPTION+"\"}");
                 })
                 .routeId("exceptionHandler")
                 .handled(true)
-                .log("${body}")
+                .log(LoggingLevel.INFO, "${body}")
         ;
 
         // Example of an implementation for a scheduled task end point.
-        from("direct:task")
-        	.log("Task is running.")
+        from(direct("task"))
+        	.log(LoggingLevel.INFO, "Task is running.")
         ;
 
     }

@@ -1,5 +1,7 @@
 package ${package};
 
+import com.datasonnet.document.MediaTypes;
+import org.apache.camel.LoggingLevel;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,9 +21,11 @@ public class RoutesImplementation extends BaseRestRouteBuilder {
         // TODO: Replace stubs for each endpoint with real implementation.  Implementation defaults to a simple response with operation Id.
 [generated-routes]
 
-        //  Used to add the currentRoute property.
-        from("direct:util:setCurrentRouteInfo")
-        	.setProperty("currentRoute", simple("${headers.CamelHttpMethod} ${headers.CamelHttpUri}"))
+        from(direct("logger-helper"))
+            .log(LoggingLevel.INFO,"[system = ApacheCamel {{camel.rest.context-path}}]" +
+            "[route_name = ${exchangeProperty.origRouteId}]" +
+            "[message = ${exchangeProperty.startOrEnd} of ${exchangeProperty.origRouteId}]")
         ;
+
     }
 }
