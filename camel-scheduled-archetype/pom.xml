@@ -6,7 +6,7 @@
 
 	<groupId>com.ms3-inc.camel</groupId>
 	<artifactId>scheduled-archetype</artifactId>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
 
 	<name>Archetype - camel scheduled archetype</name>
