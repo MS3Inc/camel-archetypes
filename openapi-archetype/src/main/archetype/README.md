@@ -1,7 +1,7 @@
 #set($h3 = '###')
 # README
 
-$h3 ${system}-{layer}-api-ac 
+$h3 ${system}-{layer}-api 
 * Version: 1.0
 * Most up to date implementation will be found in branch develop. 
 
