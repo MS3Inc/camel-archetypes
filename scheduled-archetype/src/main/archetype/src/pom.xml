@@ -150,11 +150,11 @@
 		<resources>
 			<resource>
 				<!-- todo: figure out why this is needed -->
-				<directory>src/main/resources</directory>
+				<directory>main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
 			<resource>
-				<directory>src/main/datasonnet</directory>
+				<directory>mainasonnet</directory>
 			</resource>
 		</resources>
 		<plugins>

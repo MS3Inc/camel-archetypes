@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2020 the original author or authors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.ms3-inc.camel</groupId>
+        <artifactId>archetypes</artifactId>
+        <version>0.2.1-SNAPSHOT</version>
+    </parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>scheduled-archetype</artifactId>
+	<packaging>maven-archetype</packaging>
+
+	<name>Camel Scheduled Task Archetype</name>
+	<description>
+		This archetype creates a Camel project for a scheduled task application.
+	</description>
+	<inceptionYear>2020</inceptionYear>
+
+ 	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+ 		<developer>
+			<name>Mark Norton</name>
+			<email>mnorton@ms3-inc.com</email>
+			<organization>MS3</organization>
+			<organizationUrl>https://ms3-inc.com</organizationUrl>
+		</developer>
+		<developer>
+			<name>Jose Montoya</name>
+			<email>jmontoya@ms3-inc.com</email>
+			<organization>MS3</organization>
+			<organizationUrl>https://ms3-inc.com</organizationUrl>
+		</developer>
+	</developers>
+
+	<distributionManagement>
+		<repository>
+			<id>ms3-nexus</id>
+			<name>maven-releases</name>
+			<url>https://maven.ms3-inc.com/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>ms3-nexus</id>
+			<name>maven-snapshots</name>
+			<url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+      <build>
+        <extensions>
+          <extension>
+            <groupId>org.apache.maven.archetype</groupId>
+            <artifactId>archetype-packaging</artifactId>
+            <version>3.1.1</version>
+          </extension>
+        </extensions>
+
+        <plugins>
+            <plugin>
+              <artifactId>maven-resources-plugin</artifactId>
+              <version>2.6</version>
+              <executions>
+                  <execution>
+                      <id>copy-archetype-resources</id>
+                      <phase>process-resources</phase>
+                      <goals>
+                          <goal>copy-resources</goal>
+                      </goals>
+                      <configuration>
+                          <outputDirectory>${project.build.outputDirectory}/archetype-resources</outputDirectory>
+                          <resources>
+                              <resource>
+                                  <directory>src/main/archetype</directory>
+                              </resource>
+                          </resources>
+                      </configuration>
+                  </execution>
+              </executions>
+            </plugin>
+        </plugins>
+      </build>
+</project>
