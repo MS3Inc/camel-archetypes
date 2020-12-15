@@ -155,7 +155,11 @@ for (String path : pathKeys) {
 		List<String> produces = new ArrayList<>()
 		getOp.getResponses().forEach{status, resp ->
 			if (resp.getContent() != null) {
-				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+				resp.getContent().forEach{mediaType, mediaTypeObj ->
+					if (!produces.contains(mediaType)) {
+						produces.add(mediaType)
+					}
+				}
 			}
 		}
 		if (produces.size() > 0) {
@@ -175,6 +179,7 @@ for (String path : pathKeys) {
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
 
 		List<String> consumes = new ArrayList<>()
+
 		putOp.getRequestBody().getContent().forEach{mediaType, mediaTypeObj -> consumes.add(mediaType)}
 		if (consumes.size() > 0) {
 			rGenCode.append(tabs(indent)+'.consumes("' + String.join(",", consumes) + '")\n')
@@ -183,7 +188,11 @@ for (String path : pathKeys) {
 		List<String> produces = new ArrayList<>()
 		putOp.getResponses().forEach{status, resp ->
 			if (resp.getContent() != null) {
-				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+				resp.getContent().forEach{mediaType, mediaTypeObj ->
+					if (!produces.contains(mediaType)) {
+						produces.add(mediaType)
+					}
+				}
 			}
 		}
 		if (produces.size() > 0) {
@@ -202,18 +211,25 @@ for (String path : pathKeys) {
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
 
-		List<String> consumes = new ArrayList<>()
-		postOp.getRequestBody().getContent().forEach{mediaType, mediaTypeObj -> consumes.add(mediaType)}
-		if (consumes.size() > 0) {
-			rGenCode.append(tabs(indent)+'.consumes("' + String.join(",", consumes) + '")\n')
+		if (postOp.getRequestBody() != null) {
+			List<String> consumes = new ArrayList<>()
+			postOp.getRequestBody().getContent().forEach{mediaType, mediaTypeObj -> consumes.add(mediaType)}
+			if (consumes.size() > 0) {
+				rGenCode.append(tabs(indent)+'.consumes("' + String.join(",", consumes) + '")\n')
+			}
 		}
 
 		List<String> produces = new ArrayList<>()
 		postOp.getResponses().forEach{status, resp ->
 			if (resp.getContent() != null) {
-				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+				resp.getContent().forEach{mediaType, mediaTypeObj ->
+					if (!produces.contains(mediaType)) {
+						produces.add(mediaType)
+					}
+				}
 			}
 		}
+
 		if (produces.size() > 0) {
 			rGenCode.append(tabs(indent)+'.produces("' + String.join(",", produces) + '")\n')
 		}
@@ -230,10 +246,23 @@ for (String path : pathKeys) {
 		indent=4
 		rGenCode.append(tabs(indent)+'.id("'+opId+'")\n')
 
+		if (deleteOp.getRequestBody() != null) {
+			List<String> consumes = new ArrayList<>()
+
+			deleteOp.getRequestBody().getContent().forEach{mediaType, mediaTypeObj -> consumes.add(mediaType)}
+			if (consumes.size() > 0) {
+				rGenCode.append(tabs(indent)+'.consumes("' + String.join(",", consumes) + '")\n')
+			}
+		}
+
 		List<String> produces = new ArrayList<>()
 		deleteOp.getResponses().forEach{status, resp ->
 			if (resp.getContent() != null) {
-				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+				resp.getContent().forEach{mediaType, mediaTypeObj ->
+					if (!produces.contains(mediaType)) {
+						produces.add(mediaType)
+					}
+				}
 			}
 		}
 		if (produces.size() > 0) {
@@ -261,7 +290,11 @@ for (String path : pathKeys) {
 		List<String> produces = new ArrayList<>()
 		patchOp.getResponses().forEach{status, resp ->
 			if (resp.getContent() != null) {
-				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+				resp.getContent().forEach{mediaType, mediaTypeObj ->
+					if (!produces.contains(mediaType)) {
+						produces.add(mediaType)
+					}
+				}
 			}
 		}
 		if (produces.size() > 0) {
@@ -294,7 +327,11 @@ for (String path : pathKeys) {
 		List<String> produces = new ArrayList<>()
 		getOp.getResponses().forEach{status, resp ->
 			if (resp.getContent() != null) {
-				resp.getContent().forEach{mediaType, mediaTypeObj -> produces.add(mediaType)}
+				resp.getContent().forEach{mediaType, mediaTypeObj ->
+					if (!produces.contains(mediaType)) {
+						produces.add(mediaType)
+					}
+				}
 			}
 		}
 		if (produces.size() > 0) {
@@ -359,14 +396,40 @@ def gitignorePath = request.outputDirectory + "/" + request.artifactId + '/.giti
 def gitignoreFile = new File (gitignorePath)
 
 rGenCode = new StringBuffer()
-rGenCode.append('# Java\n' +
-		'/target/\n' +
-		'*/target/**\n' +
+rGenCode.append('HELP.md\n' +
+		'target/\n' +
+		'!.mvn/wrapper/maven-wrapper.jar\n' +
+		'!**/src/main/**/target/\n' +
+		'!**/src/test/**/target/\n' +
 		'**/META-INF/*\n' +
 		'\n' +
-		'# Intellij\n' +
+		'### STS ###\n' +
+		'.apt_generated\n' +
+		'.classpath\n' +
+		'.factorypath\n' +
+		'.project\n' +
+		'.settings\n' +
+		'.springBeans\n' +
+		'.sts4-cache\n' +
+		'\n' +
+		'### IntelliJ IDEA ###\n' +
 		'.idea/*\n' +
-		'*.iml')
+		'*.iws\n' +
+		'*.iml\n' +
+		'*.ipr\n' +
+		'\n' +
+		'### NetBeans ###\n' +
+		'/nbproject/private/\n' +
+		'/nbbuild/\n' +
+		'/dist/\n' +
+		'/nbdist/\n' +
+		'/.nb-gradle/\n' +
+		'build/\n' +
+		'!**/src/main/**/build/\n' +
+		'!**/src/test/**/build/\n' +
+		'\n' +
+		'### VS Code ###\n' +
+		'.vscode/')
 
 def gitignoreStr = rGenCode.toString()
 log.info 'File to write: '+ gitignoreFile.getAbsolutePath()

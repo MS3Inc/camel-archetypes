@@ -48,9 +48,12 @@ public class BaseRestRouteBuilder extends EndpointRouteBuilder {
 			.logHandled(true)
 			.logStackTrace(true)
 			.process(REST_EXCEPTION_PROCESSOR)
+			.setBody(constant(null))
+			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JAVA_VALUE))
 			.transform(datasonnet("resource:classpath:rest-exception.ds", String.class)
-					.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE)
-			);
+					.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE))
+			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JSON_VALUE))
+		;
 
 		onException(Exception.class)
 			.routeId("exception-policy")
@@ -58,8 +61,11 @@ public class BaseRestRouteBuilder extends EndpointRouteBuilder {
 			.logHandled(true)
 			.logStackTrace(true)
 			.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
+			.setBody(constant(null))
+			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JAVA_VALUE))
 			.transform(datasonnet("resource:classpath:exception.ds", String.class)
-					.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE)
-			);
+					.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE))
+			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JSON_VALUE))
+		;
 	}
 }
