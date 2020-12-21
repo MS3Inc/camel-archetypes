@@ -274,7 +274,7 @@ for (String path : pathKeys) {
 	if (patchOp != null) {
 		indent=3
 		def opId = 'patch'+path.replace('/', '-')
-		opId = opId.replace('{', '').replace('{', '')
+		opId = opId.replace('{', '').replace('}', '')
 		opIdList.add(opId)
 		def desc = patchOp.getDescription()
 		rGenCode.append(tabs(indent)+'.patch("'+path+'")\n')
