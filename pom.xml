@@ -20,7 +20,7 @@
 
     <groupId>com.ms3-inc.camel</groupId>
     <artifactId>archetypes</artifactId>
-    <version>0.2.2</version>
+    <version>0.2.3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <inceptionYear>2020</inceptionYear>
 
