@@ -374,10 +374,10 @@ for (String opId : opIdList) {
 	indent=2
 	rGenCode.append(tabs(indent)+'from(direct("'+opId+'"))\n')
 	indent=3
-    rGenCode.append(tabs(indent)+'.setBody(datasonnet("{opId: \'')
+    rGenCode.append(tabs(indent)+'.setBody(DatasonnetExpression.builder("{opId: \'')
     rGenCode.append(opId)
 	indent=5
-    rGenCode.append('\'}", String.class)\n'+tabs(indent)+'.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE))\n')
+    rGenCode.append('\'}", String.class)\n'+tabs(indent)+'.outputMediaType(MediaTypes.APPLICATION_JSON))\n')
 
 	indent=2
 	rGenCode.append(tabs(indent)+';\n')
