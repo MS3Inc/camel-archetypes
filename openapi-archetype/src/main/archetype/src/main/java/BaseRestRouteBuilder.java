@@ -21,6 +21,16 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
  * @author Maven Archetype (camel-oas-archetype)
  */
 public class BaseRestRouteBuilder extends EndpointRouteBuilder {
+	protected DatasonnetExpression datasonnetEx(String expression) {
+		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression);
+	}
+	protected DatasonnetExpression datasonnetEx(String expression, Class<?> resultType) {
+		Object[] properties = new Object[3];
+		properties[0] = resultType;
+		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression, properties);
+	}
+
+
 	private static final Processor REST_EXCEPTION_PROCESSOR = ex -> {
 		RestException exc = ex.getProperty(Exchange.EXCEPTION_CAUGHT, RestException.class);
 
@@ -51,7 +61,7 @@ public class BaseRestRouteBuilder extends EndpointRouteBuilder {
 			.process(REST_EXCEPTION_PROCESSOR)
 			.setBody(constant(null))
 			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JAVA_VALUE))
-			.transform(DatasonnetExpression.builder("resource:classpath:rest-exception.ds", String.class)
+			.transform(datasonnetEx("resource:classpath:rest-exception.ds", String.class)
 					.outputMediaType(MediaTypes.APPLICATION_JSON))
 			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JSON_VALUE))
 		;
@@ -64,7 +74,7 @@ public class BaseRestRouteBuilder extends EndpointRouteBuilder {
 			.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
 			.setBody(constant(null))
 			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JAVA_VALUE))
-			.transform(DatasonnetExpression.builder("resource:classpath:exception.ds", String.class)
+			.transform(datasonnetEx("resource:classpath:exception.ds", String.class)
 					.outputMediaType(MediaTypes.APPLICATION_JSON))
 			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JSON_VALUE))
 		;
