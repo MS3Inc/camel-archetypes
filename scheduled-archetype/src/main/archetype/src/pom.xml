@@ -23,7 +23,7 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-		<camel.version>3.5.0</camel.version>
+		<camel.version>3.7.0</camel.version>
 	</properties>
 
 	<dependencyManagement>
@@ -101,7 +101,7 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core-engine</artifactId>
-			<version>${camel.version}-MS3-001</version>
+			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -150,11 +150,11 @@
 		<resources>
 			<resource>
 				<!-- todo: figure out why this is needed -->
-				<directory>main/resources</directory>
+				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
 			<resource>
-				<directory>mainasonnet</directory>
+				<directory>src/main/datasonnet</directory>
 			</resource>
 		</resources>
 		<plugins>

@@ -5,6 +5,7 @@ import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import com.ms3_inc.camel.extensions.rest.OpenApi4jValidator;
+import org.apache.camel.LoggingLevel;
 
 /**
  * Generated routes are based on the OpenAPI document in src/generated/api folder.
@@ -37,5 +38,19 @@ public class RoutesGenerated extends BaseRestRouteBuilder{
 
 [generated-restdsl]
 
+        from(direct("logger-helper-start"))
+                .log(LoggingLevel.INFO,  createLog("start"))
+        ;
+
+        from(direct("logger-helper-end"))
+                .log(LoggingLevel.INFO,  createLog("end"))
+        ;
+
+    }
+
+    String createLog(String startOrEnd) {
+        return "[system = ApacheCamel" + contextPath + "]" +
+                "[route_name = ${exchangeProperty.origRouteId}]" +
+                "[message = " + startOrEnd +" of ${exchangeProperty.origRouteId}]";
     }
 }

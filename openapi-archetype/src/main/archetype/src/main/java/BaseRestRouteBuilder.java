@@ -24,12 +24,12 @@ public class BaseRestRouteBuilder extends EndpointRouteBuilder {
 	protected DatasonnetExpression datasonnetEx(String expression) {
 		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression);
 	}
+	
 	protected DatasonnetExpression datasonnetEx(String expression, Class<?> resultType) {
 		Object[] properties = new Object[3];
 		properties[0] = resultType;
 		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression, properties);
 	}
-
 
 	private static final Processor REST_EXCEPTION_PROCESSOR = ex -> {
 		RestException exc = ex.getProperty(Exchange.EXCEPTION_CAUGHT, RestException.class);
