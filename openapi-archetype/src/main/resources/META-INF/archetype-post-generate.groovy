@@ -19,7 +19,7 @@ def log = LoggerFactory.getLogger('org.apache.camel.archetype')
 log.info("Attempting to execute mvn command...\n")
 
 def specUri = request.properties['specificationUri']
-def generatedApiDirectory = request.artifactId
+def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
 
 def mvnCommand = "mvn com.ms3-inc.camel:camel-restdsl-openapi-plugin:generate -DspecificationUri=" + specUri + " -f " + generatedApiDirectory
 log.info mvnCommand.execute().text
