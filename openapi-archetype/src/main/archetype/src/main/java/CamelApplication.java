@@ -1,6 +1,5 @@
 package ${package};
 
-import io.jaegertracing.Configuration;
 import org.apache.camel.opentracing.OpenTracingTracer;
 import org.apache.camel.tracing.Tracer;
 import org.springframework.boot.SpringApplication;
@@ -27,9 +26,9 @@ public class CamelApplication {
 
 
 	@Bean
-	public Tracer tracer() {
+	public Tracer setTracer(io.opentracing.Tracer otTracer) {
 		OpenTracingTracer answer = new OpenTracingTracer();
-		answer.setTracer(Configuration.fromEnv().getTracer());
+		answer.setTracer(otTracer);
 
 		return answer;
 	}
