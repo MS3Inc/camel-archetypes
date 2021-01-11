@@ -21,8 +21,6 @@ jobs:
         with:
           java-version: 11
       - name: mvn clean verify
-        env:
-          JAEGER_SERVICE_NAME: it-run-camel
         run: ./mvnw -V --no-transfer-progress --batch-mode clean verify
   deploy:
     if: github.ref == 'refs/heads/main'

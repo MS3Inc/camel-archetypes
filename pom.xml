@@ -69,13 +69,11 @@
 
     <distributionManagement>
         <repository>
-            <id>ms3-nexus</id>
-            <name>maven-releases</name>
-            <url>https://maven.ms3-inc.com/repository/maven-releases/</url>
+            <id>sonatype-ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
         <snapshotRepository>
             <id>ms3-nexus</id>
-            <name>maven-snapshots</name>
             <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
@@ -175,6 +173,26 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
