@@ -1,6 +1,7 @@
 package ${package};
 
 import org.apache.camel.LoggingLevel;
+import org.apache.camel.language.datasonnet.DatasonnetExpression;
 import com.datasonnet.document.MediaTypes;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
@@ -17,6 +18,15 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
  * @author Maven Archetype (camel-oas-archetype)
  */
 public class BaseRouteBuilder extends EndpointRouteBuilder {
+	protected DatasonnetExpression datasonnetEx(String expression) {
+		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression);
+	}
+
+	protected DatasonnetExpression datasonnetEx(String expression, Class<?> resultType) {
+		Object[] properties = new Object[3];
+		properties[0] = resultType;
+		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression, properties);
+	}
 
 	@Override
 	public void configure() throws Exception {
@@ -27,8 +37,8 @@ public class BaseRouteBuilder extends EndpointRouteBuilder {
 				.logHandled(true)
 				.logStackTrace(true)
 				.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
-				.transform(datasonnet("resource:classpath:exception.ds")
-						.outputMediaType(MediaTypes.APPLICATION_JSON_VALUE)
+				.transform(datasonnetEx("resource:classpath:exception.ds")
+						.outputMediaType(MediaTypes.APPLICATION_JSON)
 				)
 				.log(LoggingLevel.INFO, "${body}")
 			;
