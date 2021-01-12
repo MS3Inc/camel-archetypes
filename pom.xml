@@ -18,7 +18,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ms3-inc.camel</groupId>
+    <groupId>com.ms3-inc.tavros</groupId>
     <artifactId>archetypes</artifactId>
     <version>0.2.3-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -27,8 +27,8 @@
     <name>Camel Archetypes Parent</name>
 
     <modules>
-        <module>openapi-archetype</module>
-        <module>scheduled-archetype</module>
+        <module>camel-openapi-archetype</module>
+        <module>camel-scheduled-archetype</module>
     </modules>
 
     <licenses>
@@ -61,9 +61,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</connection>
-        <developerConnection>scm:git:https://github.com/MS3Inc/camel-oas-archetype.git</developerConnection>
-        <url>https://github.com/MS3Inc/camel-oas-archetype</url>
+        <connection>scm:git:https://github.com/MS3Inc/camel-archetypes.git</connection>
+        <developerConnection>scm:git:https://github.com/MS3Inc/camel-archetypes.git</developerConnection>
+        <url>https://github.com/MS3Inc/camel-archetypes</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -148,7 +148,6 @@
                 <configuration>
                     <serverId>sonatype-ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>
