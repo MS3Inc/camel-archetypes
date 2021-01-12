@@ -10,15 +10,14 @@ $h3 Getting Started
 
 **Running Locally using IDE**
 
-Use the following environment variables:
-   * ```JAEGER_SERVICE_NAME=test```  
+Use the following environment variables: 
    * ```spring.profiles.active=<env>```
    * ```spring.config.name=${artifactId}```
 
 **Running on Command Line**
 
 ```
-JAEGER_SERVICE_NAME=test mvn spring-boot:run -Dspring-boot.run.profiles=<env> -Dspring-boot.run.arguments="--spring.config.name=${artifactId}"
+mvn spring-boot:run -Dspring-boot.run.profiles=<env> -Dspring-boot.run.arguments="--spring.config.name=${artifactId}"
 ```
 
 $h3 How to Test

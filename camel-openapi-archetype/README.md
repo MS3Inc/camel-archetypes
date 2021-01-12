@@ -14,17 +14,17 @@ To build the archetype, CD into the archetype source and run "mvn clean install"
 To run the archetype, CD to the directory where the new project will live and then run:
 
 mvn archetype:generate \\  
--DarchetypeGroupId=com.ms3-inc.camel \\  
--DarchetypeArtifactId=openapi-archetype \\  
--DarchetypeVersion=0.1.1-SNAPSHOT \\  
+-DarchetypeGroupId=com.ms3-inc.tavros \\  
+-DarchetypeArtifactId=camel-openapi-archetype \\  
+-DarchetypeVersion=0.2.3-SNAPSHOT \\  
 -DpackageInPathFormat \\  
--Dpackage=com.ms3_inc.camel \\  
--DgroupId=com.ms3-inc.camel \\   
+-Dpackage=com.ms3_inc.tavros \\  
+-DgroupId=com.ms3-inc.tavros \\   
 -Dversion=0.0.1-SNAPSHOT
 
 The -DpackageInPathFormat and -package arguments are only needed if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed.
 
-You will be prompted for an artifictId (project name) and API file.  Enter full path to the API file.  Do not use backslashes on a Windows computer. Convert to slashes:  c:/dev/myApi/src/main/resources/api/api.yaml.  This can also be provided on the command line using -DspecificationUri=PATH
+You will be prompted for an artifictId (project name) and specificationUri (API file).  Enter full path to the API file.  Do not use backslashes on a Windows computer. Convert to slashes:  c:/dev/myApi/src/main/resources/api/api.yaml.  This can also be provided on the command line using -DspecificationUri=PATH
 
 ### Who do I talk to? ###
 
