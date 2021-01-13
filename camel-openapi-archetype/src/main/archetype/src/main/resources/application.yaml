@@ -14,14 +14,7 @@ management:
       read-only: true
     health:
       enabled: true
-      probes:
-        enabled: true
   endpoints:
     web:
       exposure:
         include: info,health,camelroutes
-  health:
-    livenessstate:
-      enabled: true
-    readinessstate:
-      enabled: true
