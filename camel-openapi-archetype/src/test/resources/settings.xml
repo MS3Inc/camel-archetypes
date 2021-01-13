@@ -41,16 +41,6 @@
                     <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
                 </repository>
             </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>ms3-snapshots</id>
-                    <name>maven-snapshots</name>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
-                </pluginRepository>
-            </pluginRepositories>
         </profile>
     </profiles>
 </settings>
