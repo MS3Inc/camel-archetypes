@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2020 the original author or authors.
+    Copyright 2020-2021 the original author or authors.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -16,17 +16,16 @@
     limitations under the License.
 
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.ms3-inc.camel</groupId>
+        <groupId>com.ms3-inc.tavros</groupId>
         <artifactId>archetypes</artifactId>
         <version>0.2.3-SNAPSHOT</version>
     </parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>scheduled-archetype</artifactId>
+	<artifactId>camel-scheduled-archetype</artifactId>
 	<packaging>maven-archetype</packaging>
 
 	<name>Camel Scheduled Task Archetype</name>
