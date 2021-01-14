@@ -21,5 +21,20 @@ log.info("Attempting to execute mvn command...\n")
 def specUri = request.properties['specificationUri']
 def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
 
-def mvnCommand = "mvn com.ms3-inc.tavros:camel-restdsl-openapi-plugin:0.1.1:generate -DspecificationUri=" + specUri + " -f " + generatedApiDirectory + " -X"
-log.info mvnCommand.execute().text
+log.info("Running mvn in " + generatedApiDirectory)
+
+def prefixForRunningWithWindows =  ['cmd', '/c']
+def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:0.1.1:generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]
+
+if (System.properties['os.name'].toLowerCase().contains('windows')) {
+    log.info "Executing command for Windows"
+    mvnCommand = prefixForRunningWithWindows + mvnCommand
+}
+
+Process process = mvnCommand.execute()
+def out = new StringBuffer()
+def err = new StringBuffer()
+process.consumeProcessOutput( out, err )
+process.waitFor()
+if( out.size() > 0 ) println out
+if( err.size() > 0 ) println err
