@@ -144,6 +144,7 @@
 		</dependency>
 	</dependencies>
 
+    <!-- Needed for grabbing DSL plugin from MS3 repo -->
 	<pluginRepositories>
 		<pluginRepository>
 			<snapshots>
@@ -198,6 +199,10 @@
 				<configuration>
 					<!-- see: https://github.com/spring-projects/spring-boot/issues/23545 -->
 					<jmxPort>9009</jmxPort>
+					<!-- For Docker	-->
+					<layers>
+						<enabled>true</enabled>
+					</layers>
 				</configuration>
 				<executions>
 					<execution>
