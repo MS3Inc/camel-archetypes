@@ -38,19 +38,5 @@ public class RoutesGenerated extends BaseRestRouteBuilder{
 
 [generated-restdsl]
 
-        from(direct("logger-helper-start"))
-                .log(LoggingLevel.INFO,  createLog("start"))
-        ;
-
-        from(direct("logger-helper-end"))
-                .log(LoggingLevel.INFO,  createLog("end"))
-        ;
-
-    }
-
-    String createLog(String startOrEnd) {
-        return "[system = ApacheCamel " + contextPath + "]" +
-                "[route_name = ${exchangeProperty.origRouteId}]" +
-                "[message = " + startOrEnd +" of ${exchangeProperty.origRouteId}]";
     }
 }
