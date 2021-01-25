@@ -138,9 +138,20 @@
 			<version>3.2.2</version>
 		</dependency>
 		<dependency>
+			<groupId>com.ms3-inc.tavros</groupId>
+			<artifactId>camel-opentracing</artifactId>
+			<version>3.7.1-001</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-opentracing-starter</artifactId>
 			<version>${camel.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.camel</groupId>
+					<artifactId>camel-opentracing</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Test -->
@@ -155,6 +166,18 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<!-- Needed for grabbing tavros-camel-components from MS3 repo -->
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>ms3-nexus</id>
+			<name>maven-releases</name>
+			<url>https://maven.ms3-inc.com/repository/maven-releases/</url>
+		</repository>
+	</repositories>
 
     <!-- Needed for grabbing DSL plugin from MS3 repo -->
 	<pluginRepositories>

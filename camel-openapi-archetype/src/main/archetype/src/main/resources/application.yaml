@@ -6,6 +6,7 @@ spring:
 camel:
   springboot:
     name: ${project.artifactId}
+    use-mdc-logging: true
   rest:
     port: 9000
     context-path: /api
