@@ -49,7 +49,7 @@ public class RoutesGenerated extends BaseRestRouteBuilder{
     }
 
     String createLog(String startOrEnd) {
-        return "[system = ApacheCamel" + contextPath + "]" +
+        return "[system = ApacheCamel " + contextPath + "]" +
                 "[route_name = ${exchangeProperty.origRouteId}]" +
                 "[message = " + startOrEnd +" of ${exchangeProperty.origRouteId}]";
     }
