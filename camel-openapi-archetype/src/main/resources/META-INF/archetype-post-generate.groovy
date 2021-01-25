@@ -24,7 +24,7 @@ def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
 log.info("Running mvn in " + generatedApiDirectory)
 
 def prefixForRunningWithWindows =  ['cmd', '/c']
-def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:0.1.2:generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]
+def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:0.1.3:generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]
 
 if (System.properties['os.name'].toLowerCase().contains('windows')) {
     log.info "Executing command for Windows"
