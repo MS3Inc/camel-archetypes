@@ -37,17 +37,16 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- override camel's scala version -->
+			<dependency>
+				<groupId>org.scala-lang</groupId>
+				<artifactId>scala-library</artifactId>
+				<version>2.13.3</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- override camel's scala version -->
-		<!-- todo find where to add maven exclusion -->
-		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>2.13.3</version>
-		</dependency>
 		<!-- Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -167,7 +166,7 @@
 		</dependency>
 	</dependencies>
 
-	<!-- Needed for grabbing tavros-camel-components from MS3 repo -->
+	<!-- ms3-inc repositories -->
 	<repositories>
 		<repository>
 			<snapshots>
@@ -178,8 +177,6 @@
 			<url>https://maven.ms3-inc.com/repository/maven-releases/</url>
 		</repository>
 	</repositories>
-
-    <!-- Needed for grabbing DSL plugin from MS3 repo -->
 	<pluginRepositories>
 		<pluginRepository>
 			<snapshots>
@@ -194,7 +191,6 @@
 	<build>
 		<resources>
 			<resource>
-				<!-- todo: figure out why this is needed -->
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
@@ -234,7 +230,6 @@
 				<configuration>
 					<!-- see: https://github.com/spring-projects/spring-boot/issues/23545 -->
 					<jmxPort>9009</jmxPort>
-					<!-- For Docker	-->
 					<layers>
 						<enabled>true</enabled>
 					</layers>
