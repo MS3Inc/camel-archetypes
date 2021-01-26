@@ -1,5 +1,6 @@
 package ${package};
 
+import com.datasonnet.document.DefaultDocument;
 import com.datasonnet.document.Document;
 import com.datasonnet.document.MediaTypes;
 import org.apache.camel.language.datasonnet.DatasonnetExpression;
@@ -59,11 +60,9 @@ public class BaseRestRouteBuilder extends EndpointRouteBuilder {
 			.logHandled(true)
 			.logStackTrace(true)
 			.process(REST_EXCEPTION_PROCESSOR)
-			.setBody(constant(null))
-			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JAVA_VALUE))
+			.setBody(constant(DefaultDocument.NULL_INSTANCE))
 			.transform(datasonnetEx("resource:classpath:rest-exception.ds", String.class)
 					.outputMediaType(MediaTypes.APPLICATION_JSON))
-			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JSON_VALUE))
 		;
 
 		onException(Exception.class)
@@ -72,11 +71,9 @@ public class BaseRestRouteBuilder extends EndpointRouteBuilder {
 			.logHandled(true)
 			.logStackTrace(true)
 			.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
-			.setBody(constant(null))
-			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JAVA_VALUE))
+			.setBody(constant(DefaultDocument.NULL_INSTANCE))
 			.transform(datasonnetEx("resource:classpath:exception.ds", String.class)
 					.outputMediaType(MediaTypes.APPLICATION_JSON))
-			.setHeader(Exchange.CONTENT_TYPE, constant(MediaTypes.APPLICATION_JSON_VALUE))
 		;
 	}
 }
