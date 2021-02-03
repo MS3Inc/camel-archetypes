@@ -87,17 +87,6 @@
         <archetype.test.settingsFile>src/test/resources/settings.xml</archetype.test.settingsFile>
     </properties>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>ms3-nexus</id>
-            <name>maven-releases</name>
-            <url>https://maven.ms3-inc.com/repository/maven-releases/</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <build>
         <plugins>
             <plugin>
