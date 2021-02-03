@@ -13,18 +13,23 @@ To build the archetype, CD into the archetype source and run "mvn clean install"
 
 To run the archetype, CD to the directory where the new project will live and then run:
 
+```bash
 mvn archetype:generate \\  
--DarchetypeGroupId=com.ms3-inc.camel \\  
--DarchetypeArtifactId=scheduled-archetype \\  
--DarchetypeVersion=0.1-SNAPSHOT \\  
+-DarchetypeGroupId=com.ms3-inc.tavros \\  
+-DarchetypeArtifactId=camel-scheduled-archetype \\  
+-DarchetypeVersion=<check-for-latest>
+```
+
+You will be prompted for a `package`, `groupId`,` version`, and `artifactId` (project name).
+
+The `-DpackageInPathFormat` and `-package` arguments should be supplied if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed. Here is an example:
+```bash
 -DpackageInPathFormat \\  
--Dpackage=com.ms3_inc.camel \\  
--DgroupId=com.ms3-inc.camel \\  
+-Dpackage=com.ms3_inc.tavros \\  
+-DgroupId=com.ms3-inc.tavros \\  
 -Dversion=0.0.1-SNAPSHOT
+```
 
-The -DpackageInPathFormat and -package arguments are only needed if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed.
-
-You will be prompted for an artifictId (project name).
 
 ### Who do I talk to? ###
 

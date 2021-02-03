@@ -44,17 +44,16 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- override camel's scala version -->
+			<dependency>
+				<groupId>org.scala-lang</groupId>
+				<artifactId>scala-library</artifactId>
+				<version>2.13.3</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- override camel's scala version -->
-		<!-- todo find where to add maven exclusion -->
-		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>2.13.3</version>
-		</dependency>
 		<!-- Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,9 +79,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
+		<!-- Logging -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-layout-template-json</artifactId>
+			<version>2.14.0</version>
 		</dependency>
 
 		<!-- Camel -->
@@ -100,18 +111,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core-engine</artifactId>
-			<version>${camel.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-datasonnet</artifactId>
-			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-endpointdsl</artifactId>
-			<version>${camel.version}</version>
 		</dependency>
 
 		<!-- ms3-inc Camel Rest Extensions -->
@@ -125,12 +129,22 @@
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-opentracing-starter</artifactId>
-			<version>${camel.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.camel</groupId>
+					<artifactId>camel-opentracing</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.ms3-inc.tavros</groupId>
+			<artifactId>camel-opentracing</artifactId>
+			<version>${camel.version}-001</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jaegertracing</groupId>
 			<artifactId>jaeger-client</artifactId>
-			<version>0.34.3</version>
+			<version>1.5.0</version>
 		</dependency>
 
 		<!-- Test -->
@@ -149,7 +163,6 @@
 	<build>
 		<resources>
 			<resource>
-				<!-- todo: figure out why this is needed -->
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
@@ -189,6 +202,9 @@
 				<configuration>
 					<!-- see: https://github.com/spring-projects/spring-boot/issues/23545 -->
 					<jmxPort>9009</jmxPort>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
 				</configuration>
 				<executions>
 					<execution>
