@@ -8,6 +8,19 @@ on:
       snapshot_ver:
         description: 'Version to use for next development iteration'
         required: false
+      gpg_secret:
+        description: 'Name of the `secret` to use as the GPG key to sign the release'
+        required: true
+      gpg_passphrase:
+        description: 'GPG passphrase to unlock the GPG secret'
+        required: true
+      sonatype_user:
+        description: 'Sonatype OSSRH username'
+        required: true
+      sonatype_password:
+        description: 'Sonatype OSSRH password'
+        required: true
+
 jobs:
   release:
     if: github.ref == 'refs/heads/main'
@@ -29,10 +42,17 @@ jobs:
           -DreleaseVersion='${{ github.event.inputs.release_ver }}' \
           -DdevelopmentVersion='${{ github.event.inputs.snapshot_ver }}' \
           release:prepare"
+      - id: install-secret-key
+        name: Install gpg secret key
+        run: |
+          cat <(echo -e "${{ secrets[github.event.inputs.gpg_secret] }}") | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
       - name: mvn release:perform
         env:
-          REPO_USER: ${{ secrets.REPO_USER }}
-          REPO_PASSWORD: ${{ secrets.REPO_PASSWORD }}
+          SONATYPE_USER: ${{ github.event.inputs.sonatype_user }}
+          SONATYPE_PASSWORD: ${{ github.event.inputs.sonatype_password }}
+          GPG_EXECUTABLE: gpg
+          GPG_PASSPHRASE: ${{ github.event.inputs.gpg_passphrase }}
         run: "./mvnw -V --no-transfer-progress --batch-mode --settings .settings.xml \
           -Darguments='--settings .settings.xml -Dlicense.skip=true -DskipTests -Darchetype.test.skip=true \
-          -Dmaven.install.skip=true' release:perform"
+          -Dmaven.install.skip=true' -P release release:perform"
