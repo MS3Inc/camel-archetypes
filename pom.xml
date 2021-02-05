@@ -25,6 +25,8 @@
     <inceptionYear>2020</inceptionYear>
 
     <name>Camel Archetypes Parent</name>
+    <description>The parent for Tavros Camel archetypes.</description>
+    <url>https://github.com/MS3Inc/camel-archetypes</url>
 
     <modules>
         <module>camel-openapi-archetype</module>

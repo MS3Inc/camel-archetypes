@@ -136,7 +136,7 @@
 		<dependency>
 			<groupId>com.ms3-inc.tavros</groupId>
 			<artifactId>camel-opentracing</artifactId>
-			<version>${camel.version}-001</version>
+			<version>${camel.version}-002</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jaegertracing</groupId>
