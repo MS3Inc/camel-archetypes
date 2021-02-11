@@ -68,6 +68,7 @@
 				<include>README.md</include>
 				<include>CHANGELOG.md</include>
 				<include>Dockerfile</include>
+				<include>gitignore</include>
 			</includes>
 		</fileSet>
 	</fileSets>

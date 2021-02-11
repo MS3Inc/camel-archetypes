@@ -1,0 +1,36 @@
+#set($h3 = '###')
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+**/META-INF/*
+
+$h3 STS $h3
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+$h3 IntelliJ IDEA $h3
+.idea/*
+*.iws
+*.iml
+*.ipr
+
+$h3 NetBeans $h3
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+$h3 VS Code $h3
+.vscode/
