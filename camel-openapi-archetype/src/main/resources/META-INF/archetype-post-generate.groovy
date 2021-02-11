@@ -71,5 +71,5 @@ if (process.exitValue() != 0) {
 }
 
 if (isFailure) {
-    throw new Exception("Build stopped because the post processing script ran into a problem.");
+    throw new Exception("Build stopped because the post processing script ran into a problem, see details above.");
 }
