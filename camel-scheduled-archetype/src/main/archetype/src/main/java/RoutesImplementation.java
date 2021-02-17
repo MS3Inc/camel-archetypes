@@ -11,25 +11,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RoutesImplementation extends BaseRouteBuilder {
-    //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void configure() throws Exception {
     	super.configure();
-        //final String DSPATH = "resource:classpath:datasonnet/";
-
-        //  Error handler for all exceptions thrown by the Camel routes below.
-        onException(Exception.class)
-                .process(exchange -> {
-                    final String EXCEPTION = exchange.getProperty("CamelExceptionCaught").toString();
-	                //LOGGER.debug(EXCEPTION);
-	
-	                exchange.getMessage().setBody("{\"message\":\""+	EXCEPTION+"\"}");
-                })
-                .routeId("exceptionHandler")
-                .handled(true)
-                .log(LoggingLevel.INFO, "${body}")
-        ;
 
         // Example of an implementation for a scheduled task end point.
         from(direct("task"))

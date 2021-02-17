@@ -1,7 +1,12 @@
 package ${package};
 
+import io.jaegertracing.Configuration;
+import org.apache.camel.opentracing.OpenTracingTracer;
+import org.apache.camel.tracing.Tracer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  * This is the application class and main() entry point for a Spring Boot/Camel application.
@@ -21,4 +26,11 @@ public class CamelApplication {
 		SpringApplication.run(CamelApplication.class, args);
 	}
 
+	@Bean
+	public Tracer tracer(@Value("#[[${JAEGER_SERVICE_NAME:${spring.application.name:unknown-camel}}]]#") String serviceName) {
+		OpenTracingTracer answer = new OpenTracingTracer();
+		answer.setTracer(Configuration.fromEnv(serviceName).getTracer());
+
+		return answer;
+	}
 }

@@ -52,11 +52,14 @@
 				<include>**/*</include>
 			</includes>
 		</fileSet>
-		<!-- <fileSet filtered="true" encoding="UTF-8">
-			<directory>.</directory>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory/>
 			<includes>
 				<include>README.md</include>
+				<include>CHANGELOG.md</include>
+				<include>Dockerfile</include>
+				<include>gitignore</include>
 			</includes>
-		</fileSet> -->
+		</fileSet>
 	</fileSets>
 </archetype-descriptor>

@@ -1,11 +1,11 @@
 # README #
 
 This is a Maven archetype that generates a Camel/SpringBoot application with stubbed code for a scheduled (batch) task.
-It is part of the MS3 Integration Platform.
+It is part of MS3's integration platform, [Tavros](https://github.com/MS3Inc/tavros).
 
 ### How do I get set up? ###
 
-Clone the develop branch of this repo.  Work should be done on branches with names like feature/MTK-nn, based on the MTK Jira project.
+Clone the main branch of this repo. 
 
 To build the archetype, CD into the archetype source and run "mvn clean install"
 
@@ -29,7 +29,6 @@ The `-DpackageInPathFormat` and `-package` arguments should be supplied if your 
 -DgroupId=com.ms3-inc.tavros \\  
 -Dversion=0.0.1-SNAPSHOT
 ```
-
 
 ### Who do I talk to? ###
 

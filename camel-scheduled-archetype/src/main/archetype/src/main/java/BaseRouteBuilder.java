@@ -1,8 +1,9 @@
 package ${package};
 
-import org.apache.camel.LoggingLevel;
-import org.apache.camel.language.datasonnet.DatasonnetExpression;
+import com.datasonnet.document.DefaultDocument;
+import com.datasonnet.document.Document;
 import com.datasonnet.document.MediaTypes;
+import org.apache.camel.language.datasonnet.DatasonnetExpression;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 
@@ -30,21 +31,16 @@ public class BaseRouteBuilder extends EndpointRouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
-		try {
-			onException(Exception.class)
-				.routeId("exception-policy")
-				.handled(true)
-				.logHandled(true)
-				.logStackTrace(true)
-				.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
-				.transform(datasonnetEx("resource:classpath:exception.ds")
-						.outputMediaType(MediaTypes.APPLICATION_JSON)
-				)
-				.log(LoggingLevel.INFO, "${body}")
-			;
-		}
-		catch(Exception ex) {
-			System.out.println("Exception caught");
-		}
+
+		onException(Exception.class)
+			.routeId("exception-policy")
+			.handled(true)
+			.logHandled(true)
+			.logStackTrace(true)
+			.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
+			.setBody(constant(DefaultDocument.NULL_INSTANCE))
+			.transform(datasonnetEx("resource:classpath:exception.ds", String.class)
+					.outputMediaType(MediaTypes.APPLICATION_JSON))
+		;
 	}
 }

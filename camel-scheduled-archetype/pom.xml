@@ -29,7 +29,7 @@
 
 	<name>Camel Scheduled Task Archetype</name>
 	<description>
-		This archetype creates a Camel project for a scheduled task application.
+		This archetype creates a Camel project with Spring Boot for a scheduled task application.
 	</description>
 	<inceptionYear>2020</inceptionYear>
 
@@ -54,6 +54,12 @@
 			<organization>MS3</organization>
 			<organizationUrl>https://ms3-inc.com</organizationUrl>
 		</developer>
+		<developer>
+			<name>Rob Ratcliffe</name>
+			<email>rratcliffe@ms3-inc.com</email>
+			<organization>MS3</organization>
+			<organizationUrl>https://ms3-inc.com</organizationUrl>
+		</developer>
 	</developers>
 
 	<distributionManagement>
@@ -74,7 +80,7 @@
           <extension>
             <groupId>org.apache.maven.archetype</groupId>
             <artifactId>archetype-packaging</artifactId>
-            <version>3.1.1</version>
+            <version>3.2.0</version>
           </extension>
         </extensions>
 

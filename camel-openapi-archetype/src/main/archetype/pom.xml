@@ -8,7 +8,8 @@
 	<packaging>jar</packaging>
 	<version>${version}</version>
 	
-	<name>${artifactId} Spring Boot Camel</name>
+	<name>${artifactId}</name>
+	<description>A Spring Boot Camel API created using MS3's OpenAPI archetype.</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

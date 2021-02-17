@@ -5,6 +5,6 @@ local messages = if (opResult != null) then opResult.messages else [];
         level: 'ERROR',
         type: 'InternalServerError',
         details: 'An unknown error occurred while processing the HTTP request.',
-        diagnostics: std.format('Please contact the administrator of this API with the following correlation ID: %s.', cml.exchangeProperty('CamelCorrelationId'))
+        diagnostics: std.format('Please contact the administrator of this API with the following Trace ID: %s.', cml.header('X-B3-TraceId'))
     }]
 }

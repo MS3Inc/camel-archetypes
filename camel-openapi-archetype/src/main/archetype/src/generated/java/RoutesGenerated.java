@@ -14,7 +14,7 @@ import org.apache.camel.LoggingLevel;
  */
 @Generated("com.ms3_inc.camel.archetype.oas")
 @Component
-public class RoutesGenerated extends BaseRestRouteBuilder{
+public class RoutesGenerated extends BaseRestRouteBuilder {
     private final String contextPath;
 
     public RoutesGenerated(@Value("${camel.rest.context-path}") String contextPath) {

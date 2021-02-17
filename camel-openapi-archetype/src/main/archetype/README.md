@@ -2,11 +2,11 @@
 #set($h4 = '####')
 # ${artifactId}
 
-This API project was generated using the [Camel OpenAPI Archetype](https://github.com/MS3Inc/camel-archetypes).
+This API project was generated using MS3's [Camel OpenAPI Archetype](https://github.com/MS3Inc/camel-archetypes).
 
 $h3 Getting Started
 
-**Running on Command Line**
+**Running on the Command Line**
 
 ```
 mvn spring-boot:run

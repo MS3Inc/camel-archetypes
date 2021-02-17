@@ -15,7 +15,7 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
  * in the application.  Currently, two handlers are included:
  * <ul>
  * <li>RestException - malformed requests, etc.</li>
- * <li>Excetion - everything else returns a 500 status code.</li>
+ * <li>Exception - everything else returns a 500 status code.</li>
  * </ul>
  * These can also be used an examples of how to handle more specific exceptions.
  * 
