@@ -18,8 +18,7 @@ public class RoutesImplementation extends BaseRestRouteBuilder {
     public void configure() throws Exception {
         super.configure();
 
-        // TODO: Replace stubs for each endpoint with real implementation.  Implementation defaults to a simple response with operation Id.
-[generated-routes]
-
+        /* This where the implementation routes go.
+           They consume the producers that are set in RoutesGenerated. */
     }
 }
