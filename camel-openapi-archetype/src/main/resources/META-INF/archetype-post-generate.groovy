@@ -48,7 +48,7 @@ def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
 
 log.info("Running mvn in " + generatedApiDirectory)
 
-def camelRestDslPluginVersion = "0.1.5"
+def camelRestDslPluginVersion = '0.1.5'
 
 def prefixForRunningWithWindows =  ['cmd', '/c']
 def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:' + camelRestDslPluginVersion + ':generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]

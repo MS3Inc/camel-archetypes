@@ -20,5 +20,9 @@ public class RoutesImplementation extends BaseRestRouteBuilder {
 
         /* This where the implementation routes go.
            They consume the producers that are set in RoutesGenerated. */
+        from(direct("get-hello"))
+            .setBody(DatasonnetExpression.builder("{greeting: 'Hello World'}", String.class)
+                    .outputMediaType(MediaTypes.APPLICATION_JSON))
+        ;
     }
 }
