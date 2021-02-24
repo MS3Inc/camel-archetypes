@@ -7,11 +7,11 @@ It is part of MS3's integration platform, [Tavros](https://github.com/MS3Inc/tav
 
 Clone the main branch of this repo. 
 
-To build the archetype, CD into the archetype source and run "mvn clean install"
+To build the archetype, `cd` into the archetype source and run `mvn clean install`
 
 ### How do I run the archetype? ###
 
-To run the archetype, CD to the directory where the new project will live and then run:
+To run the archetype, `cd` to the directory where the new project will live and then run:
 
 ```bash
 mvn archetype:generate \\  
@@ -20,7 +20,7 @@ mvn archetype:generate \\
 -DarchetypeVersion=<check-for-latest>
 ````
 
-You will be prompted for a `package`, `groupId`,` version`, `artifactId` (project name) and `specificationUri` (API file).  Enter full path to the API file.  Do not use backslashes on a Windows computer. Convert to slashes:  c:/dev/myApi/src/main/resources/api/api.yaml.  This can also be provided on the command line using -DspecificationUri=PATH
+You will be prompted for a `package`, `groupId`,` version`, `artifactId` (project name) and `specificationUri` (API file).  Enter full path to the API file.  Do not use backslashes on a Windows computer. Convert to slashes:  c:/dev/myApi/src/main/resources/api/api.yaml.  This can also be provided on the command line by adding `-DspecificationUri=PATH`
 
 The `-DpackageInPathFormat` and `-package` arguments should be supplied if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed. Here is an example:
 ```bash
@@ -29,6 +29,15 @@ The `-DpackageInPathFormat` and `-package` arguments should be supplied if your 
 -DgroupId=com.ms3-inc.tavros \\  
 -Dversion=0.0.1-SNAPSHOT
 ```
+
+### Is an API specification required? ###
+
+Following spec driven development, a specification is required by default and recommended. If you would prefer not to provide a `specificationUri`, this functionality can be overridden by providing anything other than `true`, `yes`, or `y` to the  `generateRoutesFromSpec` property. A `specificationUri` will still need to be provided, but can be set to anything, such as `n`.
+```bash
+-DgenerateRoutesFromSpec=n \\
+-DspecificationUri=n \\
+```
+
 ### Who do I talk to? ###
 
 Contact:

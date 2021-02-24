@@ -24,14 +24,14 @@
     </parent>
 	<modelVersion>4.0.0</modelVersion>
 
-    	<artifactId>camel-openapi-archetype</artifactId>
-    	<packaging>maven-archetype</packaging>
+	<artifactId>camel-openapi-archetype</artifactId>
+	<packaging>maven-archetype</packaging>
 
-    	<name>Camel OpenAPI Archetype</name>
-    	<description>This archetype creates a Camel project with Spring Boot
-        and generates stubs for endpoints in an OpenAPI document.
-    	</description>
-    	<inceptionYear>2020</inceptionYear>
+	<name>Camel OpenAPI Archetype</name>
+	<description>This archetype creates a Camel project with Spring Boot
+	and generates stubs for endpoints in an OpenAPI document.
+	</description>
+	<inceptionYear>2020</inceptionYear>
 
  	<licenses>
 		<license>

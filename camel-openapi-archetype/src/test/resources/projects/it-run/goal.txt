@@ -1,1 +1,0 @@
-install -DJAEGER_SERVICE_NAME=test-camel spring-boot:start exec:exec -Dexec.executable="curl" -Dexec.args="--silent --show-error --fail http://localhost:9000/api/hello" spring-boot:stop

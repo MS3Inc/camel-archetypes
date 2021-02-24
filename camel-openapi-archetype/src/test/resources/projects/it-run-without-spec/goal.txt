@@ -1,0 +1,1 @@
+install spring-boot:start exec:exec -Dexec.executable="curl" -Dexec.args="--silent --show-error --fail http://localhost:9000/api/hello" spring-boot:stop

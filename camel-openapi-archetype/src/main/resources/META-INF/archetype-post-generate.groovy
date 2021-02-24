@@ -31,7 +31,7 @@ Path newGitIgnorePath = origGitIgnorePath.getParent().resolve(".gitignore");
 if (Files.exists(origGitIgnorePath)) {
     try {
         Files.move(origGitIgnorePath, newGitIgnorePath);
-        log.info("Created .gitignore...\n")
+        log.info("Created .gitignore.\n")
     } catch (Exception e) {
         log.error("Could not create .gitignore file. " + e.getMessage().toString())
         isFailure = true;
@@ -41,33 +41,49 @@ if (Files.exists(origGitIgnorePath)) {
     isFailure = true;
 }
 
-log.info("Attempting to execute mvn command...\n")
+def isGeneratingRoutesFromSpec = request.properties['generateRoutesFromSpec']
 
-def specUri = request.properties['specificationUri']
-def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
+if (isGeneratingRoutesFromSpec == "true" ||
+    isGeneratingRoutesFromSpec == "yes"  ||
+    isGeneratingRoutesFromSpec == "y") {
+        String specUri = request.properties['specificationUri']
+        specUri = specUri.trim()
 
-log.info("Running mvn in " + generatedApiDirectory)
+        if (Files.exists(Path.of(specUri))) {
+            log.info("Attempting to generate routes from specification...\n")
 
-def camelRestDslPluginVersion = '0.1.5'
+            def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
 
-def prefixForRunningWithWindows =  ['cmd', '/c']
-def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:' + camelRestDslPluginVersion + ':generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]
+            log.info("Running OpenAPI plugin in " + generatedApiDirectory + "...")
 
-if (System.properties['os.name'].toLowerCase().contains('windows')) {
-    log.info "Executing command for Windows"
-    mvnCommand = prefixForRunningWithWindows + mvnCommand
-}
+            def camelRestDslPluginVersion = '0.1.5'
 
-Process process = mvnCommand.execute()
-def out = new StringBuffer()
-def err = new StringBuffer()
-process.consumeProcessOutput( out, err )
-process.waitFor()
-if( out.size() > 0 ) println out
-if( err.size() > 0 ) println err
+            def prefixForRunningWithWindows =  ['cmd', '/c']
+            def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:' + camelRestDslPluginVersion + ':generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]
 
-if (process.exitValue() != 0) {
-    isFailure = true;
+            if (System.properties['os.name'].toLowerCase().contains('windows')) {
+                log.info "Executing command for Windows..."
+                mvnCommand = prefixForRunningWithWindows + mvnCommand
+            }
+
+            Process process = mvnCommand.execute()
+            def out = new StringBuffer()
+            def err = new StringBuffer()
+            process.consumeProcessOutput( out, err )
+            process.waitFor()
+            if( out.size() > 0 ) println out
+            if( err.size() > 0 ) println err
+
+            if (process.exitValue() != 0) {
+                log.error("There was an error with the OpenAPI plugin.")
+                isFailure = true;
+            }
+        } else {
+            log.error("File doesn't exist. Please try again.")
+            isFailure = true;
+        }
+} else {
+    log.info "Skipping route generation from OpenAPI specification..."
 }
 
 if (isFailure) {

@@ -22,6 +22,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	name="quickstart">
 	<requiredProperties>
+		<requiredProperty key="generateRoutesFromSpec">
+			<defaultValue>true</defaultValue>
+		</requiredProperty>
 		<requiredProperty key="specificationUri"/>
 	</requiredProperties>
  	<fileSets>
@@ -29,6 +32,12 @@
 			<directory>src/main/java</directory>
 			<includes>
 				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/generated/api</directory>
+			<includes>
+				<include>**/*.yaml</include>
 			</includes>
 		</fileSet>
 		<fileSet filtered="true" packaged="true" encoding="UTF-8">

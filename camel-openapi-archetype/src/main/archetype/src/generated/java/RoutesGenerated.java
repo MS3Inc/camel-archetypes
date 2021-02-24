@@ -36,6 +36,9 @@ public class RoutesGenerated extends BaseRestRouteBuilder {
 
         restConfiguration().component("undertow");
 
+        interceptFrom()
+            .process(new OpenApi4jValidator("greeting.yaml", contextPath));
+
         /* This is where the REST routes are set up using the REST DSL.
            They are set up here to separate them from the implementation routes. */
         rest()
