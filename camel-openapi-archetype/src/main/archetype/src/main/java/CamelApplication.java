@@ -27,7 +27,7 @@ public class CamelApplication {
 	}
 
 	@Bean
-	public Tracer tracer(@Value("#[[${JAEGER_SERVICE_NAME:${spring.application.name:unknown-camel}}]]#") String serviceName) {
+	public Tracer tracer(@Value("#[[${JAEGER_SERVICE_NAME:${spring.application.name}}]]#") String serviceName) {
 		OpenTracingTracer answer = new OpenTracingTracer();
 		answer.setTracer(Configuration.fromEnv(serviceName).getTracer());
 
