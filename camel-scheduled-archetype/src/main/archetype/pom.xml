@@ -44,6 +44,12 @@
 				<artifactId>scala-library</artifactId>
 				<version>2.13.3</version>
 			</dependency>
+			<!-- override camel's datasonnet -->
+			<dependency>
+				<groupId>com.datasonnet</groupId>
+				<artifactId>datasonnet-mapper</artifactId>
+				<version>2.1.2</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
