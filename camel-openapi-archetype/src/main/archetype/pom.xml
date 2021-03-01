@@ -119,8 +119,8 @@
 		<!-- ms3-inc Camel Rest Extensions -->
 		<dependency>
 			<groupId>com.ms3-inc.tavros</groupId>
-			<artifactId>rest-extensions</artifactId>
-			<version>0.1.3</version>
+			<artifactId>camel-rest-extensions</artifactId>
+			<version>0.1.4</version>
 		</dependency>
 
 		<!-- OpenTracing deps -->
