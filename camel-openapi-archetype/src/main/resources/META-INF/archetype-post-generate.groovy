@@ -41,51 +41,52 @@ if (Files.exists(origGitIgnorePath)) {
     isFailure = true;
 }
 
-def isGeneratingRoutesFromSpec = request.properties['generateRoutesFromSpec']
+String specUri = request.properties['specificationUri']
+specUri = specUri.trim()
 
-if (isGeneratingRoutesFromSpec == "true" ||
-    isGeneratingRoutesFromSpec == "yes"  ||
-    isGeneratingRoutesFromSpec == "y") {
-        String specUri = request.properties['specificationUri']
-        specUri = specUri.trim()
+def isSample = specUri == "greeting-sample.yaml"
+String sampleSpecPath = request.outputDirectory + "/"+ request.artifactId +  "/src/main/resources/greeting-sample.yaml";
 
-        if (Files.exists(Path.of(specUri))) {
-            log.info("Attempting to generate routes from specification...\n")
+if (isSample) {
+    specUri = sampleSpecPath;
+}
 
-            def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
+def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
+def camelRestDslPluginVersion = '0.1.6'
+def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:' + camelRestDslPluginVersion + ':generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]
 
-            log.info("Running OpenAPI plugin in " + generatedApiDirectory + "...")
+if (Files.exists(Path.of(specUri))) {
+    log.info("Attempting to generate routes from specification...\n")
 
-            def camelRestDslPluginVersion = '0.1.6'
+    log.info("Running OpenAPI plugin in " + generatedApiDirectory + "...")
 
-            def prefixForRunningWithWindows =  ['cmd', '/c']
-            def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:' + camelRestDslPluginVersion + ':generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]
+    def prefixForRunningWithWindows =  ['cmd', '/c']
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        log.info "Executing command for Windows..."
+        mvnCommand = prefixForRunningWithWindows + mvnCommand
+    }
 
-            if (System.properties['os.name'].toLowerCase().contains('windows')) {
-                log.info "Executing command for Windows..."
-                mvnCommand = prefixForRunningWithWindows + mvnCommand
-            }
-
-            Process process = mvnCommand.execute()
-            def out = new StringBuffer()
-            def err = new StringBuffer()
-            process.consumeProcessOutput( out, err )
-            process.waitFor()
-            if( out.size() > 0 ) println out
-            if( err.size() > 0 ) println err
-
-            if (process.exitValue() != 0) {
-                log.error("There was an error with the OpenAPI plugin.")
-                isFailure = true;
-            }
-        } else {
-            log.error("File doesn't exist. Please try again.")
-            isFailure = true;
-        }
 } else {
-    log.info "Skipping route generation from OpenAPI specification..."
+    log.error("File doesn't exist. Please try again.")
+    isFailure = true;
+}
+
+Process process = mvnCommand.execute()
+def out = new StringBuffer()
+def err = new StringBuffer()
+process.consumeProcessOutput( out, err )
+process.waitFor()
+if( out.size() > 0 ) println out
+if( err.size() > 0 ) println err
+
+if (process.exitValue() != 0) {
+    log.error("There was an error with the OpenAPI plugin.")
+    isFailure = true;
 }
 
 if (isFailure) {
     throw new Exception("Build stopped because the post processing script ran into a problem, see details above.");
+} else {
+    log.info "Cleaning up sample spec file..."
+    Files.deleteIfExists(Path.of(sampleSpecPath));
 }

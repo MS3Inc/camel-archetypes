@@ -22,10 +22,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	name="quickstart">
 	<requiredProperties>
-		<requiredProperty key="generateRoutesFromSpec">
-			<defaultValue>true</defaultValue>
+		<requiredProperty key="specificationUri">
+			<defaultValue>greeting-sample.yaml</defaultValue>
 		</requiredProperty>
-		<requiredProperty key="specificationUri"/>
 	</requiredProperties>
  	<fileSets>
 		<fileSet filtered="true" packaged="true" encoding="UTF-8">

@@ -18,11 +18,6 @@ public class RoutesImplementation extends BaseRestRouteBuilder {
     public void configure() throws Exception {
         super.configure();
 
-        /* This where the implementation routes go.
-           They consume the producers that are set in RoutesGenerated. */
-        from(direct("get-hello"))
-            .setBody(DatasonnetExpression.builder("{greeting: 'Hello World'}", String.class)
-                    .outputMediaType(MediaTypes.APPLICATION_JSON))
-        ;
+        // Implementation routes
     }
 }
