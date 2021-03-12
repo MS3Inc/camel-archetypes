@@ -5,7 +5,6 @@ import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import com.ms3_inc.tavros.extensions.rest.OpenApi4jValidator;
-import org.apache.camel.LoggingLevel;
 
 /**
  * Generated routes are based on the OpenAPI document in src/generated/api folder.
