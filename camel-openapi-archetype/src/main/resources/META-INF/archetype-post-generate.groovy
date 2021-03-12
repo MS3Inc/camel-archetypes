@@ -25,6 +25,10 @@ def log = LoggerFactory.getLogger('org.apache.camel.archetype')
 
 boolean isFailure = false;
 
+File readme = Paths.get(request.outputDirectory, request.artifactId, "README.md").toFile()
+String replacedReadme = readme.text.replace('${archetypeVersion}', request.archetypeVersion)
+readme.text = replacedReadme
+
 Path origGitIgnorePath = Paths.get(request.outputDirectory, request.artifactId, "gitignore");
 Path newGitIgnorePath = origGitIgnorePath.getParent().resolve(".gitignore");
 

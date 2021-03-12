@@ -2,7 +2,7 @@
 #set($h4 = '####')
 # ${artifactId}
 
-This API project was generated using MS3's [Camel OpenAPI Archetype](https://github.com/MS3Inc/camel-archetypes).
+This API project was generated using MS3's [Camel OpenAPI Archetype](https://github.com/MS3Inc/camel-archetypes), version ${archetypeVersion}.
 
 $h3 Getting Started
 
