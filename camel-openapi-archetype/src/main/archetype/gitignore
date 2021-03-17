@@ -6,6 +6,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/META-INF/*
+.DS_Store
+Thumbs.db
 
 $h3 STS $h3
 .apt_generated

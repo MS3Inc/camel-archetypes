@@ -17,20 +17,20 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class CamelApplication {
 
-	/**
-	 * When the application is executed, this method is called with a list of arguments, which may be empty.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(CamelApplication.class, args);
-	}
+    /**
+     * When the application is executed, this method is called with a list of arguments, which may be empty.
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(CamelApplication.class, args);
+    }
 
-	@Bean
-	public Tracer tracer(@Value("#[[${JAEGER_SERVICE_NAME:${spring.application.name}}]]#") String serviceName) {
-		OpenTracingTracer answer = new OpenTracingTracer();
-		answer.setTracer(Configuration.fromEnv(serviceName).getTracer());
+    @Bean
+    public Tracer tracer(@Value("#[[${JAEGER_SERVICE_NAME:${spring.application.name}}]]#") String serviceName) {
+        OpenTracingTracer answer = new OpenTracingTracer();
+        answer.setTracer(Configuration.fromEnv(serviceName).getTracer());
 
-		return answer;
-	}
+        return answer;
+    }
 }

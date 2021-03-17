@@ -22,58 +22,58 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
  * @author Maven Archetype (camel-oas-archetype)
  */
 public class BaseRestRouteBuilder extends EndpointRouteBuilder {
-	protected DatasonnetExpression datasonnetEx(String expression) {
-		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression);
-	}
-	
-	protected DatasonnetExpression datasonnetEx(String expression, Class<?> resultType) {
-		Object[] properties = new Object[3];
-		properties[0] = resultType;
-		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression, properties);
-	}
+    protected DatasonnetExpression datasonnetEx(String expression) {
+        return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression);
+    }
 
-	private static final Processor REST_EXCEPTION_PROCESSOR = ex -> {
-		RestException exc = ex.getProperty(Exchange.EXCEPTION_CAUGHT, RestException.class);
+    protected DatasonnetExpression datasonnetEx(String expression, Class<?> resultType) {
+        Object[] properties = new Object[3];
+        properties[0] = resultType;
+        return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression, properties);
+    }
 
-		OperationResult result = ex.getMessage()
-			.getHeader(OperationResult.EXCHANGE_OPERATION_RESULT, new OperationResult(), OperationResult.class)
-			.addMessage(exc.getOperationResultMessage());
+    private static final Processor REST_EXCEPTION_PROCESSOR = ex -> {
+        RestException exc = ex.getProperty(Exchange.EXCEPTION_CAUGHT, RestException.class);
 
-		ex.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, exc.httpStatusCode().orElse(500));
-		ex.getMessage().setHeader(OperationResult.EXCHANGE_OPERATION_RESULT, result);
-	};
+        OperationResult result = ex.getMessage()
+            .getHeader(OperationResult.EXCHANGE_OPERATION_RESULT, new OperationResult(), OperationResult.class)
+            .addMessage(exc.getOperationResultMessage());
 
-	@SuppressWarnings("unused")
-	private static final Processor UNWRAP_DOCUMENT = ex -> {
-		Object doc = ex.getMessage().getBody();
-		if (doc instanceof Document) {
-			ex.getMessage().setBody(((Document<?>) doc).getContent());
-			ex.getMessage().setHeader(Exchange.CONTENT_TYPE, ((Document<?>) doc).getMediaType().toString());
-		}
-	};
+        ex.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, exc.httpStatusCode().orElse(500));
+        ex.getMessage().setHeader(OperationResult.EXCHANGE_OPERATION_RESULT, result);
+    };
 
-	@Override
-	public void configure() throws Exception {
-		onException(RestException.class)
-			.routeId("rest-exception-policy")
-			.handled(true)
-			.logHandled(true)
-			.logStackTrace(true)
-			.process(REST_EXCEPTION_PROCESSOR)
-			.setBody(constant(DefaultDocument.NULL_INSTANCE))
-			.transform(datasonnetEx("resource:classpath:rest-exception.ds", String.class)
-					.outputMediaType(MediaTypes.APPLICATION_JSON))
-		;
+    @SuppressWarnings("unused")
+    private static final Processor UNWRAP_DOCUMENT = ex -> {
+        Object doc = ex.getMessage().getBody();
+        if (doc instanceof Document) {
+            ex.getMessage().setBody(((Document<?>) doc).getContent());
+            ex.getMessage().setHeader(Exchange.CONTENT_TYPE, ((Document<?>) doc).getMediaType().toString());
+        }
+    };
 
-		onException(Exception.class)
-			.routeId("exception-policy")
-			.handled(true)
-			.logHandled(true)
-			.logStackTrace(true)
-			.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
-			.setBody(constant(DefaultDocument.NULL_INSTANCE))
-			.transform(datasonnetEx("resource:classpath:exception.ds", String.class)
-					.outputMediaType(MediaTypes.APPLICATION_JSON))
-		;
-	}
+    @Override
+    public void configure() throws Exception {
+        onException(RestException.class)
+            .routeId("rest-exception-policy")
+            .handled(true)
+            .logHandled(true)
+            .logStackTrace(true)
+            .process(REST_EXCEPTION_PROCESSOR)
+            .setBody(constant(DefaultDocument.NULL_INSTANCE))
+            .transform(datasonnetEx("resource:classpath:rest-exception.ds", String.class)
+                    .outputMediaType(MediaTypes.APPLICATION_JSON))
+        ;
+
+        onException(Exception.class)
+            .routeId("exception-policy")
+            .handled(true)
+            .logHandled(true)
+            .logStackTrace(true)
+            .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
+            .setBody(constant(DefaultDocument.NULL_INSTANCE))
+            .transform(datasonnetEx("resource:classpath:exception.ds", String.class)
+                    .outputMediaType(MediaTypes.APPLICATION_JSON))
+        ;
+    }
 }
