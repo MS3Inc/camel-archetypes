@@ -10,9 +10,8 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * This is the application class and main() entry point for a Spring Boot/Camel application.
- * 
- * @author Maven Archetype (camel-oas-archetype)
  *
+ * @author Maven Archetype (camel-oas-archetype)
  */
 @SpringBootApplication
 public class CamelApplication {

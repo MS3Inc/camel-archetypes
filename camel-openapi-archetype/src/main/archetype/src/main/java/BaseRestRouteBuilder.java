@@ -18,7 +18,7 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
  * <li>Exception - everything else returns a 500 status code.</li>
  * </ul>
  * These can also be used an examples of how to handle more specific exceptions.
- * 
+ *
  * @author Maven Archetype (camel-oas-archetype)
  */
 public class BaseRestRouteBuilder extends EndpointRouteBuilder {

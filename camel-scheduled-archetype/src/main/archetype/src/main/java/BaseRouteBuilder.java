@@ -15,32 +15,32 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
  * <li>Exception - everything else returns a 500 status code.</li>
  * </ul>
  * These can also be used an examples of how to handle more specific exceptions.
- * 
+ *
  * @author Maven Archetype (camel-oas-archetype)
  */
 public class BaseRouteBuilder extends EndpointRouteBuilder {
-	protected DatasonnetExpression datasonnetEx(String expression) {
-		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression);
-	}
+    protected DatasonnetExpression datasonnetEx(String expression) {
+        return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression);
+    }
 
-	protected DatasonnetExpression datasonnetEx(String expression, Class<?> resultType) {
-		Object[] properties = new Object[3];
-		properties[0] = resultType;
-		return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression, properties);
-	}
+    protected DatasonnetExpression datasonnetEx(String expression, Class<?> resultType) {
+        Object[] properties = new Object[3];
+        properties[0] = resultType;
+        return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression, properties);
+    }
 
-	@Override
-	public void configure() throws Exception {
+    @Override
+    public void configure() throws Exception {
 
-		onException(Exception.class)
-			.routeId("exception-policy")
-			.handled(true)
-			.logHandled(true)
-			.logStackTrace(true)
-			.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
-			.setBody(constant(DefaultDocument.NULL_INSTANCE))
-			.transform(datasonnetEx("resource:classpath:exception.ds", String.class)
-					.outputMediaType(MediaTypes.APPLICATION_JSON))
-		;
-	}
+        onException(Exception.class)
+            .routeId("exception-policy")
+            .handled(true)
+            .logHandled(true)
+            .logStackTrace(true)
+            .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
+            .setBody(constant(DefaultDocument.NULL_INSTANCE))
+            .transform(datasonnetEx("resource:classpath:exception.ds", String.class)
+                    .outputMediaType(MediaTypes.APPLICATION_JSON))
+        ;
+    }
 }

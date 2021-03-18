@@ -10,27 +10,26 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * This is the application class and main() entry point for a Spring Boot/Camel application.
- * 
- * @author Maven Archetype (camel-oas-archetype)
  *
+ * @author Maven Archetype (camel-oas-archetype)
  */
 @SpringBootApplication
 public class CamelApplication {
 
-	/**
-	 * When the application is executed, this method is called with a list of arguments, which may be empty.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(CamelApplication.class, args);
-	}
+    /**
+     * When the application is executed, this method is called with a list of arguments, which may be empty.
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(CamelApplication.class, args);
+    }
 
-	@Bean
-	public Tracer tracer(@Value("#[[${JAEGER_SERVICE_NAME:${spring.application.name:unknown-camel}}]]#") String serviceName) {
-		OpenTracingTracer answer = new OpenTracingTracer();
-		answer.setTracer(Configuration.fromEnv(serviceName).getTracer());
+    @Bean
+    public Tracer tracer(@Value("#[[${JAEGER_SERVICE_NAME:${spring.application.name:unknown-camel}}]]#") String serviceName) {
+        OpenTracingTracer answer = new OpenTracingTracer();
+        answer.setTracer(Configuration.fromEnv(serviceName).getTracer());
 
-		return answer;
-	}
+        return answer;
+    }
 }
