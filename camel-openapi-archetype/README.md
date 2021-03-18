@@ -16,11 +16,11 @@ If changes are made to the [OpenAPI plugin](https://github.com/MS3Inc/camel-rest
 To run the archetype, `cd` to the directory where the new project will live and then run:
 
 ```bash
-mvn archetype:generate \\  
--DarchetypeGroupId=com.ms3-inc.tavros \\  
--DarchetypeArtifactId=camel-openapi-archetype \\  
--DarchetypeVersion=<check-for-latest>
--DspecificationUri=<path-of-your-spec>
+mvn archetype:generate \  
+-DarchetypeGroupId=com.ms3-inc.tavros \  
+-DarchetypeArtifactId=camel-openapi-archetype \  
+-DarchetypeVersion=<check-for-latest> \  
+-DspecificationUri=<path-of-your-spec> \  
 -Dversion=0.1.0-SNAPSHOT
 ````
 
@@ -28,9 +28,9 @@ You will be prompted for a `package`, `groupId`,` version`, `artifactId` (projec
 
 The `-DpackageInPathFormat` and `-package` arguments should be supplied if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed. Here is an example of providing them:
 ```bash
--DpackageInPathFormat \\  
--Dpackage=com.ms3_inc.tavros \\  
--DgroupId=com.ms3-inc.tavros \\
+-DpackageInPathFormat \  
+-Dpackage=com.ms3_inc.tavros \  
+-DgroupId=com.ms3-inc.tavros \  
 ```
 
 ### Who do I talk to? ###
