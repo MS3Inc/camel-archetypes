@@ -7,7 +7,9 @@ It is part of MS3's integration platform, [Tavros](https://github.com/MS3Inc/tav
 
 Clone the main branch of this repo. 
 
-To build the archetype, `cd` into the archetype source and run `mvn clean install`
+To build the archetype, `cd` into the archetype source and run `mvn clean install`.
+
+If changes are made to the [OpenAPI plugin](https://github.com/MS3Inc/camel-restdsl-openapi-plugin), the version should be changed in `archetype-post-generate.groovy` by changing the `camelRestDslPluginVersion` variable.
 
 ### How do I run the archetype? ###
 
@@ -18,24 +20,17 @@ mvn archetype:generate \\
 -DarchetypeGroupId=com.ms3-inc.tavros \\  
 -DarchetypeArtifactId=camel-openapi-archetype \\  
 -DarchetypeVersion=<check-for-latest>
+-DspecificationUri=<path-of-your-spec>
+-Dversion=0.1.0-SNAPSHOT
 ````
 
-You will be prompted for a `package`, `groupId`,` version`, `artifactId` (project name) and `specificationUri` (API file).  Enter full path to the API file.  Do not use backslashes on a Windows computer. Convert to slashes:  c:/dev/myApi/src/main/resources/api/api.yaml.  This can also be provided on the command line by adding `-DspecificationUri=PATH`
+You will be prompted for a `package`, `groupId`,` version`, `artifactId` (project name) if they are not included in your original command. If you don't provide the `specificationUri` (OpenAPI file), the default sample specification will be used. To override this, when prompted for `Y`, enter something else such as `n`, and then re-provide the provided information and provide the specification when prompted.
 
-The `-DpackageInPathFormat` and `-package` arguments should be supplied if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed. Here is an example:
+The `-DpackageInPathFormat` and `-package` arguments should be supplied if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed. Here is an example of providing them:
 ```bash
 -DpackageInPathFormat \\  
 -Dpackage=com.ms3_inc.tavros \\  
--DgroupId=com.ms3-inc.tavros \\  
--Dversion=0.0.1-SNAPSHOT
-```
-
-### Is an API specification required? ###
-
-Following spec driven development, a specification is required by default and recommended. If you would prefer not to provide a `specificationUri`, this functionality can be overridden by providing anything other than `true`, `yes`, or `y` to the  `generateRoutesFromSpec` property. A `specificationUri` will still need to be provided, but can be set to anything, such as `n`.
-```bash
--DgenerateRoutesFromSpec=n \\
--DspecificationUri=n \\
+-DgroupId=com.ms3-inc.tavros \\
 ```
 
 ### Who do I talk to? ###
