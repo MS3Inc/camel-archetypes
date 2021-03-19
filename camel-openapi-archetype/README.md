@@ -20,11 +20,13 @@ mvn archetype:generate \
 -DarchetypeGroupId=com.ms3-inc.tavros \
 -DarchetypeArtifactId=camel-openapi-archetype \
 -DarchetypeVersion=<check-for-latest> \
--DspecificationUri=<path-of-your-spec> \
--Dversion=0.1.0-SNAPSHOT
+-DgroupId=<groupId> \
+-Dversion=0.1.0-SNAPSHOT \
+-DartifactId=<project-name> \
+-DspecificationUri=<path-of-your-spec>
 ````
 
-You will be prompted for a `package`, `groupId`,` version`, `artifactId` (project name) if they are not included in your original command. If you don't provide the `specificationUri` (OpenAPI file), the default sample specification will be used. To override this, when prompted for `Y`, enter something else such as `n`, and then re-provide the provided information and provide the specification when prompted.
+Anything surrounded by an angle bracket in the above command should be replaced with the value you want. All the properties listed in the above command are required, and if any are removed/not provided, they will be prompted for. If you don't provide the `specificationUri` (OpenAPI file), the default sample specification will be used. To override this, when prompted for `Y`, enter something else such as `n`, and then re-provide the provided information and provide the specification when prompted.
 
 The `-DpackageInPathFormat` and `-package` arguments should be supplied if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed. Here is an example of providing them:
 ```bash
