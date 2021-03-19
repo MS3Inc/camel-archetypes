@@ -26,7 +26,7 @@ mvn archetype:generate \
 -DspecificationUri=<path-of-your-spec>
 ````
 
-Anything surrounded by an angle bracket in the above command should be replaced with the value you want. All the properties listed in the above command are required, and if any are removed/not provided, they will be prompted for. If you don't provide the `specificationUri` (OpenAPI file), the default sample specification will be used. To override this, when prompted for `Y`, enter something else such as `n`, and then re-provide the provided information and provide the specification when prompted.
+Anything surrounded by an angle bracket in the above command should be replaced with the value you want. All the properties listed in the above command are required, and if any are removed/not provided, they will be prompted for. The exception to this is the `specificationUri` (OpenAPI file), where the default sample specification will be used if one isn't provided. To override this in interactive mode, when prompted for `Y`, enter something else such as `n`, and then re-provide the provided information and provide the specification when prompted.
 
 The `-DpackageInPathFormat` and `-package` arguments should be supplied if your groupId has a dash in it, such as com.ms3-inc.  Leave them out if not needed. Here is an example of providing them:
 ```bash
