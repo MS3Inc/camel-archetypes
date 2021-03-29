@@ -122,7 +122,7 @@
         <dependency>
             <groupId>com.ms3-inc.tavros</groupId>
             <artifactId>camel-rest-extensions</artifactId>
-            <version>0.1.4</version>
+            <version>0.1.5</version>
         </dependency>
 
         <!-- OpenTracing deps -->
