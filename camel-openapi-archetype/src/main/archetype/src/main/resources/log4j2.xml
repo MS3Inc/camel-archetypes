@@ -2,7 +2,7 @@
 <Configuration>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <JsonTemplateLayout eventTemplateUri="classpath:LogstashJsonEventLayoutV1.json"/>
+            <JsonTemplateLayout eventTemplateUri="classpath:EcsLayout.json"/>
         </Console>
     </Appenders>
     <Loggers>
