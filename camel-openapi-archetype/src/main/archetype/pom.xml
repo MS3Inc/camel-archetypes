@@ -48,7 +48,7 @@
             <dependency>
                 <groupId>com.datasonnet</groupId>
                 <artifactId>datasonnet-mapper</artifactId>
-                <version>2.1.2</version>
+                <version>2.1.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -126,7 +126,7 @@
         <dependency>
             <groupId>com.ms3-inc.tavros</groupId>
             <artifactId>camel-rest-extensions</artifactId>
-            <version>0.1.5</version>
+            <version>0.1.6</version>
         </dependency>
 
         <!-- OpenTracing deps -->
