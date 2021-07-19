@@ -164,6 +164,29 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>default-reg-host</id>
+            <activation>
+                <property>
+                    <name>!env.REG_HOST</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                        <version>1.4.8</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <resources>
             <resource>
@@ -217,6 +240,35 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.8</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <username>${env.REG_CREDS_USR}</username>
+                    <password>${env.REG_CREDS_PSW}</password>
+                    <repository>${env.REG_HOST}/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
+                    <verbose>true</verbose>
+                </configuration>
             </plugin>
         </plugins>
     </build>
