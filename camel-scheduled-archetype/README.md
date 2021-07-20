@@ -17,8 +17,11 @@ To run the archetype, CD to the directory where the new project will live and th
 mvn archetype:generate \
 -DarchetypeGroupId=com.ms3-inc.tavros \
 -DarchetypeArtifactId=camel-scheduled-archetype \
--DarchetypeVersion=<check-for-latest>
+-DarchetypeVersion=<check-for-latest> \
+-DregistryHost=<registry-host>
 ```
+
+The registry host variable is used for building the Docker image during packaging or deploying, and will be added as a property in the pom.
 
 You will be prompted for a `package`, `groupId`,` version`, and `artifactId` (project name).
 

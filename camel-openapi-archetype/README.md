@@ -23,8 +23,11 @@ mvn archetype:generate \
 -DgroupId=<groupId> \
 -Dversion=0.1.0-SNAPSHOT \
 -DartifactId=<project-name> \
--DspecificationUri=<path-of-your-spec>
+-DspecificationUri=<path-of-your-spec> \
+-DregistryHost=<registry-host>
 ````
+
+The registry host variable is used for building the Docker image during packaging or deploying, and will be added as a property in the pom.
 
 Anything surrounded by an angle bracket in the above command should be replaced with the value you want. All the properties listed in the above command are required, and if any are removed/not provided, they will be prompted for. The exception to this is the `specificationUri` (OpenAPI file), where the default sample specification will be used if one isn't provided. To override this in interactive mode, when prompted for `Y`, enter something else such as `n`, and then re-provide the provided information and provide the specification when prompted.
 
