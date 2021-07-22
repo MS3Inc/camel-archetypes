@@ -62,6 +62,7 @@
 				<include>Dockerfile</include>
 				<include>gitignore</include>
 				<include>.settings.xml</include>
+				<include>.dockerignore</include>
 			</includes>
 		</fileSet>
 	</fileSets>
