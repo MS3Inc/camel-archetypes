@@ -2,13 +2,12 @@
 <Configuration>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <JsonTemplateLayout eventTemplateUri="classpath:LogstashJsonEventLayoutV1.json"/>
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
         </Console>
     </Appenders>
     <Loggers>
-        <AsyncLogger name="${package}" level="INFO"/>
         <AsyncRoot level="INFO">
-            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Console" />
         </AsyncRoot>
     </Loggers>
 </Configuration>
