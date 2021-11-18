@@ -221,9 +221,23 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.13</version>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.38.0</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                            <name>${registry.host}/${project.artifactId}</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}</dockerFileDir>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default</id>
@@ -233,13 +247,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <repository>${registry.host}/${project.artifactId}</repository>
-                    <tag>${project.version}</tag>
-                    <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
-                    <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
-                    <verbose>true</verbose>
-                </configuration>
             </plugin>
         </plugins>
     </build>
