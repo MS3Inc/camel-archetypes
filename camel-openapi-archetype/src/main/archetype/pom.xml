@@ -221,29 +221,40 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.38.0</version>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.1.4</version>
                 <configuration>
-                    <verbose>true</verbose>
-                    <images>
-                        <image>
-                            <name>${registry.host}/${project.artifactId}</name>
-                            <build>
-                                <dockerFileDir>${project.basedir}</dockerFileDir>
-                                <tags>
-                                    <tag>${project.version}</tag>
-                                </tags>
-                            </build>
-                        </image>
-                    </images>
+                    <from>
+                        <image>adoptopenjdk/openjdk11:alpine-jre@sha256:f7428e598b52c969debed61a8458f4ea17c2dfb4d661e498adb8cd196c1f63ee</image>
+                    </from>
+                    <to>
+                        <image>${registry.host}/${project.artifactId}:${project.version}</image>
+                        <auth>
+                            <username>${env.REG_CREDS_USR}</username>
+                            <password>${env.REG_CREDS_PSW}</password>
+                        </auth>
+                    </to>
+                    <container>
+                        <jvmFlags>
+                            <jvmFlag>-XX:MinRAMPercentage=50.0</jvmFlag>
+                            <jvmFlag>-XX:MaxRAMPercentage=90.0</jvmFlag>
+                        </jvmFlags>
+                    </container>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>default</id>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>dockerBuild</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>deploy</id>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>build</goal>
-                            <goal>push</goal>
                         </goals>
                     </execution>
                 </executions>
