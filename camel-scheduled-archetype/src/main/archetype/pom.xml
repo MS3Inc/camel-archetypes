@@ -217,26 +217,19 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.38.0</version>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>kubernetes-maven-plugin</artifactId>
+                <version>1.5.1</version>
                 <configuration>
-                    <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>${registry.host}/${project.artifactId}</name>
-                            <build>
-                                <dockerFileDir>${project.basedir}</dockerFileDir>
-                                <tags>
-                                    <tag>${project.version}</tag>
-                                </tags>
-                            </build>
+                            <name>${registry.host}/%a:%v</name>
                         </image>
                     </images>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>package</id>
+                        <id>default</id>
                         <phase>package</phase>
                         <goals>
                             <goal>build</goal>
