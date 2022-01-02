@@ -24,7 +24,13 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: mvn clean verify
+      - name: mvn clean verify (linux)
+        if: runner.os == 'Linux'
+        run: ./mvnw -V --no-transfer-progress --batch-mode clean verify
+      - name: mvn clean verify (windows)
+        env:
+          CUSTOM_FROM: winamd64/openjdk:11
+        if: runner.os == 'Windows'
         run: ./mvnw -V --no-transfer-progress --batch-mode clean verify
   deploy:
     if: github.ref == 'refs/heads/main'
