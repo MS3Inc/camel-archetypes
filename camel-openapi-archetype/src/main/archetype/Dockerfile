@@ -11,6 +11,6 @@ WORKDIR application
 RUN ls
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
-COPY --from=builder application/snapshot-dependencies/ ./
+# COPY --from=builder application/snapshot-dependencies/ ./
 COPY --from=builder application/application/ ./
 ENTRYPOINT ["java", "-XX:MinRAMPercentage=50.0", "-XX:MaxRAMPercentage=90.0", "org.springframework.boot.loader.JarLauncher"]
