@@ -22,6 +22,26 @@
         <registry.host>${registryHost}</registry.host>
     </properties>
 
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>false</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+            <id>registry.${registry.host}</id>
+            <name>maven-snapshots</name>
+            <url>https://artifacts.${registry.host}/nosso/repository/maven-snapshots/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
+
     <dependencyManagement>
         <dependencies>
             <!-- Spring Boot BOM -->
