@@ -55,6 +55,34 @@ docker build -t <tag> .
 docker run -p 9000:9000 -p 8080:8080 -it <tag>
 ```
 
+### Manual Acceptance Tests of generated archetype ###
+
+#### Confirm ready - PASSING
+curl 'http://localhost:8080/actuator/health/readiness'
+
+#### Confirm GET works - PASSING
+curl 'http://localhost:9000/api/hello'
+
+#### Confirm POST works - PASSING
+curl --location --request POST 'http://localhost:9000/api/greeting' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"caller":"other"
+}'
+
+#### Confirm main exception handling works - PASSING
+example: .throwException(new ArithmeticException())
+
+#### Confirm RestException returns correctly - PASSING
+curl --location --request POST 'http://localhost:9000/api/greeting' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"wrongProp":"other"
+}'
+
+#### Confirm logs contain unique span and trace ids - FAILING
+#### Confirm traces can be seen in Jaeger - FAILING
+
 ### Who do I talk to? ###
 
 Contact:
