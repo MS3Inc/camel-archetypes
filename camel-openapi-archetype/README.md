@@ -5,11 +5,23 @@ It is part of MS3's integration platform, [Tavros](https://github.com/MS3Inc/tav
 
 ### How do I get set up? ###
 
-Clone the main branch of this repo. 
+Temporary instructions:
+This version of the archetypes is not released and needs to be installed locally.
+Clone both the camel-restdsl-openapi-plugin (branch: arch-version-updates) and camel-archetypes (branch: version-updates) repos and install them locally.
 
-To build the archetype, `cd` into the archetype source and run `mvn clean install`.
+Linux/bash instructions:
+```
+mkdir arch-0-28-SNAPSHOT
+cd arch-0-28-SNAPSHOT
+git clone -b arch-version-updates https://github.com/MS3Inc/camel-restdsl-openapi-plugin.git
+git clone -b version-updates https://github.com/MS3Inc/camel-archetypes.git
+cd camel-restdsl-openapi-plugin
+mvn clean install
+cd ../camel-archetypes
+mvn clean install
+```
 
-If changes are made to the [OpenAPI plugin](https://github.com/MS3Inc/camel-restdsl-openapi-plugin), the version should be changed in `archetype-post-generate.groovy` by changing the `camelRestDslPluginVersion` variable.
+To generate an API using the archetype you just installed locally, cd to your API directory and run the command below with version `-DarchetypeVersion=0.2.8-SNAPSHOT`.
 
 ### How do I run the archetype? ###
 
@@ -33,6 +45,14 @@ The `-DpackageInPathFormat` and `-package` arguments should be supplied if your 
 -DpackageInPathFormat \
 -Dpackage=com.ms3_inc.tavros \
 -DgroupId=com.ms3-inc.tavros \
+```
+
+### To use the Dockerfile locally
+
+```
+mvn clean package
+docker build -t <tag> .
+docker run -p 9000:9000 -p 8080:8080 -it <tag>
 ```
 
 ### Who do I talk to? ###
