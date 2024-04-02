@@ -12,9 +12,13 @@ Primary changes:
 - Update to Camel 4.5.0
 - Update DS mapper to 2.5.2-jakarta4
 - Dockerfile updated to use Java 21
-- A number of other dependency changes to support the above changes
+- A number of other dependency changes in the pom to support the above changes
 - `datasonnet()` now replaces usages of `datasonnetEx()` or `DatasonnetExpression.builder()`. Examples are in BaseRestRouteBuilder and RoutesImplementation.
 - Spans/tracing currently not functioning
+
+### Migration recommendations ###
+
+There is currently no way to update an API that has already been created with the archetype. The recommended way to update existing applications is to regenerate the API using the same specification in a different folder and then use a diff tool such as Beyond Compare to migrate changes. It will likely be easier to move the newly generated code to the previously generated code but it largely depends on what the diff is.
 
 ### How do I get set up? ###
 
