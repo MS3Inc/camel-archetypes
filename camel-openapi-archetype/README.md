@@ -3,9 +3,23 @@
 This is a Maven archetype that generates a Camel/SpringBoot application with stubs for API endpoints generated from a provided OpenAPI document.
 It is part of MS3's integration platform, [Tavros](https://github.com/MS3Inc/tavros).
 
+### Pre-release notes ###
+
+(Notes related to recent changes, this section can be removed before merge)
+
+Primary changes:
+- Update to SB 3.2.4
+- Update to Camel 4.5.0
+- Update DS mapper to 2.5.2-jakarta4
+- Dockerfile updated to use Java 21
+- A number of other dependency changes to support the above changes
+- `datasonnet()` now replaces usages of `datasonnetEx()` or `DatasonnetExpression.builder()`. Examples are in BaseRestRouteBuilder and RoutesImplementation.
+- Spans/tracing currently not functioning
+
 ### How do I get set up? ###
 
-Temporary instructions:
+(Temporary instructions related to recent changes, this section can be reverted before merge)
+
 This version of the archetypes is not released and needs to be installed locally.
 Clone both the camel-restdsl-openapi-plugin (branch: arch-version-updates) and camel-archetypes (branch: version-updates) repos and install them locally.
 
