@@ -3,7 +3,6 @@ package ${package};
 import com.datasonnet.document.DefaultDocument;
 import com.datasonnet.document.Document;
 import com.datasonnet.document.MediaTypes;
-import org.apache.camel.language.datasonnet.DatasonnetExpression;
 import com.ms3_inc.tavros.extensions.rest.OperationResult;
 import com.ms3_inc.tavros.extensions.rest.exception.RestException;
 import org.apache.camel.Exchange;
@@ -22,16 +21,6 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
  * @author Maven Archetype (camel-oas-archetype)
  */
 public class BaseRestRouteBuilder extends EndpointRouteBuilder {
-    protected DatasonnetExpression datasonnetEx(String expression) {
-        return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression);
-    }
-
-    protected DatasonnetExpression datasonnetEx(String expression, Class<?> resultType) {
-        Object[] properties = new Object[3];
-        properties[0] = resultType;
-        return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression, properties);
-    }
-
     private static final Processor REST_EXCEPTION_PROCESSOR = ex -> {
         RestException exc = ex.getProperty(Exchange.EXCEPTION_CAUGHT, RestException.class);
 
@@ -61,8 +50,12 @@ public class BaseRestRouteBuilder extends EndpointRouteBuilder {
             .logStackTrace(true)
             .process(REST_EXCEPTION_PROCESSOR)
             .setBody(constant(DefaultDocument.NULL_INSTANCE))
-            .transform(datasonnetEx("resource:classpath:rest-exception.ds", String.class)
-                    .outputMediaType(MediaTypes.APPLICATION_JSON))
+            .transform(datasonnet("resource:classpath:rest-exception.ds",
+                       String.class,
+                       MediaTypes.ANY.toString(),
+                       MediaTypes.APPLICATION_JSON.toString()
+                      )
+            )
         ;
 
         onException(Exception.class)
@@ -72,8 +65,12 @@ public class BaseRestRouteBuilder extends EndpointRouteBuilder {
             .logStackTrace(true)
             .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
             .setBody(constant(DefaultDocument.NULL_INSTANCE))
-            .transform(datasonnetEx("resource:classpath:exception.ds", String.class)
-                    .outputMediaType(MediaTypes.APPLICATION_JSON))
+            .transform(datasonnet("resource:classpath:exception.ds",
+                       String.class,
+                       MediaTypes.ANY.toString(),
+                       MediaTypes.APPLICATION_JSON.toString()
+                      )
+            )
         ;
     }
 }

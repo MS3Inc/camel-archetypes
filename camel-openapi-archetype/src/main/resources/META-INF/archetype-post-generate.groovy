@@ -1,5 +1,5 @@
 /**
- * Copyright 2020-2021 the original author or authors.
+ * Copyright 2020-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -56,7 +55,7 @@ if (isSample) {
 }
 
 def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
-def camelRestDslPluginVersion = '0.1.7'
+def camelRestDslPluginVersion = '0.1.8-SNAPSHOT'
 def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:' + camelRestDslPluginVersion + ':generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]
 
 if (Files.exists(Path.of(specUri))) {
