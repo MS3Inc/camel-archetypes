@@ -19,16 +19,6 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
  * @author Maven Archetype (camel-oas-archetype)
  */
 public class BaseRouteBuilder extends EndpointRouteBuilder {
-    protected DatasonnetExpression datasonnetEx(String expression) {
-        return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression);
-    }
-
-    protected DatasonnetExpression datasonnetEx(String expression, Class<?> resultType) {
-        Object[] properties = new Object[3];
-        properties[0] = resultType;
-        return (DatasonnetExpression) getContext().resolveLanguage("datasonnet").createExpression(expression, properties);
-    }
-
     @Override
     public void configure() throws Exception {
 
@@ -39,8 +29,12 @@ public class BaseRouteBuilder extends EndpointRouteBuilder {
             .logStackTrace(true)
             .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500))
             .setBody(constant(DefaultDocument.NULL_INSTANCE))
-            .transform(datasonnetEx("resource:classpath:exception.ds", String.class)
-                    .outputMediaType(MediaTypes.APPLICATION_JSON))
+            .transform(datasonnet("resource:classpath:exception.ds",
+                       String.class,
+                       MediaTypes.ANY.toString(),
+                       MediaTypes.APPLICATION_JSON.toString()
+                    )
+            )
         ;
     }
 }
