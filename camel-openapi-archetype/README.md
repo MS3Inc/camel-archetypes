@@ -37,7 +37,7 @@ cd camel-restdsl-openapi-plugin
 git checkout 21c33cc834ae91c362bdb722d14f8c1a6918f075
 mvn clean install
 cd ../camel-archetypes
-git checkout 56ded315199b081905c141e26674a5678f889c9c
+git checkout da5053a7e79d0774a107caf9080f20b4308d4fee
 mvn clean install
 ```
 
