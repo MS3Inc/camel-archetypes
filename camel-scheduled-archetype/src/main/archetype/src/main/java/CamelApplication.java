@@ -3,6 +3,8 @@ package ${package};
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.apache.camel.opentelemetry.OpenTelemetryTracer;
+import org.apache.camel.opentelemetry.starter.CamelOpenTelemetry;
 
 /**
  * This is the application class and main() entry point for a Spring Boot/Camel application.
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.Bean;
  * @author Maven Archetype (camel-oas-archetype)
  */
 @SpringBootApplication
+@CamelOpenTelemetry
 public class CamelApplication {
 
     /**

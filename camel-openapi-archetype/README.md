@@ -14,7 +14,7 @@ Primary changes:
 - Dockerfile updated to use Java 21
 - A number of other dependency changes in the pom to support the above changes
 - `datasonnet()` now replaces usages of `datasonnetEx()` or `DatasonnetExpression.builder()`. Examples are in BaseRestRouteBuilder and RoutesImplementation.
-- Spans/tracing currently not functioning
+- Spans/tracing fixed but only locally tested thus far
 
 ### Migration recommendations ###
 
@@ -105,8 +105,8 @@ curl --location --request POST 'http://localhost:9000/api/greeting' \
 "wrongProp":"other"
 }'
 
-**Confirm logs contain unique span and trace ids - FAILING**  
-**Confirm traces can be seen in Jaeger - FAILING**  
+**Confirm logs contain unique span and trace ids - PASSING**  
+**Confirm traces can be seen in Jaeger, and GET /hello shows as 4 spans - PASSING**  
 
 ### Who do I talk to? ###
 

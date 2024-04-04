@@ -18,6 +18,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <spring-boot.version>3.2.4</spring-boot.version>
         <camel.version>4.5.0</camel.version>
+        <opentelemetry-agent.version>1.25.1</opentelemetry-agent.version>
     </properties>
 
     <dependencyManagement>
@@ -131,6 +132,11 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-opentelemetry-starter</artifactId>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -189,12 +195,43 @@
                     <layers>
                         <enabled>true</enabled>
                     </layers>
+                    <agents>
+                        <agent>${project.build.directory}/javaagents/javaagent.jar</agent>
+                    </agents>
+                    <environmentVariables>
+                        <OTEL_SERVICE_NAME>${project.artifactId}</OTEL_SERVICE_NAME>
+                    </environmentVariables>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-javaagent</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>io.opentelemetry.javaagent</groupId>
+                                    <artifactId>opentelemetry-javaagent</artifactId>
+                                    <version>${opentelemetry-agent.version}</version>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/javaagents</outputDirectory>
+                                    <destFileName>javaagent.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
