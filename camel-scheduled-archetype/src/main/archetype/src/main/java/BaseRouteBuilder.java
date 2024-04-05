@@ -3,7 +3,6 @@ package ${package};
 import com.datasonnet.document.DefaultDocument;
 import com.datasonnet.document.Document;
 import com.datasonnet.document.MediaTypes;
-import org.apache.camel.language.datasonnet.DatasonnetExpression;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 
