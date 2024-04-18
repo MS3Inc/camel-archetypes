@@ -43,6 +43,22 @@ mvn clean install
 
 To generate an API using the archetype you just installed locally, cd to your API directory and run the command below with version `-DarchetypeVersion=0.2.8-SNAPSHOT`.
 
+#### Pulling camel-rest-extensions ####
+This version also uses a snapshot version of camel-rest-extensions which is not yet in maven central. [Refer to the release for more info as to why it was added](https://github.com/MS3Inc/camel-rest-extensions/releases/tag/0.1.7-SNAPSHOT)
+
+To use this version:
+- A Github account is required along with [a classic Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic)
+- A server configuration in your settings.xml, similar to this:
+```
+<servers>
+    <server>
+        <id>github-pull</id>
+        <username>your github username</username>
+        <password>your PAT created above</password>
+    </server>
+</servers>
+```
+
 ### How do I run the archetype? ###
 
 To run the archetype, `cd` to the directory where the new project will live and then run:
