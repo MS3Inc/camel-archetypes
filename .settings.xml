@@ -19,9 +19,9 @@
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
-            <id>ms3-nexus</id>
-            <username>${env.REPO_USER}</username>
-            <password>${env.REPO_PASSWORD}</password>
+            <id>github-arch-snapshots</id>
+            <username>${env.USERNAME}</username>
+            <password>${env.PASSWORD}</password>
         </server>
         <server>
             <id>sonatype-ossrh</id>

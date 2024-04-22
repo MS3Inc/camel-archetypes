@@ -1,0 +1,25 @@
+name: Publish package to GitHub Packages
+on:
+  release:
+    types: [published]
+
+env:
+  USERNAME: "${{ github.actor }}"
+  PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Publish package
+        run: mvn --batch-mode deploy

@@ -64,14 +64,12 @@
 
 	<distributionManagement>
 		<repository>
-			<id>ms3-nexus</id>
-			<name>maven-releases</name>
-			<url>https://maven.ms3-inc.com/repository/maven-releases/</url>
+			<id>github-arch-snapshots</id>
+			<url>https://maven.pkg.github.com/ms3inc/camel-archetypes</url>
 		</repository>
 		<snapshotRepository>
-			<id>ms3-nexus</id>
-			<name>maven-snapshots</name>
-			<url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
+			<id>github-arch-snapshots</id>
+			<url>https://maven.pkg.github.com/ms3inc/camel-archetypes</url>
 		</snapshotRepository>
 	</distributionManagement>
 
