@@ -19,9 +19,9 @@
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
-            <id>github-arch-snapshots</id>
-            <username>${env.USERNAME}</username>
-            <password>${env.PASSWORD}</password>
+            <id>github-snapshots</id>
+            <username>${env.GH_USERNAME}</username>
+            <password>${env.GH_PAT}</password>
         </server>
         <server>
             <id>sonatype-ossrh</id>

@@ -22,8 +22,8 @@
     <servers>
         <server>
             <id>github-snapshots</id>
-            <username>${env.REPO_USER}</username>
-            <password>${env.REPO_PASSWORD}</password>
+            <username>${env.GH_USERNAME}</username>
+            <password>${env.GH_PAT}</password>
         </server>
     </servers>
     <activeProfiles>

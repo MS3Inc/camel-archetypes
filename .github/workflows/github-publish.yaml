@@ -3,10 +3,6 @@ on:
   release:
     types: [published]
 
-env:
-  USERNAME: "${{ github.actor }}"
-  PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -21,5 +17,12 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: Override/recreate settings.xml
+        uses: whelk-io/maven-settings-xml-action@v22
+        with:
+          servers: '[{ "id": "github-arch-snapshots", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}" },{ "id": "github-snapshots", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
       - name: Publish package
         run: mvn --batch-mode deploy
+        env:
+          GH_USERNAME: "${{ github.actor }}"
+          GH_PAT: "${{ secrets.GITHUB_TOKEN }}"
