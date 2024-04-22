@@ -17,6 +17,9 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: Start OTEL collector
+        run: |
+          docker run -d -p 127.0.0.1:4317:4317 --name collector otel/opentelemetry-collector:0.98.0
       - name: Override/recreate settings.xml
         uses: whelk-io/maven-settings-xml-action@v22
         with:
@@ -27,3 +30,7 @@ jobs:
         env:
           GH_USERNAME: "${{ github.actor }}"
           GH_PAT: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Stop OTEL collector
+        run: |
+          docker stop collector
+          docker rm collector

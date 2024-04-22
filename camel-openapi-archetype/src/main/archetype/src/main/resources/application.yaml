@@ -10,8 +10,6 @@ camel:
   rest:
     port: 9000
     context-path: /api
-  opentelemetry:
-    enabled: false
 management:
   endpoint:
     camelroutes:
