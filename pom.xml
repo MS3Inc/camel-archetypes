@@ -69,13 +69,6 @@
         <tag>HEAD</tag>
     </scm>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>github-plugins</id>
-            <url>https://maven.pkg.github.com/ms3inc/camel-restdsl-openapi-plugin/</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <distributionManagement>
         <repository>
             <id>sonatype-ossrh</id>

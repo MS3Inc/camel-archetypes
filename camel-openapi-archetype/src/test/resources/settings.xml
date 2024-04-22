@@ -25,6 +25,11 @@
             <username>${env.GH_USERNAME}</username>
             <password>${env.GH_PAT}</password>
         </server>
+        <server>
+            <id>github-plugins</id>
+            <username>${env.GH_USERNAME}</username>
+            <password>${env.GH_PAT}</password>
+        </server>
     </servers>
     <activeProfiles>
         <activeProfile>it</activeProfile>
@@ -46,6 +51,15 @@
                     <url>https://maven.pkg.github.com/ms3inc/*</url>
                 </repository>
             </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>github-plugins</id>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <url>https://maven.pkg.github.com/ms3inc/camel-restdsl-openapi-plugin/</url>
+                </pluginRepository>
+            </pluginRepositories>
         </profile>
     </profiles>
 </settings>
