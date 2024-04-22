@@ -78,7 +78,7 @@
         <snapshotRepository>
             <id>github-arch-snapshots</id>
             <name>maven-snapshots</name>
-            <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
+            <url>https://maven.pkg.github.com/rlratcliffe/camel-archetypes</url>
         </snapshotRepository>
     </distributionManagement>
 
