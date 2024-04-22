@@ -27,6 +27,8 @@ There is currently no way to update an API that has already been created with th
 This version of the archetypes is not released and needs to be installed locally.
 Clone both the camel-restdsl-openapi-plugin (branch: arch-version-updates) and camel-archetypes (branch: version-updates) repos and install them locally.
 
+Refer to the below instructions for creating a GitHub PAT before proceeding. Copy your username and password from the server block in your settings.xml and replace it on lines 25 and 26 in `/camel-archetypes/camel-openapi-archetype/src/test/resources/settings.xml`
+
 Linux/bash instructions:
 ```
 mkdir arch-0-28-SNAPSHOT
@@ -37,22 +39,22 @@ cd camel-restdsl-openapi-plugin
 git checkout 21c33cc834ae91c362bdb722d14f8c1a6918f075
 mvn clean install
 cd ../camel-archetypes
-git checkout a1fe31391f31804ea0d5a952ff5059169968ddcc
+git checkout version-updates
 mvn clean install
 ```
 
 To generate an API using the archetype you just installed locally, cd to your API directory and run the command below with version `-DarchetypeVersion=0.2.8-SNAPSHOT`.
 
-#### Pulling camel-rest-extensions ####
+#### Pulling camel-rest-extensions in your API project ####
 This version also uses a snapshot version of camel-rest-extensions which is not yet in maven central. [Refer to the release for more info as to why it was added](https://github.com/MS3Inc/camel-rest-extensions/releases/tag/0.1.7-SNAPSHOT)
 
 To use this version:
-- A Github account is required along with [a classic Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) with ONLY `read:packages` scope necessary
+- A GitHub account is required along with [a classic Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) with ONLY `read:packages` scope necessary
 - A server configuration in your settings.xml, similar to this:
 ```
 <servers>
     <server>
-        <id>github-pull</id>
+        <id>github-snapshots</id>
         <username>your github username</username>
         <password>your PAT created above</password>
     </server>

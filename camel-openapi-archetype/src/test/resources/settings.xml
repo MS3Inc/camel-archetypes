@@ -19,6 +19,13 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
                       https://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <servers>
+        <server>
+            <id>github-snapshots</id>
+            <username>${env.REPO_USER}</username>
+            <password>${env.REPO_PASSWORD}</password>
+        </server>
+    </servers>
     <activeProfiles>
         <activeProfile>it</activeProfile>
     </activeProfiles>
@@ -30,15 +37,13 @@
                     <snapshots>
                         <enabled>false</enabled>
                     </snapshots>
-                    <id>ms3-releases</id>
-                    <name>maven-releases</name>
-                    <url>https://maven.ms3-inc.com/repository/maven-releases/</url>
+                    <id>github-releases</id>
+                    <url>https://maven.pkg.github.com/ms3inc/camel-rest-extensions</url>
                 </repository>
                 <repository>
                     <snapshots/>
-                    <id>ms3-snapshots</id>
-                    <name>maven-snapshots</name>
-                    <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
+                    <id>github-snapshots</id>
+                    <url>https://maven.pkg.github.com/ms3inc/camel-rest-extensions</url>
                 </repository>
             </repositories>
         </profile>

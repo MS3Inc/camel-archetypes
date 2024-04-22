@@ -25,22 +25,6 @@
     <profiles>
         <profile>
             <id>it</id>
-            <repositories>
-                <repository>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                    <id>ms3-releases</id>
-                    <name>maven-releases</name>
-                    <url>https://maven.ms3-inc.com/repository/maven-releases/</url>
-                </repository>
-                <repository>
-                    <snapshots/>
-                    <id>ms3-snapshots</id>
-                    <name>maven-snapshots</name>
-                    <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
-                </repository>
-            </repositories>
         </profile>
     </profiles>
 </settings>

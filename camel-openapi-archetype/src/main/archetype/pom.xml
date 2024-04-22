@@ -23,7 +23,7 @@
 
     <repositories>
         <repository>
-            <id>github-pull</id>
+            <id>github-snapshots</id>
             <url>https://maven.pkg.github.com/ms3inc/camel-rest-extensions</url>
             <snapshots>
                 <enabled>true</enabled>
