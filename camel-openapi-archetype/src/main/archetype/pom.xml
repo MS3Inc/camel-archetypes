@@ -24,7 +24,7 @@
     <repositories>
         <repository>
             <id>github-snapshots</id>
-            <url>https://maven.pkg.github.com/ms3inc/camel-rest-extensions</url>
+            <url>https://maven.pkg.github.com/ms3inc/*</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
