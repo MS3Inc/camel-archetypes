@@ -20,7 +20,7 @@ jobs:
       - name: Override/recreate settings.xml
         uses: whelk-io/maven-settings-xml-action@v22
         with:
-          servers: '[{ "id": "github-arch-snapshots", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}" },{ "id": "github-snapshots", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}",{ "id": "github-plugins", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
+          servers: '[{ "id": "github-arch-snapshots", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}" },{ "id": "github-snapshots", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"},{ "id": "github-plugins", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
           plugin_repositories: '[{ "id": "github-plugins", "url": "https://maven.pkg.github.com/ms3inc/camel-restdsl-openapi-plugin" }]'
       - name: Publish package
         run: mvn --batch-mode deploy
