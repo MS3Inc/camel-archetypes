@@ -22,43 +22,66 @@ There is currently no way to update an API that has already been created with th
 
 ### How do I get set up? ###
 
-(Temporary instructions related to recent changes, this section can be reverted before merge)
+(Temporary instructions related to recent changes, this section should be reverted or changed before merge)
 
-This version of the archetypes is not released and needs to be installed locally.
-Clone both the camel-restdsl-openapi-plugin (branch: arch-version-updates) and camel-archetypes (branch: version-updates) repos and install them locally.
+This version of the archetypes has only been released as a snapshot on Github. The camel-restdsl-openapi-plugin and camel-rest-extensions have also been released on GitHub to support this. Follow the below instructions to get set up.
 
-Refer to the below instructions for creating a GitHub PAT before proceeding. Copy your username and password from the server block in your settings.xml and replace it on lines 25 and 26 in `/camel-archetypes/camel-openapi-archetype/src/test/resources/settings.xml`
-
-Linux/bash instructions:
+1. If you have previously installed the archetype, camel-rest-extensions, camel-restdsl-openapi-plugin locally, delete them from your .m2 repo.
+2. Create or login to an existing GitHub account.
+3. Create [a classic Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) with ONLY `read:packages` scope necessary
+4. Modify your settings.xml with the values below, and replace the username and password fields with your GitHub credentials.
 ```
-mkdir arch-0-28-SNAPSHOT
-cd arch-0-28-SNAPSHOT
-git clone https://github.com/MS3Inc/camel-restdsl-openapi-plugin.git
-git clone https://github.com/MS3Inc/camel-archetypes.git
-cd camel-restdsl-openapi-plugin
-git checkout 21c33cc834ae91c362bdb722d14f8c1a6918f075
-mvn clean install
-cd ../camel-archetypes
-git checkout version-updates
-mvn clean install
-```
-
-To generate an API using the archetype you just installed locally, cd to your API directory and run the command below with version `-DarchetypeVersion=0.2.8-SNAPSHOT`.
-
-#### Pulling camel-rest-extensions in your API project ####
-This version also uses a snapshot version of camel-rest-extensions which is not yet in maven central. [Refer to the release for more info as to why it was added](https://github.com/MS3Inc/camel-rest-extensions/releases/tag/0.1.7-SNAPSHOT)
-
-To use this version:
-- A GitHub account is required along with [a classic Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) with ONLY `read:packages` scope necessary
-- A server configuration in your settings.xml, similar to this:
-```
-<servers>
+  <servers>
     <server>
-        <id>github-snapshots</id>
+      <!-- ID matching repo in generated API from archetype -->
+      <id>github-ms3-extensions</id>
         <username>your github username</username>
         <password>your PAT created above</password>
     </server>
-</servers>
+    <server>
+      <id>archetype</id>
+        <username>your github username</username>
+        <password>your PAT created above</password>
+    </server>
+    <server>
+      <id>github-plugins</id>
+        <username>your github username</username>
+        <password>your PAT created above</password>
+    </server>
+  </servers>
+
+  <profiles>
+    <profile>
+      <id>github</id>
+      <repositories>
+        <repository>
+          <id>archetype</id>
+          <url>https://maven.pkg.github.com/ms3inc/camel-archetypes</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+              <enabled>true</enabled>
+          </snapshots>
+      </repository>
+    </repositories>
+    <pluginRepositories>
+      <pluginRepository>
+        <id>github-plugins</id>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <url>https://maven.pkg.github.com/ms3inc/camel-restdsl-openapi-plugin</url>
+      </pluginRepository>
+    </pluginRepositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>github</activeProfile>
+  </activeProfiles>
 ```
 
 ### How do I run the archetype? ###
@@ -69,7 +92,7 @@ To run the archetype, `cd` to the directory where the new project will live and 
 mvn archetype:generate \
 -DarchetypeGroupId=com.ms3-inc.tavros \
 -DarchetypeArtifactId=camel-openapi-archetype \
--DarchetypeVersion=<check-for-latest> \
+-DarchetypeVersion=0.2.8-SNAPSHOT \
 -DgroupId=<groupId> \
 -Dversion=0.1.0-SNAPSHOT \
 -DartifactId=<project-name> \
@@ -124,7 +147,7 @@ curl --location --request POST 'http://localhost:9000/api/greeting' \
 }'
 
 **Confirm logs contain unique span and trace ids - PASSING**  
-**Confirm traces can be seen in Jaeger, and GET /hello shows as 4 spans - PASSING**  
+**Confirm traces can be seen in Jaeger, and GET /hello shows as 4 spans - PASSING**
 
 ### Who do I talk to? ###
 
