@@ -38,12 +38,12 @@
                         <enabled>false</enabled>
                     </snapshots>
                     <id>github-releases</id>
-                    <url>https://maven.pkg.github.com/ms3inc/*</url>
+                    <url>https://maven.pkg.github.com/ms3inc/camel-rest-extensions</url>
                 </repository>
                 <repository>
                     <snapshots/>
                     <id>github-snapshots</id>
-                    <url>https://maven.pkg.github.com/ms3inc/*</url>
+                    <url>https://maven.pkg.github.com/ms3inc/camel-rest-extensions</url>
                 </repository>
             </repositories>
         </profile>
