@@ -21,9 +21,9 @@
                       https://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
-            <id>github-snapshots</id>
-            <username>${env.REPO_USER}</username>
-            <password>${env.REPO_PASSWORD}</password>
+            <id>github-ms3-extensions</id>
+            <username>${env.GH_USERNAME}</username>
+            <password>${env.GH_PAT}</password>
         </server>
     </servers>
     <activeProfiles>
@@ -34,15 +34,10 @@
             <id>it</id>
             <repositories>
                 <repository>
+                    <id>github-ms3-extensions</id>
                     <snapshots>
-                        <enabled>false</enabled>
+                        <enabled>true</enabled>
                     </snapshots>
-                    <id>github-releases</id>
-                    <url>https://maven.pkg.github.com/ms3inc/camel-rest-extensions</url>
-                </repository>
-                <repository>
-                    <snapshots/>
-                    <id>github-snapshots</id>
                     <url>https://maven.pkg.github.com/ms3inc/camel-rest-extensions</url>
                 </repository>
             </repositories>
