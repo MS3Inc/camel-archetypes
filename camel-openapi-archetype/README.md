@@ -24,9 +24,9 @@ There is currently no way to update an API that has already been created with th
 
 (Temporary instructions related to recent changes, this section should be reverted or changed before merge)
 
-This version of the archetypes has only been released as a snapshot on Github. The camel-restdsl-openapi-plugin and camel-rest-extensions have also been released on GitHub to support this. Follow the below instructions to get set up.
+This version of the archetypes (0.2.8-SNAPSHOT) has only been released as a snapshot on Github. The camel-restdsl-openapi-plugin and camel-rest-extensions have also been released on GitHub to support this. Follow the below instructions to get set up.
 
-1. If you have previously installed the archetype, camel-rest-extensions, camel-restdsl-openapi-plugin locally, delete them from your .m2 repo.
+1. If you have previously installed the archetype, camel-rest-extensions, camel-restdsl-openapi-plugin locally, delete them from your .m2 repo inside of the com.ms3-inc.tavros folder.
 2. Create or login to an existing GitHub account.
 3. Create [a classic Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) with ONLY `read:packages` scope necessary
 4. Modify your settings.xml with the values below, and replace the username and password fields with your GitHub credentials.
@@ -83,6 +83,8 @@ This version of the archetypes has only been released as a snapshot on Github. T
     <activeProfile>github</activeProfile>
   </activeProfiles>
 ```
+
+Once those steps are complete, you can move on to the next step of running the archetype.
 
 ### How do I run the archetype? ###
 
