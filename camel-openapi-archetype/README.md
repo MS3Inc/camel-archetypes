@@ -148,7 +148,7 @@ curl --location --request POST 'http://localhost:9000/api/greeting' \
 "wrongProp":"other"
 }'
 
-**Confirm logs contain unique span and trace ids - PASSING**  
+**Confirm logs contain unique span and trace ids inside of the MDC - FAILING**  
 **Confirm traces can be seen in Jaeger, and GET /hello shows as 4 spans - PASSING**
 
 ### Who do I talk to? ###
