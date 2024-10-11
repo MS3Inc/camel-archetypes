@@ -30,7 +30,10 @@ jobs:
           servers: '[{ "id": "github-arch-snapshots", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}" },{ "id": "github-plugins", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
           plugin_repositories: '[{ "id": "github-plugins", "url": "https://maven.pkg.github.com/ms3inc/camel-restdsl-openapi-plugin" }]'
       - name: mvn clean verify
-        run: ./mvnw -V --no-transfer-progress --batch-mode clean verify
+        env:
+          GH_USERNAME: "${{ github.actor }}"
+          GH_PAT: "${{ secrets.GITHUB_TOKEN }}"
+        run: ./mvnw -V -X --batch-mode clean verify
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: [ build ]
