@@ -7,14 +7,15 @@ It is part of MS3's integration platform, [Tavros](https://github.com/MS3Inc/tav
 
 (Notes related to recent changes, this section can be removed before merge)
 
-Primary changes:
-- Update to SB 3.2.4
-- Update to Camel 4.5.0
-- Update DS mapper to 2.5.2-jakarta4
+Tested changes:
+- Update to SB 3.3.0 (LTS)
+- Update to Camel 4.4.3 (LTS to fix [memory issue that causes DS expressions to stop working until restart](https://issues.apache.org/jira/browse/CAMEL-20841))
 - Dockerfile updated to use Java 21
 - A number of other dependency changes in the pom to support the above changes
 - `datasonnet()` now replaces usages of `datasonnetEx()` or `DatasonnetExpression.builder()`. Examples are in BaseRestRouteBuilder and RoutesImplementation.
-- Spans/tracing fixed but only locally tested thus far
+
+Untested Tavros changes:
+- Spans/tracing fixed, only locally tested
 
 ### Migration recommendations ###
 
@@ -22,9 +23,9 @@ There is currently no way to update an API that has already been created with th
 
 ### How do I get set up? ###
 
-(Temporary instructions related to recent changes, this section should be reverted or changed before merge)
+(Possible temporary instructions related to recent changes, this section should be reverted or changed before merge)
 
-This version of the archetypes (0.2.8-SNAPSHOT) has only been released as a snapshot on Github. The camel-restdsl-openapi-plugin and camel-rest-extensions have also been released on GitHub to support this. Follow the below instructions to get set up.
+This version of the archetypes has only been released as a snapshot on Github. The camel-restdsl-openapi-plugin and camel-rest-extensions have also been released on GitHub to support this. Follow the below instructions to get set up.
 
 1. If you have previously installed the archetype, camel-rest-extensions, camel-restdsl-openapi-plugin locally, delete them from your .m2 repo inside of the com.ms3-inc.tavros folder.
 2. Create or login to an existing GitHub account.
@@ -94,7 +95,7 @@ To run the archetype, `cd` to the directory where the new project will live and 
 mvn archetype:generate \
 -DarchetypeGroupId=com.ms3-inc.tavros \
 -DarchetypeArtifactId=camel-openapi-archetype \
--DarchetypeVersion=0.2.8-SNAPSHOT \
+-DarchetypeVersion=0.2.9-SNAPSHOT \
 -DgroupId=<groupId> \
 -Dversion=0.1.0-SNAPSHOT \
 -DartifactId=<project-name> \

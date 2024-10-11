@@ -20,7 +20,7 @@
 
     <groupId>com.ms3-inc.tavros</groupId>
     <artifactId>archetypes</artifactId>
-    <version>0.2.8-SNAPSHOT</version>
+    <version>0.2.9-SNAPSHOT</version>
     <packaging>pom</packaging>
     <inceptionYear>2020</inceptionYear>
 
