@@ -3,29 +3,13 @@
 This is a Maven archetype that generates a Camel/SpringBoot application with stubs for API endpoints generated from a provided OpenAPI document.
 It is part of MS3's integration platform, [Tavros](https://github.com/MS3Inc/tavros).
 
-### Pre-release notes ###
-
-(Notes related to recent changes, this section can be removed before merge)
-
-Tested changes:
-- Update to SB 3.3.0 (LTS)
-- Update to Camel 4.4.3 (LTS to fix [memory issue that causes DS expressions to stop working until restart](https://issues.apache.org/jira/browse/CAMEL-20841))
-- Dockerfile updated to use Java 21
-- A number of other dependency changes in the pom to support the above changes
-- `datasonnet()` now replaces usages of `datasonnetEx()` or `DatasonnetExpression.builder()`. Examples are in BaseRestRouteBuilder and RoutesImplementation.
-
-Untested Tavros changes:
-- Spans/tracing fixed, only locally tested
-
 ### Migration recommendations ###
 
 There is currently no way to update an API that has already been created with the archetype. The recommended way to update existing applications is to regenerate the API using the same specification in a different folder and then use a diff tool such as Beyond Compare to migrate changes. It will likely be easier to move the newly generated code to the previously generated code but it largely depends on what the diff is.
 
 ### How do I get set up? ###
 
-(Possible temporary instructions related to recent changes, this section should be reverted or changed before merge)
-
-This version of the archetypes has only been released as a snapshot on Github. The camel-restdsl-openapi-plugin and camel-rest-extensions have also been released on GitHub to support this. Follow the below instructions to get set up.
+This version of the archetypes is currently being released as a snapshot on Github. The camel-restdsl-openapi-plugin and camel-rest-extensions have also been released on GitHub to support this. Follow the below instructions to get set up.
 
 1. If you have previously installed the archetype, camel-rest-extensions, camel-restdsl-openapi-plugin locally, delete them from your .m2 repo inside of the com.ms3-inc.tavros folder.
 2. Create or login to an existing GitHub account.
@@ -95,7 +79,7 @@ To run the archetype, `cd` to the directory where the new project will live and 
 mvn archetype:generate \
 -DarchetypeGroupId=com.ms3-inc.tavros \
 -DarchetypeArtifactId=camel-openapi-archetype \
--DarchetypeVersion=0.2.9-SNAPSHOT \
+-DarchetypeVersion=<check-for-latest> \
 -DgroupId=<groupId> \
 -Dversion=0.1.0-SNAPSHOT \
 -DartifactId=<project-name> \
@@ -119,38 +103,13 @@ docker build -t <tag> .
 docker run -p 9000:9000 -p 8080:8080 -it <tag>
 ```
 
-### Manual Acceptance Tests of generated archetype ###
+### To allow the OTEL logging
 
-To test:
-- generate a project without a specificationUri to use the provided OAS
-- generate a project with a downloaded [Pet Store spec](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+The `maven-dependency-plugin` config is what moves the OTEL agent to the target folder.
 
-#### Tests for default OAS: ####
-**Confirm ready - PASSING**  
-curl 'http://localhost:8080/actuator/health/readiness'
+The `configuration.agents.agent` in the `spring-boot-maven-plugin` is what allows `mvn spring-boot:run` to start with the OTEL agent.
 
-**Confirm GET works - PASSING**  
-curl 'http://localhost:9000/api/hello'
-
-**Confirm POST works - PASSING**  
-curl --location --request POST 'http://localhost:9000/api/greeting' \
---header 'Content-Type: application/json' \
---data-raw '{
-"caller":"other"
-}'
-
-**Confirm main exception handling works - PASSING**  
-example: .throwException(new ArithmeticException())
-
-**Confirm RestException returns correctly - PASSING**  
-curl --location --request POST 'http://localhost:9000/api/greeting' \
---header 'Content-Type: application/json' \
---data-raw '{
-"wrongProp":"other"
-}'
-
-**Confirm logs contain unique span and trace ids inside of the MDC - FAILING**  
-**Confirm traces can be seen in Jaeger, and GET /hello shows as 4 spans - PASSING**
+In JVM arguments in your IDE or deploed, configure `-javaagent:target/javaagents/javaagent.jar` allow the agent to start along with SB.
 
 ### Who do I talk to? ###
 
