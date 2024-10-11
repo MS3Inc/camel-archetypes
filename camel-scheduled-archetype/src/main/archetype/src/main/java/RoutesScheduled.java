@@ -1,7 +1,5 @@
 package ${package};
 
-import javax.annotation.Generated;
-
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Component;
  *
  * @author Maven Archetype (camel-scheduled-archetype)
  */
-@Generated("com.ms3inc.camel-oas-archetype")
 @Component
 public class RoutesScheduled extends EndpointRouteBuilder {
 

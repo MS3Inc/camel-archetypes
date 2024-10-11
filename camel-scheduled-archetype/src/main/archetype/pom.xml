@@ -14,19 +14,20 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-        <camel.version>3.7.1</camel.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <spring-boot.version>3.3.0</spring-boot.version>
+        <camel.version>4.4.3</camel.version>
+        <opentelemetry-agent.version>1.25.1</opentelemetry-agent.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- override log4j, related to CVE-2021-45105, CVE-2021-45046 and CVE-2021-44228 -->
+            <!-- Override Log4j2, related to https://github.com/spring-projects/spring-boot/issues/33450 -->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-bom</artifactId>
-                <version>2.17.0</version>
+                <version>3.0.0-beta1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -45,18 +46,6 @@
                 <version>${camel.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <!-- override camel's scala version -->
-            <dependency>
-                <groupId>org.scala-lang</groupId>
-                <artifactId>scala-library</artifactId>
-                <version>2.13.3</version>
-            </dependency>
-            <!-- override camel's datasonnet -->
-            <dependency>
-                <groupId>com.datasonnet</groupId>
-                <artifactId>datasonnet-mapper</artifactId>
-                <version>2.1.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -96,7 +85,7 @@
         <dependency>
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
-            <version>3.4.2</version>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -130,28 +119,18 @@
             <groupId>com.ms3-inc.tavros</groupId>
             <artifactId>camel-rest-extensions</artifactId>
             <version>0.1.6</version>
-        </dependency>
-
-        <!-- OpenTracing deps -->
-        <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-opentracing-starter</artifactId>
             <exclusions>
+                <!-- https://github.com/spring-projects/spring-framework/issues/20611 -->
                 <exclusion>
-                    <groupId>org.apache.camel</groupId>
-                    <artifactId>camel-opentracing</artifactId>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
-            <groupId>com.ms3-inc.tavros</groupId>
-            <artifactId>camel-opentracing</artifactId>
-            <version>${camel.version}-002</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jaegertracing</groupId>
-            <artifactId>jaeger-client</artifactId>
-            <version>1.5.0</version>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-opentelemetry-starter</artifactId>
         </dependency>
 
         <!-- Test -->
@@ -212,12 +191,43 @@
                     <layers>
                         <enabled>true</enabled>
                     </layers>
+                    <agents>
+                        <agent>${project.build.directory}/javaagents/javaagent.jar</agent>
+                    </agents>
+                    <environmentVariables>
+                        <OTEL_SERVICE_NAME>${project.artifactId}</OTEL_SERVICE_NAME>
+                    </environmentVariables>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-javaagent</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>io.opentelemetry.javaagent</groupId>
+                                    <artifactId>opentelemetry-javaagent</artifactId>
+                                    <version>${opentelemetry-agent.version}</version>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/javaagents</outputDirectory>
+                                    <destFileName>javaagent.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

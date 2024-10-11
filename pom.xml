@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2020-2021 the original author or authors.
+    Copyright 2020-2024 the original author or authors.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 
     <groupId>com.ms3-inc.tavros</groupId>
     <artifactId>archetypes</artifactId>
-    <version>0.2.8-SNAPSHOT</version>
+    <version>0.2.9-SNAPSHOT</version>
     <packaging>pom</packaging>
     <inceptionYear>2020</inceptionYear>
 
@@ -76,9 +76,9 @@
             <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
         <snapshotRepository>
-            <id>ms3-nexus</id>
+            <id>github-arch-snapshots</id>
             <name>maven-snapshots</name>
-            <url>https://maven.ms3-inc.com/repository/maven-snapshots/</url>
+            <url>https://maven.pkg.github.com/ms3inc/camel-archetypes</url>
         </snapshotRepository>
     </distributionManagement>
 

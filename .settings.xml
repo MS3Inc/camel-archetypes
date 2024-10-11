@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2020-2021 the original author or authors.
+    Copyright 2020-2024 the original author or authors.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -18,11 +18,6 @@
 <settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/SETTINGS/1.0.0" xsi:schemalocation="http://maven.apache.org/SETTINGS/1.0.0
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
-        <server>
-            <id>ms3-nexus</id>
-            <username>${env.REPO_USER}</username>
-            <password>${env.REPO_PASSWORD}</password>
-        </server>
         <server>
             <id>sonatype-ossrh</id>
             <username>${env.SONATYPE_USER}</username>
