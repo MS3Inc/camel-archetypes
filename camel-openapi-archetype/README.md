@@ -71,9 +71,18 @@ This version of the archetypes is currently being released as a snapshot on Gith
 
 Once those steps are complete, you can move on to the next step of running the archetype.
 
-### How do I run the archetype? ###
+## Development
 
-To run the archetype, `cd` to the directory where the new project will live and then run:
+- Clone the main branch of this repo.
+- To build the archetype, `cd` into the archetype source and run `mvn clean install`.
+
+### How do I use the archetype? ###
+
+It's not necessary to install the archetype unless you are making changes to it.
+
+To view latest snapshot releases view [GitHub releases](https://github.com/MS3Inc/camel-archetypes/releases)
+
+To generate a project based on the archetype, `cd` to the directory where the new project will live and then run:
 
 ```bash
 mvn archetype:generate \
