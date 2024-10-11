@@ -33,7 +33,7 @@ jobs:
         env:
           GH_USERNAME: "${{ github.actor }}"
           GH_PAT: "${{ secrets.GITHUB_TOKEN }}"
-        run: ./mvnw -V -X --batch-mode clean verify
+        run: ./mvnw -V --no-transfer-progress --batch-mode clean verify
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: [ build ]
