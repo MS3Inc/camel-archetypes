@@ -74,6 +74,7 @@ Once those steps are complete, you can move on to the next step of running the a
 ## Development
 
 - Clone the main branch of this repo.
+- If changes are made to the [OpenAPI plugin](https://github.com/MS3Inc/camel-restdsl-openapi-plugin), the version should be changed in `archetype-post-generate.groovy` by changing the `camelRestDslPluginVersion` variable.
 - To build the archetype, `cd` into the archetype source and run `mvn clean install`.
 
 ### How do I use the archetype? ###
