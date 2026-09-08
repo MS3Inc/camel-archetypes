@@ -1,6 +1,7 @@
 package ${package};
 
 import com.datasonnet.document.MediaTypes;
+import org.apache.camel.language.datasonnet.DatasonnetExpression;
 import org.springframework.stereotype.Component;
 
 /**

@@ -1,5 +1,5 @@
 /**
- * Copyright 2020-2024 the original author or authors.
+ * Copyright 2020-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ if (isSample) {
 }
 
 def generatedApiDirectory = request.outputDirectory + "/" + request.artifactId
-def camelRestDslPluginVersion = '0.1.8-SNAPSHOT'
+def camelRestDslPluginVersion = '0.1.7'
 def mvnCommand = ['mvn', 'com.ms3-inc.tavros:camel-restdsl-openapi-plugin:' + camelRestDslPluginVersion + ':generate', '-DspecificationUri=' + specUri, '-f', generatedApiDirectory]
 
 if (Files.exists(Path.of(specUri))) {
